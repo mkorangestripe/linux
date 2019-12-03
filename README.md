@@ -1,2 +1,2 @@
-# linux-admin
+# linux
 Linux administration notes and examples
