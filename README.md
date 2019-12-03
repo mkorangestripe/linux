@@ -1,2 +1,2 @@
 # linux
-Linux administration notes and examples
+Linux notes and examples
