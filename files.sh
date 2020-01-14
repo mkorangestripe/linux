@@ -38,7 +38,7 @@ md5sum company-mskr-ora.zip # compute md5 checksum
 
 
 
-# find
+# Find files
 # The exec option needs an argument to terminate itself and because the semicolon is also a Bash token...
 # Bash will evaluate the semicolon unless the semicolon is escaped with a backslash.
 find . -type f -exec ls {} \;
@@ -81,7 +81,7 @@ diff -rq misc/ test/misc/
 
 
 
-# hexadecimal, octal, strings
+# Hexadecimal, Octal, Strings
 # convert between hexadecimal and decimal
 printf "%x\n" 123 # 7b
 printf "%d\n" 0x7b # 123
