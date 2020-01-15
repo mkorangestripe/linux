@@ -1,2 +1,2 @@
-# Linux notes and examples
+## Linux notes and examples
 ![house2](images/house2.png)
