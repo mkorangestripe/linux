@@ -3,9 +3,7 @@ cp -a # --archive, same as -dr --preserve=all
 cp -d # same as --no-dereference --preserve=links
 cp -r # --recursive, copy directories recursively
 cp -p # same as --preserve=mode,ownership,timestamps
-cp -n # --no-clobber, do not overwrite an existing file
-cp -i # --interactive, prompt before overwrite
-cp -f # --force, if dest file cannot be read, remove it, and try again
+
 # recursive & replicate pipes, copy symlinks, preserve file attributes, preserve extended attributes, on Solaris
 cp -RPp@ /nfs/pub/ .
 
@@ -14,7 +12,6 @@ rsync -av /nfs/pub/ . # archive options and verbose, copy the contents of 'pub'
 rsync -av /nfs/pub . # archive options and verbose, copy the whole 'pub' directory
 rsync -avn /nfs/pub . # archive options and verbose, dry-run
 rsync -v DSC_0002.MOV -e 'ssh -p 2222' --progress gp@tester1: # use port 2222 and show progress
-
 
 
 # Archiving, Compression
@@ -35,7 +32,6 @@ star -xattr -H=exustar -c -f=homebackup.star /home/  # create archive of /home i
 star -x -f=homebackup.star # extract homebackup.star
 
 md5sum company-mskr-ora.zip # compute md5 checksum
-
 
 
 # Find files
