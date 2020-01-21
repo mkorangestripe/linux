@@ -15,15 +15,16 @@ rsync -v DSC_0002.MOV -e 'ssh -p 2222' --progress gp@tester1: # use port 2222 an
 
 
 # Archiving, Compression
-# create a gzipped archive of Documents and all files in Documents including their path and preserve the leading forward slash
+# create a gzipped archive of Documents and all files in Documents...
+# including their path and preserve the leading forward slash
 tar -cvPzf nothing.tar.gz /home/gpurcell/Documents/
 tar -tf nothing.tar.gz # list the contents of nothing.tar, -v for verbose
 tar -xvPzf nothing.tar.gz # extract nothing.tar.gz to absolute path
 
-gzip nothing9 # nothing9.gz
-bzip2 nothing9 # nothing9.bz2
-gzip -9 -c drh.log > drh.log.1.gz # this method utilizes memory or swap space
-gzip -d nothing9.gz # decompress nothing9.gz
+gzip nothing.log # nothing.log.gz
+# this method utilizes memory or swap space by initially writing to stdout:
+gzip -9 -c drh.log > drh.log.1.gz
+gzip -d nothing.log.gz # decompress to nothing.log
 
 zip -r backup.zip dir1 # create a zip file from directory dir1
 unzip -l backup.zip # list the contents of backup.zip, -v for verbose list
