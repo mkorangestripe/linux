@@ -13,28 +13,6 @@ rsync -av /nfs/pub . # archive options and verbose, copy the whole 'pub' directo
 rsync -avn /nfs/pub . # archive options and verbose, dry-run
 rsync -v DSC_0002.MOV -e 'ssh -p 2222' --progress gp@tester1: # use port 2222 and show progress
 
-
-# Archiving, Compression
-# create a gzipped archive of Documents and all files in Documents...
-# including their path and preserve the leading forward slash
-tar -cvPzf nothing.tar.gz /home/gpurcell/Documents/
-tar -tf nothing.tar.gz # list the contents of nothing.tar, -v for verbose
-tar -xvPzf nothing.tar.gz # extract nothing.tar.gz to absolute path
-
-gzip nothing.log # nothing.log.gz
-# this method utilizes memory or swap space by initially writing to stdout:
-gzip -9 -c drh.log > drh.log.1.gz
-gzip -d nothing.log.gz # decompress to nothing.log
-
-zip -r backup.zip dir1 # create a zip file from directory dir1
-unzip -l backup.zip # list the contents of backup.zip, -v for verbose list
-
-star -xattr -H=exustar -c -f=homebackup.star /home/  # create archive of /home including SELinux attributes and ACLs
-star -x -f=homebackup.star # extract homebackup.star
-
-md5sum company-mskr-ora.zip # compute md5 checksum
-
-
 # Find files
 # The exec option needs an argument to terminate itself and because the semicolon is also a Bash token...
 # Bash will evaluate the semicolon unless the semicolon is escaped with a backslash.
@@ -77,7 +55,6 @@ find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
 diff -rq misc/ test/misc/
 
 
-
 # Hexadecimal, Octal, Strings
 # convert between hexadecimal and decimal
 printf "%x\n" 123 # 7b
@@ -91,7 +68,6 @@ echo ABC | od -a -b # A   B   C  nl (ASCII named characters of ABC, octal values
 echo ABC | od -c # A   B   C  \n (ASCII characters or backslash escapes)
 
 strings /dev/sdb | less # search for strings in raw disk space
-
 
 
 # Base64
