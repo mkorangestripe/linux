@@ -14,24 +14,8 @@ rsync -avn /nfs/pub . # archive options and verbose, dry-run
 rsync -v DSC_0002.MOV -e 'ssh -p 2222' --progress gp@tester1: # use port 2222 and show progress
 
 
-# Hexadecimal, Octal, Strings
-# convert between hexadecimal and decimal
-printf "%x\n" 123 # 7b
-printf "%d\n" 0x7b # 123
-
-echo 123 | hexdump # 3231 0a33 (hex value of characters 123 - little-endian byte order)
-echo ABC | hexdump # 4241 0a43 (hexadecimal 2-byte units of characters ABC)
-echo ABC | od -x # 4241 0a43 (hexadecimal 2-byte units of characters ABC)
-echo ABC | hexdump -C # 41 42 43 0a  |ABC.| (hex+ASCII of characters ABC)
-echo ABC | od -a -b # A   B   C  nl (ASCII named characters of ABC, octal values on next line)
-echo ABC | od -c # A   B   C  \n (ASCII characters or backslash escapes)
-
-strings /dev/sdb | less # search for strings in raw disk space
-
-
-# Base64
-echo "green, yellow, bright orange" | base64 > encoded.txt
-base64 -d encoded.txt # green, yellow, bright orange
+# Search for strings in raw disk space:
+strings /dev/sdb | less
 
 # Overwrite files
 badblocks -c 10240 -s -w -t random -v /dev/sdb1  # write random data to /dev/sdb1
