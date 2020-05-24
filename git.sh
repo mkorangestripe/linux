@@ -20,6 +20,8 @@ git checkout master # switch to master
 git checkout -b PBPRB-1651 # create and switch to the new branch based on current branch
 git checkout -b feature/PBPRB-1568 develop # create new branch based on develop
 
+git push --set-upstream origin ping-scan-classes # push the current branch and set the remote as upstream
+
 git pull # update local master
 git pull origin feature/PBPRB-1579 # update the local branch, this also does a merge
 
