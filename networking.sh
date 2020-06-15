@@ -64,15 +64,6 @@ service nscd status  # status of Name Service Cache Daemon
 nameserver		8.8.8.8
 
 
-# Wireless networking info:
-# Channels 1, 6, and 11 do not overlap.
-# Try to use a channel that overlaps with the least number of other channels that are in use.
-/etc/wpa_supplicant/wpa_supplicant.conf
-iwconfig wlan0 | grep Link  # check link quality
-iwlist wlan0 scan | egrep '(Channel|Quality)'  # scan for channel numbers and link quality
-wpa_cli  # WPA command line client
-
-
 # Check if a service uses TCP Wrappers:
 for FILE in /sbin/*; do strings $FILE | grep -q hosts_access && echo $FILE; done
 for FILE in /usr/sbin/*; do strings $FILE | grep -q hosts_access && echo $FILE; done
