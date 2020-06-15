@@ -1,18 +1,20 @@
-/etc/init.d/network status  # status of the network
-/etc/init.d/NetworkManager  # controls eth0 if NM_CONTROLLED="yes" in ifcfg-eth0
-
-/etc/sysconfig/network  # sets networking to yes or no
+# Enable/disable networking:
+/etc/sysconfig/network:
 NETWORKING=yes
 HOSTNAME=server1
+
+/etc/init.d/network status  # status of network service
+/etc/init.d/NetworkManager  # controls eth0 if NM_CONTROLLED="yes" in ifcfg-eth0
 
 # Networkmanager info:
 nmcli device show
 nmcli connection show
 
-# Assign IP addresss
-ifconfig eth0 192.168.1.102 netmask 255.255.255.0 broadcast 192.168.1.255
 ifconfig -a  # list all network adapters active and inactive
 ifconfig eth0 <up down>  # enable/disable eth0
+
+# Assign IP addresss
+ifconfig eth0 192.168.1.102 netmask 255.255.255.0 broadcast 192.168.1.255
 
 # Add routes
 route add default gw XXX.XXX.XXX.XXX eth0
@@ -30,7 +32,8 @@ ifup eth0  # enable eth0
 ifdown eth0  # disable eth0
 ifdown ifcfg-eth0  # disable eth0
 
-dhclient eth0  # assigns or requests dhcp information
+# Assigns or requests dhcp configuration
+dhclient eth0
 
 # Set a static IP address, several other options exist and might be necessary.
 /etc/sysconfig/network-scripts/ifcfg-eth0:
@@ -40,18 +43,17 @@ NETMASK=255.255.255.0
 GATEWAY=192.168.122.1
 DNS1=192.168.122.1
 
-
 # Shows assignment of network adapter name to network adapter HWaddr.
 # If removed, this file is regenerated upon reboot.
 # Keep this file in mind when cloning machines.
 /etc/udev/rules.d/70-persistent-net.rules
 
 
-/etc/nsswitch.conf:
 # Name Service Switch, sources for common configuration databases.
+/etc/nsswitch.conf:
 hosts: files dns  # this line means /etc/hosts is searched first, dns second
 
-getent hosts dc3install01.c030  # get entrie based on hosts line in /etc/nsswitch.conf
+getent hosts dc3install01.c030  # get entry based on hosts line in /etc/nsswitch.conf
 service nscd status  # status of Name Service Cache Daemon
 
 /etc/hosts:
@@ -59,11 +61,12 @@ service nscd status  # status of Name Service Cache Daemon
 74.125.47.100		google.com
 
 /etc/resolv.conf:
-nameserver		192.168.0.1
+nameserver		8.8.8.8
 
 
 # Wireless networking info:
-# Channels 1, 6, and 11 do not overlap.  Try to use a channel that overlaps with the least number of other channels that are in use.
+# Channels 1, 6, and 11 do not overlap.
+# Try to use a channel that overlaps with the least number of other channels that are in use.
 /etc/wpa_supplicant/wpa_supplicant.conf
 iwconfig wlan0 | grep Link  # check link quality
 iwlist wlan0 scan | egrep '(Channel|Quality)'  # scan for channel numbers and link quality
@@ -97,5 +100,5 @@ AllowUsers mike@192.168.0.11
 
 
 # Disable X11 forwarding over ssh:
-/etc/ssh/sshd_config
+/etc/ssh/sshd_config:
 #X11Forwarding yes
