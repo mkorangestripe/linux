@@ -1,4 +1,4 @@
-# Linux system info
+# Linux System Info
 
 ## Linux Distribution
 ```cat /etc/*release```
