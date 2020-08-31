@@ -5,4 +5,6 @@ kitchen converge  # does not delete the VM afterwards, does not run the integrat
 kitchen test  # destroy -> create -> converge -> verify -> destroy
 kitchen destroy  # destroy instance
 
+kitchen diagnose --all  # show diagnostic configuration for all instances
+
 kitchen login HOSTNAME  # login to instance
