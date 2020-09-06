@@ -3,7 +3,6 @@ chef gem install chef-sugar --version 5.1.8  # install chef-sugar package in che
 chef gem list --local  # list installed gems in chef
 
 
-
 # kitchen
 kitchen list  # lists instances
 
@@ -17,7 +16,6 @@ kitchen destroy  # destroy instance
 kitchen diagnose --all  # show diagnostic configuration for all instances
 
 kitchen login HOSTNAME  # login to instance
-
 
 
 # knife
