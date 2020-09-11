@@ -1,9 +1,11 @@
 # chef
+
 chef gem install chef-sugar --version 5.1.8  # install chef-sugar package in chef
 chef gem list --local  # list installed gems in chef
 
 
 # kitchen
+
 kitchen list  # lists instances
 
 chef exec rspec  # runs unit tests, fast
@@ -19,17 +21,31 @@ kitchen login HOSTNAME  # login to instance
 
 
 # knife
-knife data bag list
-knife data bag show passwords
-knife data bag show passwords root_pw
+
+knife ssl fetch  # copy SSL certificates from an HTTPS server to the trusted_certs_dir directory
+
+knife environment show us_prod  # show env info including cookbooks with versions
+knife environment show us_prod -F json  # same as above in json
+
+knife search node 'chef_environment:*_dev AND platform:centos*'  # search for dev nodes running centos
+knife search node -i 'chef_environment:*_dev AND platform:centos*'  # search & output only node names (id's)
+knife search node 'chef_environment:*_dev AND platform:centos*' 2>&1 | awk -F: '/FQDN/ {print $2}' | sed 's/^[ \t]*//'  # search & output only fqdn's:
+
+knife node show us08dv2sql06  # show node info
+knife node show us08dv2sql06 -F json  # show basic node info in json
+knife node edit us08dv2sql06  # edit node info
+
+knife data bag list  # lists all data bags
+knife data bag show passwords  # show items in passwords data bag
+knife data bag show passwords root_pw  # show root_pw data bag item
 knife data bag show passwords root_pw --secret-file ~/.chef/encrypted_data_bag_secret_dev
 knife data bag show passwords root_pw --secret-file ~/.chef/encrypted_data_bag_secret_dev -F json
 
-Delete data bag item:
+# Delete data bag item:
 knife data bag delete passwords root_pw
 
-Add data bag item:
+# Add data bag item:
 knife data bag from file passwords root_pw.json --secret-file ~/.chef/encrypted_data_bag_secret_dev
 
-Edit data bag item:
+# Edit data bag item:
 knife data bag edit -z passwords root_pw --secret-file ~/.chef/encrypted_data_bag_secret_dev
