@@ -3,6 +3,23 @@
 chef gem install chef-sugar --version 5.1.8  # install chef-sugar package in chef
 chef gem list --local  # list installed gems in chef
 
+chef-client  # run chef-client
+chef-client -W  # why-run mode (dry run)
+chef-client -o snow-agent::default  # run the default snow-agent recipe
+
+# Bootstrap chef, with the attributes in the json file, and set the environment.
+chef-client -j snow-agent.json --environment prod
+
+# Interactive chef-shell and connected to Chef Infra Server:
+chef-shell -z
+node['roles']  # list chef roles
+
+# Run chef code:
+chef-shell
+recipe_mode
+# enter chef code
+run_chef
+
 
 # kitchen
 
@@ -26,6 +43,9 @@ knife ssl fetch  # copy SSL certificates from an HTTPS server to the trusted_cer
 
 knife environment show us_prod  # show env info including cookbooks with versions
 knife environment show us_prod -F json  # same as above in json
+
+knife cookbook list -a  # list cookbooks with all available versions
+knife cookbook show pl_newrelic_wrap  # show all versions of the cookbook
 
 knife search node 'chef_environment:*_dev AND platform:centos*'  # search for dev nodes running centos
 knife search node -i 'chef_environment:*_dev AND platform:centos*'  # search & output only node names (id's)
