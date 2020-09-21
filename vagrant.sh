@@ -9,8 +9,9 @@ vagrant cloud auth login
 vagrant global-status  # show status of all VMs
 vagrant status 2a44541  # show status of given VM
 
-vagrant box list  # list VMs
+vagrant box list  # list vagrant boxes
 vagrant box add  # to add additional boxes to the Vagrantfile
+vagrant box add vagrant-windows-2016 ~/windowsserver-2016.box  # add vagrant box from file
 vagrant box remove  #  remove the box file (downloaded image)
 
 vagrant init bento/ubuntu-18.04.  # create the Vagrant file with bento/ubuntu-18.04
