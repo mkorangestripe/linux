@@ -29,12 +29,13 @@ chef exec rspec  # runs unit tests, fast
 
 kitchen verify  # just runs the integration tests
 kitchen converge  # does not delete the VM afterwards, does not run the integration tests
+kitchen converge default-centos-7  # runs only on the default-centos-7 instance
 kitchen test  # destroy -> create -> converge -> verify -> destroy
 kitchen destroy  # destroy instance
 
 kitchen diagnose --all  # show diagnostic configuration for all instances
 
-kitchen login HOSTNAME  # login to instance
+kitchen login default-centos-7  # login to instance
 
 
 # knife
