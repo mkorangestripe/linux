@@ -150,3 +150,11 @@ docker container stop c2ffbff64f14
 docker rm aec6fa285527
 docker container rm aec6fa285527
 ```
+
+##### Docker Swarm Manager
+```
+docker node ls | grep us08st2con98
+docker node update --availability drain us08st2con91
+docker service ls
+docker node rm us08st2con91
+```
