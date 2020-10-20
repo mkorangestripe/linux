@@ -56,6 +56,8 @@ knife node show us08dv2sql06  # show node info
 knife node show us08dv2sql06 -F json  # show basic node info in json
 knife node edit us08dv2sql06  # edit node info
 
+knife status --hide-by-mins 60  # hide nodes with successful chef-client runs within that last 60 minutes.
+
 knife data bag list  # lists all data bags
 knife data bag show passwords  # show items in passwords data bag
 knife data bag show passwords root_pw  # show root_pw data bag item
