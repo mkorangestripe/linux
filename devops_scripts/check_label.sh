@@ -45,7 +45,8 @@ cmp_deploy_to_label_cnt() {
   done; echo
 }
 
-get_stack_file_groups # Comment out prevent updating GROUP_LIST_FILE
+get_stack_file_groups # Comment out to prevent updating GROUP_LIST_FILE
+
 source $GROUP_LIST_FILE || exit
 echo -e "$GROUP_LIST_FILE last updated $LAST_UPDATED\n"
 
