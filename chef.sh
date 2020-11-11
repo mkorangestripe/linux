@@ -27,6 +27,7 @@ kitchen list  # lists instances
 
 chef exec rspec  # runs unit tests, fast
 
+kitchen create node1-centos-7  # start the instance
 kitchen verify  # just runs the integration tests
 kitchen converge  # does not delete the VM afterwards, does not run the integration tests
 kitchen converge default-centos-7  # runs only on the default-centos-7 instance
