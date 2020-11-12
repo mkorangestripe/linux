@@ -26,6 +26,8 @@ docker logs hello1 (show docker logs for hello1 container)
 ###### Docker images
 ```
 docker pull centos (pull a centos image)
+docker pull harbor.somedomain.io/prlb-platform/util-chefdk:latest (pull latest image from private registry)
+
 docker images (list images)
 docker image ls (list images, new style)
 docker image history nginx (show history for image 'nginx')
@@ -62,10 +64,16 @@ docker build -t hello1 . (build and name image ‘hello1’)
 packer build packer/hello.json (build image using packer)
 ```
 
-###### Push the local registry
+###### Push to a local registry
 ```
 docker push localhost:5000/hello (Linux)
 docker push host.docker.internal:5000/hello (OSX)
+```
+
+##### Docker image registry login
+```
+docker login harbor.somedomain.io
+docker logout
 ```
 
 ###### List running containers, either of the following
