@@ -62,12 +62,14 @@ mvn package (build a JAR file from the pom.xml file)
 docker build . (build an image from the Dockerfile)
 docker build -t hello1 . (build and name image ‘hello1’)
 packer build packer/hello.json (build image using packer)
+docker build -t harbor.somedomain.io/prlb-platform/test1 . (build with repo in name)
 ```
 
-###### Push to a local registry
+###### Push to a registry
 ```
 docker push localhost:5000/hello (Linux)
 docker push host.docker.internal:5000/hello (OSX)
+docker push harbor.somedomain.io/prlb-platform/test1
 ```
 
 ##### Docker image registry login
