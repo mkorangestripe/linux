@@ -3,10 +3,10 @@ git clone git@github.com:mkorangestripe/devops.git # clone a git repo
 git init # initialize a git repo
 
 git remote -v # show remote URL of the repo
-git remote set-url origin git@github.com:mkorangestripe/devops.git # set the remote repo
-git remote remove origin
-git remote add origin git@github.com:mkorangestripe/linux.git
-git config branch.master.remote origin  # for master branch, set remote to origin
+git remote set-url origin git@github.com:mkorangestripe/devops.git # update existing remote origin URL
+git remote remove origin # remove remote origin
+git remote add origin git@github.com:mkorangestripe/linux.git # add remote origin
+git config branch.master.remote origin # for master branch, set remote origin
 git config branch.master.merge refs/heads/master
 
 # Add username and email to git config:
