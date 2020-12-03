@@ -5,11 +5,11 @@ git clone git@github.com:mkorangestripe/devops.git  # Clone a git repo
 ```
 
 ```shell script
-git init # Initialize a git repo
+git init  # Initialize a git repo
 ```
 
 ```shell script
-git remote -v #  Show remote URL of the repo
+git remote -v  # Show remote URL of the repo
 git remote set-url origin git@github.com:mkorangestripe/devops.git  # Update existing remote origin URL
 git remote remove origin  # Remove remote origin
 git remote add origin git@github.com:mkorangestripe/linux.git  # Add remote origin
