@@ -55,8 +55,8 @@ RUN apt-get install -y python3
 ##### Build Docker image, examples
 ```shell script
 mvn package  # Build a JAR file from the pom.xml file
-docker build .  #Bbuild an image from the Dockerfile
-docker build -t hello1 .  #Bbuild and name image ‘hello1’
+docker build .  # Build an image from the Dockerfile
+docker build -t hello1 .  # Build and name image ‘hello1’
 packer build packer/hello.json  # Build image using packer
 docker build -t harbor.somedomain.io/prlb-platform/test1 .  # Build with repo in name
 ```
