@@ -17,8 +17,8 @@ git config branch.master.remote origin  # For master branch, set remote origin
 git config branch.master.merge refs/heads/master
 ```
 
-##### Add username and email to git config:
 ```shell script
+# Add username and email to git config
 git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
 ```
@@ -51,8 +51,9 @@ git pull origin feature/PBPRB-1579  # Update the local branch, this also does a 
 git merge feature/PBPRB-1651  # Merge the branch into the current branch
 ```
 
-##### Rebase the local branch on the current develop branch. Incorporate all the commits to develop since the branch was created:
 ```shell script
+# Rebase the local branch on the current develop branch.
+# Incorporate all the commits to develop since the branch was created.
 git fetch
 git rebase origin/develop
 git push --force
@@ -105,8 +106,8 @@ git checkout c4ec54c7863 cleversafe_account_deleter.py  # Revert file to version
 git checkout .  # Discard changes to all files in the directory
 ```
 
-##### Revert to a previous commit:
 ```shell script
+# Revert to a previous commit
 git revert 9cc3be0
 git push
 ```
@@ -116,13 +117,13 @@ git rm nothing.txt  # Remove the file nothing.txt from tracking
 git mv file1.txt bin/file2.txt  # Move/rename file1.txt
 ```
 
-##### Add more changes to the previous commit, or change the commit message:
 ```shell script
+# Add more changes to the previous commit, or change the commit message
 git reset --soft HEAD~
 ```
 
-##### Disregard local changes and reset:
 ```shell script
+# Disregard local changes and reset
 git fetch origin
 git reset --hard origin/master
 git pull
