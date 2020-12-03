@@ -17,7 +17,9 @@ dkms status # Show installed kernels
 ```
 
 ### System Manufacturer
-```dmidecode --string system-manufacturer```
+```shell script
+dmidecode --string system-manufacturer
+```
 
 ### Hostname
 ```shell script
