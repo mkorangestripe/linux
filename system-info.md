@@ -1,71 +1,50 @@
 # Linux System Info
 
-## Linux Distribution
-```cat /etc/*release```
+### Linux Distribution
+```shell script
+cat /etc/*release
+lsb_release -d
+python -c "import platform; print platform.dist()"
+```
 
-```lsb_release -d```
+### Linux Kernel
+```shell script
+python -c "import platform; print platform.platform()"  # Platform, OS version
+cat /proc/version  # Linux kernel version
+uname -a  # System info including kernel
+uname -r; ls -lt /boot/config*  # Compare running kernel to installed kernels
+dkms status # Show installed kernels
+```
 
-```python -c "import platform; print platform.dist()"```
-
-## Linux Kernel
-
-##### Platform, OS version
-```python -c "import platform; print platform.platform()"```
-
-##### Linux kernel version
-```cat /proc/version```
-
-##### System info including kernel
-```uname -a```
-
-##### Compare running kernel to installed kernels
-```uname -r; ls -lt /boot/config*```
-
-##### Show installed kernels
-```dkms status```
-
-## System Manufacturer
+### System Manufacturer
 ```dmidecode --string system-manufacturer```
 
-## Hostname
+### Hostname
+```shell script
+hostnamectl status # Get hostname and system info
+hostnamectl set-hostname server1.domain.com  # Set hostname
+```
 
-##### Get hostname and system info
-```hostnamectl status```
+### Attached Devices
+```shell script
+lsblk  # List block devices
+lspci  # List all PCI devices
+lsusb  # List USB devices
+```
 
-##### Set hostname
-```hostnamectl set-hostname server1.domain.com```
+### CPU
+```shell script
+cat /proc/cpuinfo  # CPU info
+lscpu  # CPU info
+prtdiag | grep CPU  # CPU info on Solaris
+psrinfo  # CPU info on Solaris
+isainfo  # Instruction set architectures on Solaris
+```
 
-## Attached Devices
-
-##### List block devices
-```lsblk```
-##### List all PCI devices
-```lspci```
-##### List USB devices
-```lsusb```
-
-## CPU
-
-##### CPU info
-```cat /proc/cpuinfo```
-
-```lscpu```
-
-##### CPU info on Solaris
-```prtdiag | grep CPU```
-
-``` psrinfo```
-
-##### Instruction set architectures on Solaris
-```isainfo```
-
-## Memory
-
-##### Memory info
-```cat /proc/meminfo```
-##### Installed memory on Solaris
-```prtconf | grep Mem```
-##### Memory info in MB
-```free  -m```
-##### Virtual memory statistics
-```vmstat```
+### Memory
+```shell script
+cat /proc/meminfo  # Memory info
+prtconf | grep Mem  # Installed memory on Solaris
+free -m  # Memory info in MB
+vmstat  # Virtual memory statistics
+```
