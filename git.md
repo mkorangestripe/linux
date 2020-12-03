@@ -3,11 +3,11 @@ git clone git@github.com:mkorangestripe/devops.git  # Clone a git repo
 ```
 
 ```shell script
-git init # initialize a git repo
+git init # Initialize a git repo
 ```
 
 ```shell script
-git remote -v # show remote URL of the repo
+git remote -v #  Show remote URL of the repo
 git remote set-url origin git@github.com:mkorangestripe/devops.git  # Update existing remote origin URL
 git remote remove origin  # Remove remote origin
 git remote add origin git@github.com:mkorangestripe/linux.git  # Add remote origin
@@ -15,7 +15,7 @@ git config branch.master.remote origin  # For master branch, set remote origin
 git config branch.master.merge refs/heads/master
 ```
 
-##### Add username and email to git config
+##### Add username and email to git config:
 ```shell script
 git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
@@ -49,8 +49,7 @@ git pull origin feature/PBPRB-1579  # Update the local branch, this also does a 
 git merge feature/PBPRB-1651  # Merge the branch into the current branch
 ```
 
-##### Rebase the local branch on the current develop branch.
-##### Incorporate all the commits to develop since the branch was created.
+##### Rebase the local branch on the current develop branch. Incorporate all the commits to develop since the branch was created:
 ```shell script
 git fetch
 git rebase origin/develop
@@ -104,7 +103,7 @@ git checkout c4ec54c7863 cleversafe_account_deleter.py  # Revert file to version
 git checkout .  # Discard changes to all files in the directory
 ```
 
-##### Revert to a previous commit
+##### Revert to a previous commit:
 ```shell script
 git revert 9cc3be0
 git push
@@ -115,19 +114,19 @@ git rm nothing.txt  # Remove the file nothing.txt from tracking
 git mv file1.txt bin/file2.txt  # Move/rename file1.txt
 ```
 
-##### Add more changes to the previous commit, or change the commit message
+##### Add more changes to the previous commit, or change the commit message:
 ```shell script
 git reset --soft HEAD~
 ```
 
-##### Disregard local changes and reset
+##### Disregard local changes and reset:
 ```shell script
 git fetch origin
 git reset --hard origin/master
 git pull
 ```
 
-##### A few cvs commands
+##### A few cvs commands:
 ```shell script
 mkdir -p devel/project/v4
 export CVSROOT=:pserver:<USERNAME>@cvsit.digitalriver.com:/opt/cvs/artifact
