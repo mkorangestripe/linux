@@ -7,32 +7,28 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 yum install docker-ce
 ```
 
-##### Docker related system info
+### Docker related system info
 ```shell script
-systemctl status docker # status of docker service
-systemctl enable docker # enable the docker service
-systemctl start docker # start the docker service
-systemctl show docker # env variables used by docker
+systemctl status docker  # Status of docker service
+systemctl enable docker  # Enable the docker service
+systemctl start docker  # Start the docker service
+systemctl show docker  # Environment variables used by docker
+
+docker info  # Display system-wide information
+
+docker logs hello1  # Show docker logs for hello1 container
 ```
 
+### Docker images
 ```shell script
-docker info # display system-wide information
-```
+docker pull centos  # Pull a centos image
+docker pull harbor.somedomain.io/prlb-platform/util-chefdk:latest  # Pull latest image from private registry
 
-```shell script
-docker logs hello1 # show docker logs for hello1 container
-```
-
-##### Docker images
-```shell script
-docker pull centos # pull a centos image
-docker pull harbor.somedomain.io/prlb-platform/util-chefdk:latest # pull latest image from private registry
-
-docker images # list images
-docker image ls # list images, new style
-docker image history nginx # show history for image 'nginx'
-docker images --no-trunc # do not truncate the image ID
-docker rmi 4ab4c602aa5e # delete docker image with given image ID
+docker images  # List images
+docker image ls  # List images, new style
+docker image history nginx  # Show history for image 'nginx'
+docker images --no-trunc  # Do not truncate the image ID
+docker rmi 4ab4c602aa5e  # Delete docker image with given image ID
 ```
 
 ##### Tag an image, either of the following
@@ -58,17 +54,17 @@ RUN apt-get install -y python3
 
 ##### Build Docker image, examples
 ```shell script
-mvn package # build a JAR file from the pom.xml file
-docker build . # build an image from the Dockerfile
-docker build -t hello1 . # build and name image ‘hello1’
-packer build packer/hello.json # build image using packer
-docker build -t harbor.somedomain.io/prlb-platform/test1 . # build with repo in name
+mvn package  # Build a JAR file from the pom.xml file
+docker build .  #Bbuild an image from the Dockerfile
+docker build -t hello1 .  #Bbuild and name image ‘hello1’
+packer build packer/hello.json  # Build image using packer
+docker build -t harbor.somedomain.io/prlb-platform/test1 .  # Build with repo in name
 ```
 
 ##### Push to a registry
 ```shell script
-docker push localhost:5000/hello # Linux
-docker push host.docker.internal:5000/hello # OSX
+docker push localhost:5000/hello  # Linux
+docker push host.docker.internal:5000/hello  # OSX
 docker push harbor.somedomain.io/prlb-platform/test1
 ```
 
@@ -77,6 +73,8 @@ docker push harbor.somedomain.io/prlb-platform/test1
 docker login harbor.somedomain.io
 docker logout
 ```
+
+### Docker containers
 
 ##### List running containers, either of the following
 ```shell script
@@ -160,6 +158,8 @@ docker container stop c2ffbff64f14
 docker rm aec6fa285527
 docker container rm aec6fa285527
 ```
+
+### Docker Swarm
 
 ##### Docker Swarm Manager
 ```shell script
