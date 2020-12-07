@@ -52,11 +52,12 @@ git merge feature/PBPRB-1651  # Merge the branch into the current branch
 ```
 
 ```shell script
-# Rebase the local branch on the current develop branch.
-# Incorporate all the commits to develop since the branch was created.
+# Rebase the local branch on the current master branch.
+# Incorporate all the commits to master since the branch was created.
 git fetch
-git rebase origin/develop
-git push --force
+git rebase origin/master
+git pull
+git push
 ```
 
 ```shell script
