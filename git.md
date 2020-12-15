@@ -81,7 +81,6 @@ git push -f  # Force push
 ```
 
 ```shell script
-git diff --name-only master origin/master  # Files different between local and remote
 git ls-tree HEAD  # List files in cwd being tracked under current branch
 git ls-tree HEAD -r  # List files recursively being tracked under current branch
 ```
@@ -95,6 +94,11 @@ git status origin feature/PBPRB-1651  # Status of the branch
 git log --pretty=oneline  # One line for each change
 git log -p msfile1.map  # Commits for the given file, paged format
 git log -p -2  # Last two committed changes, paged format
+
+git show fc8334d9  # Show changes in the commit
+git show fc8334d9 --name-only  # Show commit info and files names only
+git diff 13a9608  # Diff between given commit and latest commit on current branch
+git diff a1699b4 fc8334d9  # Changes the 2nd commit makes to the 1st
 ```
 
 ```shell script
