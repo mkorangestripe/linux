@@ -1,7 +1,12 @@
+# Vagrant Notes
+
+```shell script
 VBoxManage list vms  # list VirtualBox vm's
 VBoxManage list vms -l  # list VirtualBox vm's with more details
 VBoxManage list hostonlyifs  # list host-only network interfaces
+```
 
+```shell script
 # Login to Vagrant Cloud
 vagrant login
 vagrant cloud auth login
@@ -22,3 +27,4 @@ vagrant destroy  # shutdown VM, remove VirtualBox files, reclaim RAM
 
 vagrant ssh aae63f6  # login to VM by id
 vagrant ssh-config  # show vagrant ssh info
+```
