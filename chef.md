@@ -1,15 +1,22 @@
-# chef
+# Chef Notes
 
+### Chef
+
+```shell script
 chef gem install chef-sugar --version 5.1.8  # install chef-sugar package in chef
 chef gem list --local  # list installed gems in chef
+```
 
+```shell script
 chef-client  # run chef-client
 chef-client -W  # why-run mode (dry run)
 chef-client -o snow-agent::default  # run the default snow-agent recipe
 
 # Bootstrap chef, with the attributes in the json file, and set the environment.
 chef-client -j snow-agent.json --environment prod
+```
 
+```shell script
 # Interactive chef-shell and connected to Chef Infra Server:
 chef-shell -z
 node['roles']  # list chef roles
@@ -19,10 +26,12 @@ chef-shell
 recipe_mode
 # enter chef code
 run_chef
+```
 
 
-# kitchen
+### Kitchen
 
+```shell script
 kitchen list  # lists instances
 
 chef exec rspec  # runs unit tests, fast
@@ -37,10 +46,12 @@ kitchen destroy  # destroy instance
 kitchen diagnose --all  # show diagnostic configuration for all instances
 
 kitchen login default-centos-7  # login to instance
+```
 
 
-# knife
+### Knife
 
+```shell script
 knife ssl fetch  # copy SSL certificates from an HTTPS server to the trusted_certs_dir directory
 
 knife environment show us_prod  # show env info including cookbooks with versions
@@ -51,7 +62,7 @@ knife cookbook show pl_newrelic_wrap  # show all versions of the cookbook
 
 knife search node 'chef_environment:*_dev AND platform:centos*'  # search for dev nodes running centos
 knife search node -i 'chef_environment:*_dev AND platform:centos*'  # search & output only node names (id's)
-knife search node 'chef_environment:*_dev AND platform:centos*' 2>&1 | awk -F: '/FQDN/ {print $2}' | sed 's/^[ \t]*//'  # search & output only fqdn's:
+knife search node 'chef_environment:*_dev AND platform:centos*' 2>&1 | awk -F: '/FQDN/ {print $2}' | sed 's/^[ \t]*//'  # search & output only fqdn's
 
 knife node show us08dv2sql06  # show node info
 knife node show us08dv2sql06 -F json  # show basic node info in json
@@ -73,3 +84,4 @@ knife data bag from file passwords root_pw.json --secret-file ~/.chef/encrypted_
 
 # Edit data bag item:
 knife data bag edit -z passwords root_pw --secret-file ~/.chef/encrypted_data_bag_secret_dev
+```
