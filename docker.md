@@ -134,7 +134,7 @@ docker container rm aec6fa285527
 ### Docker Swarm
 
 ```shell script
-Run from manager node:
+# Run from manager node:
 docker node ls | grep us08st2con98
 docker node update --availability drain us08st2con91
 docker service ls
