@@ -62,7 +62,9 @@ knife cookbook show pl_newrelic_wrap  # show all versions of the cookbook
 
 knife search node 'chef_environment:*_dev AND platform:centos*'  # search for dev nodes running centos
 knife search node -i 'chef_environment:*_dev AND platform:centos*'  # search & output only node names (id's)
-knife search node 'chef_environment:*_dev AND platform:centos*' 2>&1 | awk -F: '/FQDN/ {print $2}' | sed 's/^[ \t]*//'  # search & output only fqdn's
+
+# Search & output only fqdn's:
+knife search node 'chef_environment:*_dev AND platform:centos*' 2>&1 | awk -F: '/FQDN/ {print $2}' | sed 's/^[ \t]*//'
 
 knife node show us08dv2sql06  # show node info
 knife node show us08dv2sql06 -F json  # show basic node info in json
