@@ -29,16 +29,12 @@ docker image ls  # List images, new style
 docker image history nginx  # Show history for image 'nginx'
 docker images --no-trunc  # Do not truncate the image ID
 docker rmi 4ab4c602aa5e  # Delete docker image with given image ID
-```
 
-##### Tag an image, either of the following
-```shell script
+# Tag an image, either of the following:
 docker tag 311d49c8619b dtest1:v1
 docker image tag 311d49c8619b dtest1:v1
-```
 
-##### Remove image tag, but leave image if other tags for the same image exist otherwise delete image.
-```shell script
+# Remove image tag, but leave image if other tags for the same image exist otherwise delete image:
 docker rmi hello-socket host.docker.internal:5000/hello-socket2
 ```
 
@@ -76,93 +72,69 @@ docker logout
 
 ### Docker containers
 
-##### List running containers, either of the following
 ```shell script
+# List running containers, either of the following:
 docker ps
 docker container ls
-```
 
-##### List all containers, either of the following
-```shell script
+# List all containers, either of the following:
 docker ps -a
 docker container ls -a
-```
 
-##### Find the IP address of a container
-```shell script
+# Find the IP address of a container:
 docker container inspect 8a5b3f2103ec | grep IPAdd
-```
 
-##### List volumes
-```shell script
+# List volumes:
 docker volume ls
 ```
 
-##### Run a docker container with Ubuntu 16.04 and get a command prompt (either of the following)
 ```shell script
+# Run a docker container with Ubuntu 16.04 & get a command prompt, either of the following:
 docker run -it ubuntu:16.04
 docker container run -it ubuntu:16.04
-```
 
-##### Run a Centos container and get a Bash prompt
-```shell script
+# Run a Centos container and get a Bash prompt:
 docker run -it centos:latest bash
-```
 
-##### Run a Centos container and 'cat /etc/redhat-release'
-```shell script
+# Run a Centos container and 'cat /etc/redhat-release'
 docker run centos cat /etc/redhat-release
-```
 
-##### Run a Docker container from image starting with image id 31 and get a command prompt
-```shell script
+# Run a Docker container from image starting with image id 31 and get a command prompt:
 docker run -it --name python-container 31
-```
 
-##### Run an Nginx container, detached mode, publish ports
-```shell script
+# Run an Nginx container, detached mode, publish ports:
 docker run -d -P nginx
-```
 
-##### Run an httpd container, detached mode, specify port mapping
-```shell script
+# Run an httpd container, detached mode, specify port mapping:
 docker run -d -p 80:80 httpd
 ```
 
-##### Start a stopped container, either of the following.  Container will exit if not running a process.
 ```shell script
+# Start a stopped container, either of the following.  Container will exit if not running a process.
 docker start c2ffbff64f14
 docker container start c2ffbff64f14
-```
 
-##### Execute the command on the running container, either of the following
-```shell script
+# Execute the command on the running container, either of the following:
 docker exec c2ffbff64f14 cat /etc/*release
 docker container exec c2ffbff64f14 cat /etc/*release
-```
 
-##### Attached to a container by container ID, either of the following
-```shell script
+# Attached to a container by container ID, either of the following:
 docker attach c2f
 docker container attach c2f
-```
 
-##### Stop a container, either of the following
-```shell script
+# Stop a container, either of the following:
 docker stop c2ffbff64f14
 docker container stop c2ffbff64f14
-```
 
-##### Delete docker container by container ID, either of the following
-```shell script
+# Delete docker container by container ID, either of the following:
 docker rm aec6fa285527
 docker container rm aec6fa285527
 ```
 
 ### Docker Swarm
 
-##### Docker Swarm Manager
 ```shell script
+Run from manager node:
 docker node ls | grep us08st2con98
 docker node update --availability drain us08st2con91
 docker service ls
