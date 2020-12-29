@@ -1,7 +1,7 @@
 # Git Notes
 
 ```shell script
-git clone git@github.com:mkorangestripe/devops.git  # Clone a git repo
+git clone git@github.com:mkorangestripe/linux.git  # Clone a git repo
 ```
 
 ```shell script
