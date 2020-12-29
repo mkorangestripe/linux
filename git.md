@@ -107,14 +107,10 @@ git clean -f  # Remove untracked files
 
 ```shell script
 git checkout nothing.txt  # Discard changes to nothing.txt
-git checkout c4ec54c7863 cleversafe_account_deleter.py  # Revert file to version in commit
+git checkout c4ec54c7863 cleversafe_account_deleter.py  # Checkout the given file version
 git checkout .  # Discard changes to all files in the directory
-```
 
-```shell script
-# Revert to a previous commit
-git revert 9cc3be0
-git push
+git revert 9cc3be0  # Revert the commit
 ```
 
 ```shell script
