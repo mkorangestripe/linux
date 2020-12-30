@@ -43,8 +43,8 @@ git push --set-upstream origin ping-scan-classes  # Push the current branch and 
 ```
 
 ```shell script
-git pull  # Update local master
-git pull origin feature/PBPRB-1579  # Update the local branch, this also does a merge
+git pull  # git fetch followed by git merge FETCH_HEAD
+git pull origin feature/PBPRB-1579  # Merge updates from the remote branch into the local branch
 ```
 
 ```shell script
@@ -57,7 +57,6 @@ git merge feature/PBPRB-1651  # Merge the branch into the current branch
 git fetch
 git rebase origin/master
 git pull
-git push
 ```
 
 ```shell script
