@@ -1,24 +1,31 @@
-# Google Cloud Compute Services...
-# Google Compute Engine: Infrastructure as a Service, hosts virtual machines
-# Google Kuberbnetes Engine (GKE): managed orchestrated environment for containerized apps
-#    Clusters are made up of a master node and one or more worker node
-#    Node Pools are a subset of nodes in the cluster which share configuration.
-#    Worker nodes are Google Compute Engine VM's which run Kubernetes pods
-#    Pods are groups of Docker containers and share IP addresses and hostnames
-#    Traffic to the pods is controled by the Kubernetes master
-#    Docker containers are stored in the Container Registry
-# Google App Engine: Platform as a Service, hosts web apps
-# Google Cloud Functions: serverless execution environment, single-purpose functions that are attached to events.
-#    Triggers: HTTP requests, Cloud Storage even, Pub/Sub event
-#    Uses: Webhooks, data & image processing, mobile back end, IOT apps
+# Google Kubernetes Engine Notes
 
-# The Kubernetes Master Node has the following...
-# Kubernetes API Server
-# etcd: the distributed key-value store which holds all cluster data.
-# Core Resource Controller: manages cpu, memory, and network resources for all worker nodes.
-# Scheduler: watches pods and decides which node to place them on based on resources and policies.
+### Google Cloud Compute (GCP) services
 
+Google Compute Engine - Infrastructure as a Service, hosts virtual machines
 
+Google Kuberbnetes Engine (GKE) - managed orchestrated environment for containerized apps
+* Clusters are made up of a master node and one or more worker node
+* Node Pools are a subset of nodes in the cluster which share configuration
+* Worker nodes are Google Compute Engine VM's which run Kubernetes pods
+* Pods are groups of Docker containers and share IP addresses and hostnames
+* Traffic to the pods is controlled by the Kubernetes master
+* Docker containers are stored in the Container Registry
+
+Google App Engine - Platform as a Service, hosts web apps
+
+Google Cloud Functions - serverless execution environment, single-purpose functions that are attached to events.
+* Triggers: HTTP requests, Cloud Storage even, Pub/Sub event
+* Uses: Webhooks, data & image processing, mobile back end, IOT apps
+
+### Kubernetes Master Node
+* Kubernetes API Server
+* etcd: the distributed key-value store which holds all cluster data
+* Core Resource Controller: manages cpu, memory, and network resources for all worker nodes
+* Scheduler: watches pods and decides which node to place them on based on resources and policies
+
+### Clusters, Deployments
+```shell script
 # Create a cluster in GCP:
 gcloud containter clusters create k1
 
@@ -55,10 +62,10 @@ kubectl apply -f config.yaml
 
 # Delete the cluster:
 gcloud container clusters delete ls-containers-cluster-1
+```
 
-
-# Cluster upgrades...
-
+### Cluster Upgrades
+```shell script
 # Upgrade the master node to specified version:
 gcloud container clusters upgrade la-containers-cluster-1 --master --cluster-version 1.10.5-gke.4
 
@@ -67,13 +74,12 @@ gcloud container clusters upgrade la-containers-cluster-1
 
 # Enable autoupgrade for a pool:
 gcloud container node-pools update default-pool --cluster la-containers-cluster-1 --no-ebable-autoupgrade
+```
 
-
-# Role Based Access Control (RBAC)...
-
-# Focuses more on authorization than authentication.
-# More targeted permissions.
-
+### Role Based Access Control (RBAC)
+* Focused more on authorization than authentication
+* More targeted permissions
+```shell script
 # Get roles:
 kubectl get roles --all-namespaces
 
@@ -94,10 +100,10 @@ kubectl create namespace ns-lac1
 
 # Create the rolebinding:
 kubectl apply -f lac1-rolebinding.yaml
+```
 
-
-# Pod security policy...
-
+### Pod Security Policy
+```shell script
 # Get credentials:
 gcloud container clusters get-credentials la-psp-cluster-1 --zone us-central1-a --project la-containers-001
 
@@ -115,10 +121,10 @@ gcloud beta container clusters update la-psp-cluster-1 --zone us-central1-a --en
 
 # Disable pod security policy:
 gcloud beta container clusters update la-psp-cluster-1 --zone us-central1-a --no-enable-pod-security-policy
+```
 
-
-# Security protocols...
-
+### Security Protocols
+```shell script
 # Rotate IP addresses of the nodes in the cluster:
 gcloud container clusters update ip-rotation-cluster-1 --start-ip-rotation
 gcloud container clusters update ip-rotatoin-cluster-1 --complete-ip-rotation
@@ -132,10 +138,10 @@ gcloud container clusters update la-psp-cluster-1 --no-enable-legacy-authorizati
 
 # Add network policy for pod-to-pod communication:
 gcloud container clusters create la-psp-cluster-1 zone=us-central1-a --enable-network-policy
+```
 
-
-# Connecting to Google Cloud Pub/Sub service...
-
+### Connecting to Google Cloud Pub/Sub Service
+```shell script
 # GCP > Big Data > Pub/Sub > Topics > Create a topic
 # Create subscription
 
@@ -167,10 +173,10 @@ kubectl get pods -l app=pubsub
 # Enter a test message
 kubectl logs -l app=pubsub
 # The test message should appear after 'Data=b'
+```
 
-
-# Create a Kubernetes Cluster in GCP...
-
+### Create a Kubernetes Cluster in GCP
+```shell script
 # Activate the Kubernetes Engine API:
 # GCP > API & Services > Library > Kubernetes Engine API > Enable
 
@@ -206,3 +212,4 @@ kubectl expose deployment la-greetings --type=LoadBalancer --name=la-greetings-s
 
 # Check its status:
 kubectl get services la-greetings-service
+```
