@@ -2,21 +2,21 @@
 
 ### Google Cloud Compute (GCP) services
 
-##### Google Compute Engine - Infrastructure as a Service, hosts virtual machines
+* Google Compute Engine - Infrastructure as a Service, hosts virtual machines
 
-##### Google Kuberbnetes Engine (GKE) - managed orchestrated environment for containerized apps
-* Clusters are made up of a master node and one or more worker node
-* Node Pools are a subset of nodes in the cluster which share configuration
-* Worker nodes are Google Compute Engine VM's which run Kubernetes pods
-* Pods are groups of Docker containers and share IP addresses and hostnames
-* Traffic to the pods is controlled by the Kubernetes master
-* Docker containers are stored in the Container Registry
+* Google Kuberbnetes Engine (GKE) - managed orchestrated environment for containerized apps
+  * Clusters are made up of a master node and one or more worker node
+  * Node Pools are a subset of nodes in the cluster which share configuration
+  * Worker nodes are Google Compute Engine VM's which run Kubernetes pods
+  * Pods are groups of Docker containers and share IP addresses and hostnames
+  * Traffic to the pods is controlled by the Kubernetes master
+  * Docker containers are stored in the Container Registry
 
-##### Google App Engine - Platform as a Service, hosts web apps
+* Google App Engine - Platform as a Service, hosts web apps
 
-##### Google Cloud Functions - serverless execution environment, single-purpose functions that are attached to events.
-* Triggers: HTTP requests, Cloud Storage even, Pub/Sub event
-* Uses: Webhooks, data & image processing, mobile back end, IOT apps
+* Google Cloud Functions - serverless execution environment, single-purpose functions that are attached to events.
+  * Triggers: HTTP requests, Cloud Storage even, Pub/Sub event
+  * Uses: Webhooks, data & image processing, mobile back end, IOT apps
 
 ### Kubernetes Master Node
 * Kubernetes API Server
@@ -176,13 +176,13 @@ kubectl logs -l app=pubsub
 ```
 
 ### Create a Kubernetes Cluster in GCP
+Activate the Kubernetes Engine API:  
+GCP > API & Services > Library > Kubernetes Engine API > Enable
+
+Activate the Cloud Shell:  
+GCP > Home > icon in upper right
+
 ```shell script
-# Activate the Kubernetes Engine API:
-# GCP > API & Services > Library > Kubernetes Engine API > Enable
-
-# Activate the Cloud Shell:
-# GCP > Home > icon in upper right
-
 # Build a Docker image:
 git clone https://github.com/linuxacademy/content-gc-essentials
 cd content-gc-essentials/gke-lab-01/
