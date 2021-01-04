@@ -1,5 +1,6 @@
 # Kubernetes Notes
 
+### minikube
 ```Shell script
 minikube start  # start minikube cluster
 minikube stop  # stop minikube cluster
@@ -7,6 +8,7 @@ minikube delete  # delete the minikube cluster
 minikube addons enable registry  # enable docker registry
 ```
 
+### kubectl
 ```Shell script
 kubectl config current-context  # get project, zone, cluster
 kubectl config get-contexts  # get contexts
@@ -80,6 +82,7 @@ kubectl exec -it -n zpc fakeapp-6d4c445dc8-rjps9 /bin/sh
 kubectl delete po hello
 ```
 
+### helm
 ```Shell script
 # Perform syntax validation of helm chart
 helm lint hello
