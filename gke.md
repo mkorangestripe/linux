@@ -1,4 +1,4 @@
-# Google Kubernetes Engine Notes
+# Google Kubernetes Engine notes
 
 ### Google Cloud Compute (GCP) services
 
