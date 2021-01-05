@@ -1,2 +1,2 @@
 ## Linux notes and examples
-![house2](images/house2.png)
+![house2](readme_images/house2.png)
