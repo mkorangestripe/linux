@@ -1,0 +1,107 @@
+# Using Ansible to make calls to the vSphere API using pyVmomi.
+
+# vSphere REST apiexplorer:
+# This has several API call examples.
+# https://[vCenter IP or FQDN]/apiexplorer
+
+# Install pyVmomi and ansible:
+# pip install pyvmomi
+# pip install ansible
+
+# List installed 'vm type' moduels:
+# ansible-doc --list | grep -i vm
+
+# Modules from ansible.com:
+# https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#vmware
+
+# More modules:
+# https://github.com/mrlesmithjr/ansible-vsphere-management
+
+
+# Examples of credentials and connection info:
+# vmsecrets.yml:
+# ansible vault would be the preferred method.
+---
+username: administrator@vsphere.local
+password: VMware1!
+vcenter: 192.168.127.20
+
+
+# Examples of tasks from the following playbook.
+# This can be run with ansible-playbook, see example below.
+# https://github.com/arielsanchezmora/VMUG-Talks/blob/master/2018-06-12%20Minneapolis/auth-gatherhosts-api-py-67.yml
+
+---
+- hosts: localhost
+
+  tasks:
+  - name: Including Secret Environment Items
+    include_vars:
+      file: secrets67.yml
+      name: secret
+
+  - name: vcenter login
+    uri:
+      url: "https://{{secret.vcenter}}/rest/com/vmware/cis/session"
+      force_basic_auth: yes
+      method: POST
+      user: "{{secret.username}}"
+      password: "{{secret.password}}"
+      status_code: 200
+      validate_certs: no
+    register: login
+
+  - name: Get hosts from vCenter
+    uri:
+      url: "https://{{secret.vcenter}}/rest/vcenter/host"
+      force_basic_auth: yes
+      validate_certs: no
+      headers:
+        Cookie: "{{login.set_cookie}}"
+    register: vchosts
+
+  - name: Set Syslog Configuration Setting
+    vmware_host_config_manager:
+      hostname: "{{secret.vcenter}}"
+      username: "{{secret.username}}"
+      password: "{{secret.password}}"
+      esxi_hostname: "{{item.name}}"
+      options:
+          'Syslog.global.logHost': '192.168.1.1'
+      validate_certs: no
+    with_items:
+      - "{{vchosts.json.value}}"
+
+  - name: Ensure Syslog Service is running
+    vmware_host_service_manager:
+      hostname: "{{secret.vcenter}}"
+      username: "{{secret.username}}"
+      password: "{{secret.password}}"
+      esxi_hostname: "{{item.name}}"
+      service_name: vmsyslogd
+      state: present
+      validate_certs: no
+    with_items:
+      - "{{vchosts.json.value}}"
+
+
+#
+# A few different ways of listing VM's in vsphere...
+#
+
+# Using Ansible which uses pyVmomi:
+# https://github.com/arielsanchezmora/VMUG-Talks/blob/master/2018-06-12%20Minneapolis/auth-gatherhosts-api-py-67.yml
+# ansible-playbook auth-gatherhosts-api-py-67.yml
+
+# Using the ezmomi package which uses pyVmomi.
+# This has other common VMware vSphere VM tasks as well.
+# https://github.com/snobear/ezmomi
+# pip install ezmomi
+# ezmomi list --type VirtualMachine
+
+# Using the pyVmomi module directly:
+# https://github.com/vmware/pyvmomi/blob/master/sample/getallvms.py
+
+
+# Example of running ansible-playbook against an inventory:
+# ansible-playbook -i /home/ansible/inventory /home/ansible/git-setup.yml
