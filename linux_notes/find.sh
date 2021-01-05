@@ -33,9 +33,3 @@ find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -print0 | xargs -0 rm
 # Remove files with nonstandard filenames:
 find . -inum 782263 -exec rm -i {} \; # remove the file with inode number 782263
 rm \\  # remove a file named \
-
-# Compute md5 checksum on a directory:
-find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
-
-# Compare directory contents:
-diff -rq misc/ test/misc/
