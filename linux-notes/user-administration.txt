@@ -1,0 +1,104 @@
+User Administration
+___________________________________________________
+
+/usr/sbin/adduser -> useradd
+/etc/skel/  (default files and folders for new accounts)
+useradd mike -e 2013-03-06  (create an account for mike with expiration date 2013-02-06)
+semanage login -a -s user_u mike  (optional, add mike as an selinux user)
+usermod -aG training mike (append mike to the training group)
+userdel -r mike  (deletes mike and his home dir)
+
+groupadd -g 500700 project  (create a group named ‘project’ with GID 500700)
+groupmod -g 123456 project  (change the GID of project to 123456)
+groupdel project  (deletes the group named ‘project’)
+
+chage -l mike (list account aging information for mike)
+chage -E 2013-02-06 mike  (expire mike's user account on 2013-02-06)
+chage -m 2 -M 30 temp1  (set mike’s password life to: min 2 days, max 30 days)
+
+Default min and max password life:
+/etc/login.defs  (PASS_MAX_DAYS, PASS_MIN_DAYS)
+
+passwd -S username (status of user’s password)
+passwd -x 0 username (set max password life to 0 days)
+passwd -x -1 username (turn of aging for password)
+passwd -e username (expires password forcing change at next login)
+passwd -d username (delete password)
+passwd -l username  (lock account, -u unlocks)
+passwd -r files username (specifies the ‘files’ repository; by default /etc/nsswitch.conf determines the repository: files, ldap, nis, or nisplus.  This is on Solaris.)
+
+/sbin/nologin  (enter in /etc/passwd to disable interactive login for a user, this will prevent logins even if the account uses an ssh key)
+
+/etc/sudoers:
+Edit with the visudo command to avoid simultaneous edits and parse errors.
+Format of lines in /etc/sudoers:
+user host=(user:group) tag:commands
+host specifies which host the command can be run from.
+(user:group) specifies which user or group the command can be run as.
+
+Allow members of the wheel group, connected from any host, as any user, without requiring a password, to run any command:
+%wheel	ALL=(ALL)   	NOPASSWD: ALL
+
+Allow members of the wheel group, connected from any host, as any user, to run any command:
+%wheel   	ALL=(ALL)   	ALL
+
+Allow members of the wheel group, connected from any host, without providing a password, to install system updates:
+%wheel  ALL=NOPASSWD:/usr/bin/yum -y update
+
+On Ubuntu - allow members of the sudo group, connected from any host, without providing a password, to install system updates:
+Cmnd_Alias UPDATE_CMDS=/usr/bin/apt-get -y update, /usr/bin/apt-get -y dist-upgrade
+%sudo   ALL=	NOPASSWD:UPDATE_CMDS
+
+Allow gp, connected from localhost, to reboot the system:
+gp  localhost=/usr/bin/reboot
+
+Allow members of the wheel group, connected from any host, without providing a password, to list disk information:
+%wheel  ALL=NOPASSWD:/sbin/fdisk -luc
+
+sudo fdisk -luc  (run fdisk using sudo)
+
+su -c “fdisk -luc”  (prompts for root’s password then runs fdisk as root)
+
+gpasswd temps  (set a group password for the temps group)
+sg temps -c 'ls /home/temps'  (prompts for the group password then executes ls as a member of temps)
+
+/etc/securetty  (can be used to limit terminals)
+
+last  (show listing of last logged in users)
+last -f /var/log/wtmp (login history from a file)
+lastlog -u mike (reports the most recent login of mike)
+/var/log/secure (logins and failed attempts)
+
+NIS:
+/etc/init.d/ypbind  (NIS service)
+/etc/init.d/nis  (NIS service on Ubuntu)
+/etc/yp.conf  (contains NIS servers)
+/etc/defaultdomain  (contains default domain on Ubuntu)
+ypwhich  (show the NIS server)
+ypcat passwd | grep user1 (print NIS user entry)
+ypcat group | grep devprod (print NIS group entry)
+ypcat -k netgroup | grep devprod (print NIS netgroup entry)
+
+Add Nis netgroup to a system:
+Add +@devprod to /etc/passwd and /etc/shadow.
+Add +devprod or just + to /etc/group
+
+Install ldap on a client:
+yum install openldap-clients openldap nss-pam-ldapd
+
+Simple ldap client configuration:
+system-config-authentication
+User Account Database: LDAP
+LDAP Search Base DN: dc=example,dc=net  (where the domain name is example.net)
+LDAP Server: ldaps://192.168.122.1  (where the ldap server is 192.168.122.1)
+Authentication Method: LDAP password
+
+Check the following files for respective ldap configuration:
+/etc/openldap/ldap.conf  (This should include the following):
+URI ldaps://192.168.122.1
+BASE dc=example, dc=net
+/etc/pam_ldap.conf  (This might be necessary for TSL encryption)
+/etc/nsswitch.conf  (This should include the following):
+passwd: 	files sss
+shadow: 	files sss
+group:  	files sss

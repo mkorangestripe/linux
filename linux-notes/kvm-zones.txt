@@ -1,0 +1,46 @@
+KVM, Zones
+___________________________________________________
+
+Install KVM:
+yum grouplist | grep -i virt
+   Virtualization
+   Virtualization Client
+   Virtualization Platform
+   Virtualization Tools
+yum groupinstall <all above>
+
+grep -e svm -e vmx /proc/cpuinfo
+lsmod | grep kvm
+modprobe kvm
+/etc/libvirt/qemu/  (config files for VMs)
+/var/lib/libvirt/images  (VM images)
+/etc/init.d/libvirtd  (VM service)
+
+virt-install --prompt  (create new VM, worked with ftp)
+virt-install from FTP with a Kickstart file:
+virt-install -n tester1 -r 1024 --disk path=/var/lib/libvirt/images/tester1,size=10 -l ftp://192.168.1.110/pub/inst/centos6 -x "ks=ftp://192.168.1.110/pub/ks.cfg"
+virt-clone --prompt  (clones a VM)
+
+virsh (cli for VMs)
+virsh autostart <domain>
+virsh autostart --disable <domain>
+grep -i start /etc/libvirt/qemu/autostart/centoskvm1.xml
+virsh capabilities  (lists capabilities of local hypervisor)
+virsh edit <domain>  (edits the xml of a domain)
+virsh list --all  (lists all domains, on and off)
+virsh dominfo <VM>
+virsh net-list  (lists networks)
+virsh net-info <network>  (show network info)
+virsh start <VM> (start a domain)
+virsh reboot <VM>  (reboot a domain)
+virsh shutdown <VM>  (shutdown a domain)
+virsh destroy <VM>  (stop a domain)
+
+cat /etc/zone_parent  (show global zone on Solaris)
+ls /etc/zones/  (list zones on global)
+zoneadm list -cv (list configured zones on Solaris with status)
+zoneadm -z <zone> boot
+zoneadm -z <zone> reboot
+zoneadm -z <zone> shutdown
+zoneadm -z <zone> halt
+zlogin <zone>  (login to zone)

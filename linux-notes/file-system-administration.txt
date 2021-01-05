@@ -1,0 +1,290 @@
+File System Administration
+___________________________________________________
+
+inode -- index node, stores all the information about a regular file, directory, or other file system object, except its data and name.
+hardlink -- directory entry that associates a name with a file on a file system
+softlink -- file that contains a reference to another file or directory
+
+Create a symlink of Documents in Desktop:
+ln -s ~/Documents/ Desktop/
+This display the inode of the Documents.  Notice the trailing slash:
+ls -di Desktop/Documents/ → 523283 Desktop/Documents/
+This displays the inode of the symlink itself.  Notice no trailing slash:
+ls -di Desktop/Documents → 523454 Desktop/Documents
+
+The hidden . and .. in directories are hard links to the current directory and the parent directory.
+Creation of hard links to directories is not permitted by users because the links could cause infinite loops for programs like find and du that traverse the file system.
+
+Directories have at least two hardlinks.  The 2 after the file permissions in the output below indicates two hard links to the same inode as indicated by the first number.
+ls -ldi Desktop/
+2236506 drwxr-xr-x 2 gp gp 4096 Mar 22 20:12 Desktop/
+ls -ldi Desktop/.
+2236506 drwxr-xr-x 2 gp gp 4096 Mar 22 20:12 Desktop/.
+
+Symlinks to directories can be created, but the behaviour of the symlink is not the same as the actually directory.
+ln -s ../.. …  (creates a symlink to the parent’s parent directory)
+
+Files older than a certain date are deleted from /tmp during a reboot.
+
+cp -d (same as --no-dereference --preserve=links)
+cp -r (--recursive, copy directories recursively)
+cp -p (same as --preserve=mode,ownership,timestamps)
+cp -a (--archive, same as -dr --preserve=all)
+cp -n (--no-clobber, do not overwrite an existing file)
+cp -i (--interactive, prompt before overwrite)
+cp -f (--force, if dest file cannot be read, remove it, and try again)
+cp -RPp@ /nfs/pub/ . (recursive & replicate pipes, copy symlinks, preserve file attributes, preserve extended attributes - on Solaris)
+
+rsync unlike cp, copies only when the source and destination files differ.
+rsync -av /nfs/pub/ . (archive options and verbose, copy the contents of 'pub')
+rsync -av /nfs/pub .  (archive options and verbose, copy the whole 'pub' directory)
+rsync -avn /nfs/pub .  (archive options and verbose, dry-run)
+rsync -v DSC_0002.MOV -e 'ssh -p 2222' --progress gp@tester1: (use port 2222 and show progress)
+
+smartctl --all /dev/sda | grep Errors (check harddrive for errors)
+
+If a kernel module for a drive isn’t loaded at startup:
+modprobe <kernel module>
+cat /proc/devices  (lists character and block devices that have modules loaded)
+lsblk  (lists block device info including major and minor number)
+mknod /dev/sda1 b 8 1  (1st HD, 1st partition, b=block, 8=major, 1=minor)
+
+lsblk -f  (list block device including fstype, label, uuid, and mountpoint)
+ls -l /dev/disk/by-path/  (list block devices by path)
+ls -l /dev/disk/by-uuid/  (list block devices by UUID)
+ls -l /dev/disk/by-id/  (list block devices by ID including WWNs of LUNs)
+multipath -ll  (show the current multipath topology...including WWNs of LUNs)
+fcinfo hba-port  (show WWNs of LUNs on Solaris)
+
+mount (lists mounted filesystems with type)
+cat /proc/mounts  (lists all mounted filesystems)
+cat /proc/mounts | grep -w ro | wc -l  (check for read only filesystems)
+dumpe2fs /dev/sda1 | grep "Filesystem features"
+tune2fs -l /dev/sda1  | grep 'Filesystem created'  (find when the OS was installed)
+dumpe2fs /dev/sdb1 | grep -i "block count"  (find number of reserved blocks)
+tune2fs -l /dev/sdb1 | grep -i block  (find number of reserved blocks)
+
+tune2fs -j (add a journal to an ext2)
+e2label /dev/sdb1 backup  (adds the label ‘backup’ to sdb1)
+
+Check/repair filesystems:
+Switch to or start in single user mode or runlevel 1.
+mount -o remount,ro /  (mounts the root filesystem read only)
+fsck  (this checks all filesystems in the fstab serially)
+fsck /  (this checks the root filesystem)
+
+df -h  (disk usage, human-readable)
+df -hi  (disk inode usage, human-readable)
+df -h -F nfs  (nfs disk usage if any exist)
+du -sh /etc (total of file sizes in /etc)
+du -ch *.gz  (total size of gzip’ed files)
+
+Inode usage summary of current directory, top three:
+find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr | head -3
+
+If a filesystem is out of inodes, files will need to be removed.
+
+Hard disks can have at most 4 primary partitions or 3 primary with 1 extended partition which can point to several logical partitions.
+
+With block devices with different geometry, recreate the partitions, then dd (copy) the partitions.
+
+Identify unpartitioned disk space:
+fdisk -luc  (compare the end cylinder/sector of the last primary/logical partition with the total number of cylinders/sectors)
+lsblk  (compare the sum of the partition sizes with the size of the hard drive)
+
+fdisk -uc /dev/sdb  (dos mode off, display units in sectors)
+
+partprobe  (inform the OS of partition table changes; if fails remount the filesystem and run again)
+kpartx -a /dev/mapper/mpathbp1  (add partition devmappings; use only if none of the existing partitions were modified; might need to restart multipathd beforehand)
+
+service multipathd restart  (restart multipathd)
+
+multipath -f (flush a multipath device map specified as parameter, if unused)
+multipath -F (flush all unused multipath device maps)
+multipath -r (force multipath to reload the device maps)
+
+yum install sysfsutils
+systool -vc fc_host | grep -w speed  (current speed of Fiber Channel connections)
+systool -vc fc_host | grep name  (WWNs of various parts)
+
+/usr/bin/rescan-scsi-bus.sh  (rescan scsi bus)
+
+Reload udev rules and made changes:
+udevadm control --reload-rules && udevadm trigger --type=devices --action=change
+
+Mount / unmount sdb2 in /media/<label> with options (rw,nosuid,nodev,uhelper=udisks)
+udisks --mount /dev/sdb2
+udisks --unmount /dev/sdb2
+
+mkswap /dev/sdb2  (make swap)
+swapon /dev/sdb2  (put swap into use)
+cat /proc/swaps  (verify swaps, also free or top)
+
+/etc/fstab  (dump = 1 or 0; pass: root dir = 2, others = 1 or 0)
+
+Conversion between hexadecimal and decimal.
+printf "%x\n" 123 → 7b
+printf "%d\n" 0x7b → 123
+
+echo 123 | hexdump → 3231 0a33  (hex value of characters 123 - little-endian byte order)
+echo ABC | hexdump → 4241 0a43  (hexadecimal 2-byte units of characters ABC)
+echo ABC | od -x → 4241 0a43  (hexadecimal 2-byte units of characters ABC)
+echo ABC | hexdump -C → 41 42 43 0a  |ABC.|  (hex+ASCII of characters ABC)
+echo ABC | od -a -b → A   B   C  nl  (ASCII named characters of ABC, octal values on next line)
+echo ABC | od -c → A   B   C  \n  (ASCII characters or backslash escapes)
+
+echo "green, yellow, bright orange" | base64 > encoded.txt
+base64 -d encoded.txt → green, yellow, bright orange
+
+fold -w76 (wrap each line to be 76 characters)
+
+exec needs an argument to terminate itself and because the semicolon is also a Bash token, Bash will evaluate the semicolon unless the semicolon is escaped with a backslash:
+find . -type f -exec ls {} \;
+
+The plus sign and xargs append arguments to the command and then executes.  Either of these constructs are necessary with a very large number of files.
+find . -type f -exec ls {} +
+find . -type f | xargs ls
+
+find /home/ -type f -user gp > gp.regfile (find regular files by owner)
+
+Find log files over 5MB (10,000 x 512 byte blocks) modified in the last day:
+find / -mount -name \*.log -size +10000 -type f -mtime -1 -exec du -sh {} \;
+
+Find and zip logs older than 14 days only in the current directory:
+find . -maxdepth 1 -name \*.log -type f -mtime +14 -exec gzip {} \;
+
+Find which files are growing.  Note, check1 and check2 might need to be on a filesystem other than the one filling up.
+find . -type f -exec du {} \; > /tmp/check1.txt
+sleep 2m
+find . -type f -exec du {} \; > /tmp/check2.txt
+diff /tmp/check1.txt /tmp/check2.txt
+
+Find files not named *.conf, modified between 5 and 30 minutes ago, and delete them:
+find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -delete
+find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -print -delete
+find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -print0 | xargs -0 rm
+
+Remove files with nonstandard filenames:
+find . -inum 782263 -exec rm -i {} \;  (remove the file with inode number 782263)
+rm \\  (remove a file named \)
+
+diff -rq misc/ test/misc/ (compare directory contents)
+
+md5sum company-mskr-ora.zip (compute md5 checksum)
+sha256sum newrelic-infra* (compute SHA256 checksum)
+
+Compute md5 checksum on a directory:
+find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
+
+Instead of removing a log file that has grown to large, null it.  This preserves the inode data and should free disk space if the file is being used by a process (open file descriptor)
+cat /dev/null > file.log
+If the file is removed while a process is using the file, the file descriptor can be nulled to release disk space.
+lsof | grep FILE  (2nd column is PID, 4th column has FD followed by r,w,u, - read, write, both)
+cat /dev/null > /proc/PID/fd/FD
+
+When using rm -rf type rm, then the directory, then -rf.  This is to avoid removing parent directories by accidentally pressing enter before the full path has been typed.  For example, to remove /var/logs/nada/ type the following.
+rm /var/logs/nada/ -rf
+
+strings /dev/sdb | less  (search for strings in raw disk space)
+badblocks -c 10240 -s -w -t random -v /dev/sdb1  (write random data to /dev/sdb1)
+shred -u nothing.log  (overwrite and remove nothing.log)
+
+cat /proc/mdstat  (Raid info)
+mdadm --detail /dev/md[0,1] | grep sync  (Raid sync status)
+
+Raid 10 (striped mirrors) with at least 4 disks has better fault tolerance than Raid 01.  Either disk in each group could be lost and the array would still function.  With Raid 01, two disks (one in each group) failing would fail the whole array.  The loss of any disk from a striped group (Raid 0) will result in the loss of an entire mirror.
+
+Raid 5 is striping with distributed parity.  Raid 6 is striping with double distributed parity.
+
+Logical Volume, information:
+lvm  (opens lmv prompt, type help)
+lvmconf  (lvm configuration)
+lvmdump  (create tarball of diagnostic info)
+lvmdiskscan  (scan for all lvm devices)
+pvs, pvscan, pvdisplay
+vgs, vgscan, vgdisplay
+lvs, lvscan, lvdisplay
+
+Check which logical volumes are using the physical volume:
+pvdisplay -m /dev/mapper/mpathc
+Check which physical volumes comprise a logical volume:
+lvdisplay -m /dev/mapper/vgoracle-lvoracle
+
+Physical Volume, create:
+pvcreate /dev/sdb  (create a physical volume)
+pvcreate /dev/sdc1  (create a physical volume from a partition)
+pvremove /dev/sdc2  (remove the PV, wipe label)
+
+Volume Group, create, extend, reduce, remove, activate:
+vgcreate vg_test /dev/sdb2 /dev/sdc1  (create a volume group from sdb2 and sdc1)
+vgcreate -s 8m vg_test /dev/sdb1 /dev/sdc1  (...physical extent size of 8 MB)
+vgextend vg_test /dev/sdc2  (add physical volume sdc2 to vg_test)
+vgreduce vg_test /dev/sdb2  (remove PV sdb2 from VG gp_test)
+vgremove vg_test  (remove the VG)
+vgchange -a y vg_test  (activate a volume group)
+
+Logical Volume, create, extend, reduce, remove:
+lvcreate -L 7G vg_test -n lv_test  (create a 7GB LV)
+lvcreate -l 100%Free vg_test -n lv_test  (create a LV using all free space)
+lvextend -l +100%Free /dev/vg_test/lv_test  (extend the LV using all free space)
+lvextend -L +3G /dev/vg_test/lv_test  (extend the LV 3G)
+lvextend -L +3G -r /dev/vg_test/lv_test  (...and resize the filesystem)
+lvextend -L 3G /dev/vg_test/lv_test  (extend the LV to 3G)
+lvreduce -L -2G /dev/vg_test/lv_test  (reduce the LV 2G)
+lvreduce -L 2G /dev/vg_test/lv_test  (reduce the LV to 2G)
+lvremove /dev/vg_test/lv_test  (remove the LV)
+
+Make/Resize a File System on a Logical Volume:
+mkfs -t ext4 /dev/vg_test/lv_test
+mkfs -t ext4 /dev/mapper/vg_test-lv_test
+mkfs -t ext4 /dev/dm-3
+resize2fs -p /dev/vg_test/lv_test  (uses available space)
+resize2fs -p /dev/vg_test/lv_test 8G  (resize to 8G)
+xfs_growfs  (for xfs filesystem)
+
+zfs list  (list ZFS file systems on Solaris)
+zfs mount (show currently mounted filesystems on Solaris)
+
+Setting a quota (limit on disk space) on Solaris ZFS:
+zfs set quota=15G oracle_zpool01/opt_oracle
+zfs get quota oracle_zpool01/opt_oracle
+
+Setting a reservation (guaranteed disk space) on Solaris ZFS:
+zfs set reservation=10G oracle_zpool01/opt_oracle
+zfs get reservation oracle_zpool01/opt_oracle
+
+zpool status  (detailed health status of pools on Solaris)
+zpool status -v  (verbose, data errors since the last complete pool scrub on Solaris)
+zpool status -x  (status of pools with errors and unavailable pools on Solaris)
+
+Volume Encryption:
+yum install cryptsetup-luks  (install cryptsetup-luks)
+lsmod | grep dm_crypt  (check if dm_crypt and dm_mod are loaded)
+modprobe dm_crypt  (load dm_crypt and dm_mod modules)
+cryptsetup luksFormat /dev/sdb1  (creates a LUKS-based filesystem, /dev/dm-?) *1*
+cryptsetup luksDump /dev/sdb1  (displays the header)
+cryptsetup luksUUID /dev/sdb1  (displays the uuid)
+cryptsetup luksOpen /dev/sdb1 sdb1-crypt  (opens the luks partition and creates a symlink from /dev/mapper/sdb1-crypt to /dev/dm-?) *2*
+mkfs -t ext4 /dev/mapper/sdb1-crypt  (create ext4 filesystem)  *3*
+mount /dev/mapper/sdb1-crypt /dir1  (mount sdb1-crypt on /dir1)
+Prompt for passphrase and mount the encrypted filesystems at startup: *4*
+/etc/crypttab  (sdb1-crypt    /dev/sda1    none)
+/etc/fstab  (/dev/mapper/sdb1-crypt	/dir1	ext4	defaults	1 2)
+
+Archiving, Compression:
+tar -cvPzf nothing.tar.gz /home/gpurcell/Documents/  (Create a gzipped archive of Documents and all files in Documents including their path and preserve the leading forward slash)
+tar -tf nothing.tar.gz  (list the contents of nothing.tar, -v for verbose)
+tar -xvPzf nothing.tar.gz  (extract nothing.tar.gz to absolute path)
+gzip nothing9 → nothing9.gz
+gzip -9 -c drh.log > drh.log.1.gz  (this utilizes memory or swap)
+bzip2 nothing9 → nothing9.bz2
+gzip or bzip2 -d nothing9 (decompress nothing9)
+star -xattr -H=exustar -c -f=homebackup.star /home/  (create archive of /home including SELinux attributes and ACLs)
+star -x -f=homebackup.star  (extract homebackup.star)
+zip -r backup.zip dir1 (create a zip file from directory dir1)
+unzip -l backup.zip  (list the contents of backup.zip, -v for verbose list)
+
+Named pipe:
+mkfifo testpipe  (in terminal 1)
+gzip -c < testpipe > out.gz  (in terminal 1)
+cat file > testpipe  (in terminal 2)

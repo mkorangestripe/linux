@@ -1,0 +1,23 @@
+FTP and HTTP
+___________________________________________________
+
+FTP installation server:
+yum install vsftpd
+/etc/vsftpd/vsftpd.conf  (anonymous_enable=YES)
+/etc/init.d/vsftpd start
+chkconfig vsftpd on  (set vsftpd to start automatically)
+system-config-firewall-tui  (mark ftp as a trusted service)
+mkdir /var/ftp/pub/inst/
+cp -ar /media/centos6/. /var/ftp/pub/inst/
+chcon -R --reference=/var/ftp/pub/ /var/ftp/pub/inst
+lftp 192.168.110.3/pub/inst  (test connection to ftp server)
+
+HTTP installation server:
+yum install httpd
+/etc/init.d/httpd start
+chkconfig httpd on  (set httpd to start automatically)
+system-config-firewall-tui  (mark httpd as a trusted service)
+mkdir /var/www/html/inst
+cp -ar /media/centos/. /var/www/html/inst
+chcon -R --reference /var/www/html/ /var/www/html/inst
+lynx 192.168.110.3/inst  (test connection to the web server)
