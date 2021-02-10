@@ -69,6 +69,7 @@ knife search node 'chef_environment:*_dev AND platform:centos*' 2>&1 | awk -F: '
 knife node show us08dv2sql06  # show node info
 knife node show us08dv2sql06 -F json  # show basic node info in json
 knife node edit us08dv2sql06  # edit node info
+knife node delete us08dv2bld29  # delete the node from Chef
 
 knife status --hide-by-mins 60  # hide nodes with successful chef-client runs within that last 60 minutes.
 
