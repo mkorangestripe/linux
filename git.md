@@ -80,6 +80,11 @@ git push -f  # Force push
 ```
 
 ```shell script
+git stash  # Stash changes
+git stash pop  # Remove a single stashed state from the stash list and apply it on top
+```
+
+```shell script
 git ls-tree HEAD  # List files in cwd being tracked under current branch
 git ls-tree HEAD -r  # List files recursively being tracked under current branch
 ```
