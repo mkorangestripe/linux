@@ -30,6 +30,9 @@ sed 's/Dragonflies/Fireflies/g' insects.txt > insects2.txt
 # Substitute Dragonflies with Fireflies globally in place:
 sed -i 's/Dragonflies/Fireflies/g' insects.txt
 
+# Remove entire line that contains string:
+sed -i '/pl_haproxy_mfg_role/d' environments/*
+
 # Use | instead of / for strings containing forward slashes:
 sed 's|$OLD_URL|$NEW_URL|' url_list.txt
 
