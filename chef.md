@@ -92,7 +92,7 @@ knife data bag edit -z passwords root_pw --secret-file ~/.chef/encrypted_data_ba
 
 ### Berks
 ```shell script
-# Add cookbooks specified in the Berksfile to Berksfile.lock:
+# Add cookbooks specified in Berksfile to Berksfile.lock:
 berks install
 
 # Based on Berksfile, update Berksfile.lock with the latest cookbook version and dependencies:
