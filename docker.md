@@ -17,6 +17,8 @@ systemctl show docker  # Environment variables used by docker
 docker info  # Display system-wide information
 
 docker logs hello1  # Show docker logs for hello1 container
+
+docker network ls  # list networks
 ```
 
 ### Docker images
