@@ -61,9 +61,10 @@ docker build -t harbor.somedomain.io/prlb-platform/test1 .  # Build with repo in
 
 ##### Push to a registry
 ```shell script
-docker push localhost:5000/hello  # Linux
-docker push host.docker.internal:5000/hello  # OSX
-docker push harbor.somedomain.io/prlb-platform/test1
+docker push localhost:5000/hello  # push in local registry, Linux
+docker push host.docker.internal:5000/hello  # push in local registry, OSX
+docker push mkorangestripe/loadbalancer:1.1.0  # push to dockerhub
+docker push harbor.somedomain.io/prlb-platform/test1  # push to harbor
 ```
 
 ##### Docker image registry login
