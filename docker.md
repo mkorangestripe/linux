@@ -14,11 +14,13 @@ systemctl enable docker  # Enable the docker service
 systemctl start docker  # Start the docker service
 systemctl show docker  # Environment variables used by docker
 
+docker version #  show version info
 docker info  # Display system-wide information
 
-docker logs hello1  # Show docker logs for hello1 container
-
 docker network ls  # list networks
+docker system df  # show docker disk usage
+
+docker system prune  # remove various docker items
 ```
 
 ### Docker images
@@ -89,6 +91,9 @@ docker container inspect 8a5b3f2103ec | grep IPAdd
 
 # List volumes:
 docker volume ls
+
+# Show docker logs for hello1 container:
+docker logs hello1
 ```
 
 ```shell script
