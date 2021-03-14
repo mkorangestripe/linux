@@ -113,21 +113,23 @@ spacecmd -q group_list
 spacecmd -q group_listsystems gc-mst-e1
 spacecmd -q system_list
 
-Homebrew on macOS:
-brew tap (list repositories)
-brew update (update the formulae and Homebrew itself)
-brew outdated (show outdated with current / available versions)
-brew cask outdated (show outdated cask packages)
-brew upgrade (upgrade all packages)
-brew upgrade python@2  (upgrade python2)
-brew list  (list packages installed by homebrew)
-brew info ipython  (show info about the ipython package)
-brew install ipython (install ipython)
-brew uninstall ipython (uninstall ipython)
-brew cask list  (list packages installed by homebrew cask)
-brew search cassandra  (search for cassandra packages)
-brew cask install cassandra  (install cassandra)
-brew link docker (create necessary symlinks for the application)
+# Homebrew on macOS:
+brew tap  # list repositories
+brew update  # update the formulae and Homebrew itself
+brew outdated  # show outdated with current / available versions
+brew upgrade  # upgrade all packages
+brew upgrade python@2  # upgrade python2
+brew list  # list packages installed by homebrew
+brew info ipython  # show info about the ipython package
+brew install ipython # install ipython
+brew uninstall ipython  # uninstall ipython
+brew search cassandra  # search for cassandra packages
+brew link docker  # create necessary symlinks for the application
 
-Update Xcode CommandLineTools on OSX:
+brew list --cask  # list packages installed by homebrew cask
+brew outdated --cask  # show outdated cask packages
+brew search --cask docker  # search for docker cask packages
+brew install --cask docker  # install docker desktop
+
+# Update Xcode CommandLineTools on OSX:
 xcode-select --install
