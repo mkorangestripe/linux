@@ -71,6 +71,7 @@ git add -u  # Stages modifications and deletions, without new files
 ```shell script
 git commit msfile2.map -m "Some comment here"  # Commit changes
 git commit --allow-empty -m 'trigger build'  # Allow empty commit
+git commit --amend  # amend the last commit message
 ```
 
 ```shell script
