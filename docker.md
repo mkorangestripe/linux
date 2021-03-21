@@ -100,8 +100,8 @@ docker logs hello1
 docker run -it ubuntu:16.04
 docker container run -it ubuntu:16.04
 
-# Run a Centos container and get a Bash prompt:
-docker run -it centos:latest bash
+# Run a Centos container and get a Bash prompt, remove upon exit:
+docker run --rm -it centos:latest bash
 
 # Run a Centos container and 'cat /etc/redhat-release'
 docker run centos cat /etc/redhat-release
