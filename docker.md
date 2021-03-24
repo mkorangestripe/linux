@@ -117,6 +117,12 @@ docker run -d -p 80:80 httpd
 ```
 
 ```shell script
+docker-compose up  # create and start containers
+docker-compose up -d  # detached mode
+docker-compose down #  stop containers and remove resources
+```
+
+```shell script
 # Start a stopped container, either of the following.  Container will exit if not running a process.
 docker start c2ffbff64f14
 docker container start c2ffbff64f14
