@@ -56,7 +56,9 @@ gpk-prefs - GNOME PackageKit Update Preferences
 apt-get clean  # remove deb files from /var/cache/apt/archives
 apt-get autoclean  # remove obsolete deb files from /var/cache/apt/archives
 apt-get autoremove  # remove unneeded deb files from /var/cache/apt/archives installed as dependencies
-sudo sh -c “apt-get -y update && apt-get -y dist-upgrade”  # update and dist-upgrade the localhost
+
+sudo apt update && sudo apt -y dist-upgrade  # update and dist-upgrade the localhost
+sudo sh -c “apt update && apt -y dist-upgrade”  # same as above but useful when sudo permission may timeout
 ```
 
 ### Homebrew on macOS
