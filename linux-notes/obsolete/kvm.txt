@@ -1,4 +1,4 @@
-KVM, Zones
+KVM
 ___________________________________________________
 
 Install KVM:
@@ -35,12 +35,3 @@ virsh start <VM> (start a domain)
 virsh reboot <VM>  (reboot a domain)
 virsh shutdown <VM>  (shutdown a domain)
 virsh destroy <VM>  (stop a domain)
-
-cat /etc/zone_parent  (show global zone on Solaris)
-ls /etc/zones/  (list zones on global)
-zoneadm list -cv (list configured zones on Solaris with status)
-zoneadm -z <zone> boot
-zoneadm -z <zone> reboot
-zoneadm -z <zone> shutdown
-zoneadm -z <zone> halt
-zlogin <zone>  (login to zone)

@@ -267,3 +267,14 @@ select * from sqlite_master;
 .quit
 .mode column
 .headers on
+
+Solaris Zones
+------------------------------
+cat /etc/zone_parent  (show global zone on Solaris)
+ls /etc/zones/  (list zones on global)
+zoneadm list -cv (list configured zones on Solaris with status)
+zoneadm -z <zone> boot
+zoneadm -z <zone> reboot
+zoneadm -z <zone> shutdown
+zoneadm -z <zone> halt
+zlogin <zone>  (login to zone)
