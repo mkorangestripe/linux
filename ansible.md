@@ -38,26 +38,33 @@ ansible server1 -m setup
 ### Ansible ad-hoc commands
 
 ```shell script
-ansible server1 -a "cat /proc/cpuinfo" | grep "cpu cores"
-ansible vms -a "cat /proc/cpuinfo" | grep "cpu cores"
+ansible server1 -a "cat /proc/cpuinfo" | grep "cpu cores"  # run command on a single host
+ansible vms -a "cat /proc/cpuinfo" | grep "cpu cores"  # run command on hosts in vms host group
 
 # Install httpd on a host:
 ansible server1 -b -m yum -a "name=httpd state=latest"
 ansible server1 -b -m service -a "name=httpd state=started"
+
+# Test the connection to Windows hosts:
+nc -vz server1 5986  # check the https port used by winrm
+kinit user1@SOMEDOMAIN.COM  # authenticate with Kerberos
+ansible all -m win_ping -i inventory.yml --user user1@SOMEDOMAIN.COM
 ```
 
-### Ansible playbooks
+### Ansible playbook commands
 
 ```shell script
 ansible-playbook web.yml --check  # dry run
 ansible-playbook -i inv web.yml  # run web.yml playbook against the given inventory file
 ansible-playbook --limit web.retry  # rerun only on failed hosts
 
-# Run a playbook using variables
+# Run a playbook using variables:
 ansible-playbook web2.yml -e \
 "target_hosts=server1 \
 target_service=httpd";
 
-# Run a playbook using handlers (specified in the playbook):
-ansible-playbook web3.yml -e "target_service=httpd"
+# Run a playbook against Windows hosts:
+nc -vz server1 5986  # check the https port used by winrm
+kinit user1@SOMEDOMAIN.COM  # authenticate with Kerberos
+ansible-playbook chef-client.yml -i inventory.yml --user user1@SOMEDOMAIN.COM
 ```
