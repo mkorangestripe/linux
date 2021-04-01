@@ -3,7 +3,7 @@
 ```shell script
 terrform fmt  # autoformat terraform scripts
 terraform validate  # check and report errors in config
-terraform console
+terraform console  # terraform cli
 
 source ~/.tfvars  # source Terraform input variables
 
