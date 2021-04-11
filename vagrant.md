@@ -25,6 +25,8 @@ vagrant suspend  # suspends the machine
 vagrant halt  # stops the vagrant machine
 vagrant destroy  # shutdown VM, remove VirtualBox files, reclaim RAM
 
+vagrant reload  # reload configuration in Vagrantfile
+
 vagrant ssh aae63f6  # login to VM by id
 vagrant ssh-config  # show vagrant ssh info
 ```
