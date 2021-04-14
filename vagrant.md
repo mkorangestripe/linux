@@ -30,10 +30,25 @@ vagrant suspend  # suspends the machine
 vagrant halt  # stops the vagrant machine
 vagrant destroy  # shutdown VM, remove VirtualBox files, reclaim RAM
 
-vagrant reload  # reload configuration in Vagrantfile
-vagrant provision  # provision the vagrant machine based on the Vagrantfile, e.g. with ansible
-
 vagrant ssh aae63f6  # login to VM by id, defualt VM if run without id
-vagrant ssh-config  # show vagrant ssh info including private key location
-vagrant port  # show port forwarding from guest to host
+vagrant ssh-config  # show vagrant ssh info including hostname, user, port, and private key location
+vagrant port  # show port forwarding from guest to host, e.g. 22 (guest) => 2222 (host)
+
+vagrant reload  # reload configuration in Vagrantfile
+```
+
+### Vagrant, provision with Ansible
+
+```shell script
+# Provision the vagrant machines based on the config.vm.provision section in the Vagrantfile:
+vagrant provision
+
+# Run the ansible playbook manually:
+ansible-playbook -i ~/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory playbook.yml
+
+# Same as above:
+ansible-playbook -u vagrant -i hosts.yml --private-key ~/.vagrant/machines/default/virtualbox/private_key playbook.yml
+
+# Check connection to the VM (port 22 is being forwarded to 2222):
+ansible -u vagrant -i hosts.yml --private-key ~/.vagrant/machines/default/virtualbox/private_key 127.0.0.1 -m ping
 ```

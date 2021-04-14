@@ -3,9 +3,14 @@
 ### Ansible config files, modules
 
 ```shell script
-/etc/ansible/ansible.cfg  # Ansible config file
+# Ansible config file, searched in the following order:
+~/ansible.cfg
+~/.ansible.cfg
+/etc/ansible/ansible.cfg
 
-/etc/ansible/hosts  # Ansible hosts file
+/etc/ansible/hosts  # Default Ansible hosts file, but specified in ansible.cfg
+
+ansible-config view  # view ansible configuration file
 
 ansible-doc -l  # list all modules
 ansible-doc -s lineinfile  # show info on the given module
@@ -41,7 +46,7 @@ ansible server1 -m setup
 ansible server1 -a "cat /proc/cpuinfo" | grep "cpu cores"  # run command on a single host
 ansible vms -a "cat /proc/cpuinfo" | grep "cpu cores"  # run command on hosts in vms host group
 
-# Install httpd on a host:
+# Install httpd on a Red Had host:
 ansible server1 -b -m yum -a "name=httpd state=latest"
 ansible server1 -b -m service -a "name=httpd state=started"
 
