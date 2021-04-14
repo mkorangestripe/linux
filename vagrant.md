@@ -1,15 +1,19 @@
 # Vagrant Notes
 
+### VirtualBox
+
 ```shell script
 VBoxManage list vms  # list VirtualBox vm's
 VBoxManage list vms -l  # list VirtualBox vm's with more details
 VBoxManage list hostonlyifs  # list host-only network interfaces
 ```
 
+### Vagrant
+
 ```shell script
-# Login to Vagrant Cloud
-vagrant login
-vagrant cloud auth login
+# Login to Vagrant Cloud:
+vagrant login  # old command
+vagrant cloud auth login  # new command
 
 vagrant global-status  # show status of all VMs
 vagrant status 2a44541  # show status of given VM
@@ -27,7 +31,7 @@ vagrant halt  # stops the vagrant machine
 vagrant destroy  # shutdown VM, remove VirtualBox files, reclaim RAM
 
 vagrant reload  # reload configuration in Vagrantfile
-vagrant provision  # provision the vagrant machine based on the Vagrantfile
+vagrant provision  # provision the vagrant machine based on the Vagrantfile, e.g. with ansible
 
 vagrant ssh aae63f6  # login to VM by id, defualt VM if run without id
 vagrant ssh-config  # show vagrant ssh info including private key location
