@@ -135,6 +135,20 @@ git reset --hard origin/master
 git pull
 ```
 
+### Git tags
+
+```shell script
+git tag  # list tags
+git show v1.0.0  # show tag info
+
+# Create an annotated tag:
+git tag -a v1.1.0 -m "Single container load balancer simulator"
+git push --tags  # push tags
+
+git tag -d v1.0  # delete a local tag
+git push --delete origin v1.0  # delete a remote tag
+```
+
 ##### A few cvs commands:
 ```shell script
 mkdir -p devel/project/v4
