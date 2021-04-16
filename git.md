@@ -134,7 +134,8 @@ git tag  # list tags
 git show v1.0.0  # show tag info
 
 # Create an annotated tag:
-git tag -a v1.1.0 -m "Single container load balancer simulator"
+git tag -a v1.2.0 -m "Round robin method with weighted ratio."
+git tag -a v1.1.0 49cfd4e -m "Loadbalancer app run with Gunicorn."  # add tag to previous commit
 git push --tags  # push tags
 
 git tag -d v1.0  # delete a local tag
