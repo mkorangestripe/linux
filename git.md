@@ -23,40 +23,6 @@ git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
 ```
 
-### Git Branches
-
-```shell script
-git branch  # Lists existing branches
-git branch -a  # Lists existing branches including remote branches
-git branch -vv  # Show the last commit message for each branch
-git branch -m feature/PBPRB-1579  # Rename the current branch
-git branch -d feature/test  # Delete the branch
-
-git checkout PBPRB-1579  # Checkout and switch to the new branch based
-git checkout master  # Switch to master
-git checkout -b PBPRB-1651  # Create and switch to the new branch based on current branch
-git checkout -b feature/PBPRB-1568 develop  # Create new branch based on develop
-
-git push --set-upstream origin ping-scan-classes  # Push the current branch and set the remote as upstream
-
-git pull  # git fetch followed by git merge FETCH_HEAD
-git pull origin feature/PBPRB-1579  # Merge updates from the remote branch into the local branch
-
-git merge feature/PBPRB-1651  # Merge the branch into the current branch
-```
-
-```shell script
-# Rebase the local branch on the current master branch.
-# Incorporate all the commits to master since the branch was created.
-git fetch
-git rebase origin/master
-git pull
-```
-
-```shell script
-git rebase --abort  # Abort a rebase, if paused
-```
-
 ```shell script
 git add msfile2.map  # Add file to tracking
 git add -u  # Stages modifications and deletions, without new files
@@ -129,7 +95,41 @@ git reset --hard origin/master
 git pull
 ```
 
-### Git Tags
+### Branches
+
+```shell script
+git branch  # Lists existing branches
+git branch -a  # Lists existing branches including remote branches
+git branch -vv  # Show the last commit message for each branch
+git branch -m feature/PBPRB-1579  # Rename the current branch
+git branch -d feature/test  # Delete the branch
+
+git checkout PBPRB-1579  # Checkout and switch to the new branch based
+git checkout master  # Switch to master
+git checkout -b PBPRB-1651  # Create and switch to the new branch based on current branch
+git checkout -b feature/PBPRB-1568 develop  # Create new branch based on develop
+
+git push --set-upstream origin ping-scan-classes  # Push the current branch and set the remote as upstream
+
+git pull  # git fetch followed by git merge FETCH_HEAD
+git pull origin feature/PBPRB-1579  # Merge updates from the remote branch into the local branch
+
+git merge feature/PBPRB-1651  # Merge the branch into the current branch
+```
+
+##### Rebase
+
+```shell script
+# Rebase the local branch on the current master branch.
+# Incorporate all the commits to master since the branch was created.
+git fetch
+git rebase origin/master
+
+git rebase --continue  # run after conflict has been resolved
+git rebase --abort  # abort a rebase if paused
+```
+
+### Tags
 
 ```shell script
 git tag  # list tags
@@ -143,7 +143,7 @@ git tag -d v1.0  # delete a local tag
 git push --delete origin v1.0  # delete a remote tag
 ```
 
-##### A few cvs commands:
+### A few cvs commands
 ```shell script
 mkdir -p devel/project/v4
 export CVSROOT=:pserver:<USERNAME>@cvsit.digitalriver.com:/opt/cvs/artifact
