@@ -23,31 +23,25 @@ git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
 ```
 
+### Git Branches
+
 ```shell script
 git branch  # Lists existing branches
 git branch -a  # Lists existing branches including remote branches
 git branch -vv  # Show the last commit message for each branch
 git branch -m feature/PBPRB-1579  # Rename the current branch
 git branch -d feature/test  # Delete the branch
-```
 
-```shell script
 git checkout PBPRB-1579  # Checkout and switch to the new branch based
 git checkout master  # Switch to master
 git checkout -b PBPRB-1651  # Create and switch to the new branch based on current branch
 git checkout -b feature/PBPRB-1568 develop  # Create new branch based on develop
-```
 
-```shell script
 git push --set-upstream origin ping-scan-classes  # Push the current branch and set the remote as upstream
-```
 
-```shell script
 git pull  # git fetch followed by git merge FETCH_HEAD
 git pull origin feature/PBPRB-1579  # Merge updates from the remote branch into the local branch
-```
 
-```shell script
 git merge feature/PBPRB-1651  # Merge the branch into the current branch
 ```
 
@@ -135,7 +129,7 @@ git reset --hard origin/master
 git pull
 ```
 
-### Git tags
+### Git Tags
 
 ```shell script
 git tag  # list tags
