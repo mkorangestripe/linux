@@ -117,8 +117,6 @@ git pull origin feature/PBPRB-1579  # Merge updates from the remote branch into 
 git merge feature/PBPRB-1651  # Merge the branch into the current branch
 ```
 
-##### Rebase
-
 ```shell script
 # Rebase the local branch on the current master branch.
 # Incorporate all the commits to master since the branch was created.
