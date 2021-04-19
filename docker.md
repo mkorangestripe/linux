@@ -17,10 +17,18 @@ systemctl show docker  # Environment variables used by docker
 docker version #  show version info
 docker info  # Display system-wide information
 
-docker network ls  # list networks
 docker system df  # show docker disk usage
 
 docker system prune  # remove various docker items
+```
+
+### Docker networks
+```shell script
+docker network ls  # list networks
+docker network inspect lb1  # show info for the network
+docker network connect lb1 cat_loadbalancer  # connect the container to lb1 network
+docker network create lb2  # create the network
+docker network rm lb2  # remove the network
 ```
 
 ### Docker images
@@ -28,11 +36,12 @@ docker system prune  # remove various docker items
 docker pull centos  # Pull a centos image
 docker pull harbor.somedomain.io/prlb-platform/util-chefdk:latest  # Pull latest image from private registry
 
-docker images  # List images
-docker image ls  # List images, new style
-docker image history nginx  # Show history for image 'nginx'
-docker images --no-trunc  # Do not truncate the image ID
-docker rmi 4ab4c602aa5e  # Delete docker image with given image ID
+docker images  # list images
+docker image ls  # list images, new style
+docker images --no-trunc  # list images, no truncate image ID
+docker image history nginx  # show history for image 'nginx'
+docker image inspect centos | grep CMD  # show command the container will run
+docker rmi 4ab4c602aa5e  # delete image with given image ID
 
 # Tag an image, either of the following:
 docker tag 311d49c8619b dtest1:v1
