@@ -161,6 +161,9 @@ dmesg  (System diagnostic messages on Solaris)
 dmesg  (kernel ring buffer info, includes lines not yet written to /var/log/dmesg)
 /var/log/dmesg  (kernel ring buffer info)
 
+less +F /var/log/system.log  # follow mode, like tail -f
+Shift + F, Ctrl + C  (Use to enter and exit follow mode)
+
 Log to the syslog (/var/log/messages) with tag "catalina-logrotate":
 logger -t catalina-logrotate "ALERT exited abnormally with [$EXITVALUE]"
 
