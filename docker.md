@@ -126,6 +126,7 @@ docker run -d -p 80:80 httpd
 ```
 
 ```shell script
+docker-compose ps  # process state of containers started by docker-compose, -a for all
 docker-compose up  # create and start containers
 docker-compose up -d  # detached mode
 docker-compose down #  stop containers and remove resources
