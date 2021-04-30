@@ -1,6 +1,7 @@
 # Kubernetes Notes
 
 ### minikube
+
 ```Shell script
 minikube start  # start minikube cluster
 minikube stop  # stop minikube cluster
@@ -9,6 +10,7 @@ minikube addons enable registry  # enable docker registry
 ```
 
 ### kubectl
+
 ```Shell script
 kubectl config current-context  # get project, zone, cluster
 kubectl config get-contexts  # get contexts
@@ -21,7 +23,7 @@ kubectl get svc -n kube-system  # show the service resource associated with the 
 kubectl get svc -n zpc | grep fakeapp
 kubectl get deploy  # get the deployment
 
-# Get api-resources, ingress service info
+# Get api-resources, ingress service info:
 kubectl api-resources | grep ingress
 kubectl get ingresses.voyager.appscode.com -n zpc
 
@@ -30,59 +32,55 @@ kubectl describe svc -n zpc fakeapp  # info on the fakeapp service
 kubectl describe ingresses.voyager -n zpc fakeapp-ingress  # find external IP and hostname
 ```
 
+### Port Forwarding
+
 ```Shell script
 # Enable port forwarding from local 5000 to port 80 on the cluster and verify:
 kubectl port-forward -n kube-system svc/registry 5000:80 &> /dev/null &
-curl localhost:5000/v2/_catalog # {"repositories":["hello"]}
+curl localhost:5000/v2/_catalog  # {"repositories":["hello"]}
 
 # Enable port forwarding for port 8080
 kubectl port-forward -n zpc po/fakeapp-6d4c445dc8-9xz66 8080
+
+# Enable port forwarding from 127.0.0.1:8080 -> 80
+kubectl port-forward po/single-container-catlb-58dcf6dd59-mswqd 8080:80
 ```
 
+### Pods, Deployments
+
 ```Shell script
-# Tag and push the image to the local registry, on OSX
-# Note, insecure registries must be enabled in Docker.
-docker tag hello host.docker.internal:5000/hello
-docker push host.docker.internal:5000/hello
+# Create a deployment which creates a pod with a single instastance:
+kubectl create deployment single-container-catlb --image mkorangestripe/loadbalancer:1.3.0
 
-# Tag and push the image to GCP
-docker tag hello-socket us.gcr.io/xxx-xx-xx/hello-socket:gp-1
-docker push us.gcr.io/xxx-xx-xx/hello-socket:gp-1
-
-# Pull from the local registry, on OSX
-docker pull host.docker.internal:5000/hello
-
-# Start a docker container, use the bridge network
-docker run -d --name hello-bridge host.docker.internal:5000/hello-socket bridge
-
-# Create a deployment.app which sets up a basic pod with a single instastance.
-kubectl create deployment --image localhost:5000/hello hello
-
-# Create a new pod described in the yaml file.
+# Create a new pod described in the yaml file:
 kubectl apply -f deploy/pod-multi.yaml
 
-# Delete the deployment
-kubectl delete deploy hello
+# Get the deployment rollout status:
+kubectl rollout status deployment/single-container-catlb-deployment
 
-# Logs for the pod
+# Delete the deployment:
+kubectl delete deployment single-container-catl
+
+# Logs for the pod:
 kubectl logs hello-7f5c49b6c6-ct86z
 kubectl logs -n zpc fakeapp-6d4c445dc8-rjps9
 kubectl logs -n zpc voyager-fakeapp-ingress-6cddc864f5-84ksf --container haproxy
 ```
 
 ```Shell script
-# Create a pod directly
+# Create or update existing pod:
 kubectl apply -f deploy/pod-args.yaml
 
-# Attach to a pod
+# Attach to a pod:
 kubectl exec -it hello bash
 kubectl exec -it -n zpc fakeapp-6d4c445dc8-rjps9 /bin/sh
 
-# Delete the pod
+# Delete the pod:
 kubectl delete po hello
 ```
 
-### helm
+### Helm
+
 ```Shell script
 # Perform syntax validation of helm chart
 helm lint hello

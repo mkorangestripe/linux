@@ -33,8 +33,9 @@ docker network rm lb2  # remove the network
 
 ### Docker images
 ```shell script
-docker pull centos  # Pull a centos image
-docker pull harbor.somedomain.io/prlb-platform/util-chefdk:latest  # Pull latest image from private registry
+docker pull centos  # pull a centos image from Docker Hub
+docker pull host.docker.internal:5000/hello  # pull from the local registry, OSX
+docker pull harbor.somedomain.io/prlb-platform/util-chefdk:latest  # pull latest image from private registry
 
 docker images  # list images
 docker image ls  # list images, new style
@@ -46,6 +47,9 @@ docker rmi 4ab4c602aa5e  # delete image with given image ID
 # Tag an image, either of the following:
 docker tag 311d49c8619b dtest1:v1
 docker image tag 311d49c8619b dtest1:v1
+
+# Tag an image with the local registry, on OSX:
+docker tag hello host.docker.internal:5000/hello
 
 # Remove image tag, but leave image if other tags for the same image exist otherwise delete image:
 docker rmi hello-socket host.docker.internal:5000/hello-socket2
@@ -123,6 +127,9 @@ docker run -d -P nginx
 
 # Run an httpd container, detached mode, specify port mapping:
 docker run -d -p 80:80 httpd
+
+# Run a docker container pulled from the local registry, OSX:
+docker run -d --name hello-bridge host.docker.internal:5000/hello-socket bridge
 ```
 
 ```shell script
