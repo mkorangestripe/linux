@@ -20,6 +20,13 @@ Seven-Layer OSI Model
 1. Physical
 ```
 
+OSI Protocol Data Units (PDU)
+* Data: layers 5 - 7
+* Segments(TCP) / Datagrams(UDP): units of data in layer 4 (Transport)
+* Packets: units of data in layer 3 (Network)
+* Frames: units of data in layer 2 (Data Link)
+* Bits: units of data in layer 1 (Physical)
+
 ```
 0.0.0.0 - represents all IP addresses
 255.255.255.255 - IP address used to broadcast to all IP addresses
@@ -48,9 +55,9 @@ Addresses (10.0.0.0 - 10.0.31.255) and (10.0.32.0 - 10.0.63.255)...
 ```
 
 Local communication on a private subnet
-* Devices send ARP requests by IP address for MAC addresses on a local network.
-* Devices reply with MAC address.
-* Packets are encapsulated inside frames and sent between devices.  Frames are added and removed along the route.
+1. Devices send ARP requests by IP address for MAC addresses on a local network.
+2. Devices reply with MAC address.
+3. Packets are encapsulated inside frames and sent between devices.  Frames are added and removed along the route.
 
 
 ```shell script
@@ -61,6 +68,13 @@ $ tcpdump "icmp or arp"
 14:06:48.271022 IP 192.168.0.15 > 192.168.0.13: ICMP echo reply, id 18985, seq 0, length 64
 14:06:49.272453 IP 192.168.0.13 > 192.168.0.15: ICMP echo request, id 18985, seq 1, length 64
 14:06:49.274113 IP 192.168.0.15 > 192.168.0.13: ICMP echo reply, id 18985, seq 1, length 64
+```
+
+TCP 3-Way Handshake
+```
+SYN=4321          | host -> server
+SYN=5501 ACK=4322 | host <- server
+ACK=5502          | host -> server
 ```
 
 Ports and Sockets
