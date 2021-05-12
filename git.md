@@ -1,19 +1,19 @@
 # Git Notes
 
 ```shell script
-git clone git@github.com:mkorangestripe/linux.git  # Clone a git repo
+git clone git@github.com:mkorangestripe/linux.git  # clone a git repo
 ```
 
 ```shell script
-git init  # Initialize a git repo
+git init  # initialize a git repo
 ```
 
 ```shell script
-git remote -v  # Show remote URL of the repo
-git remote set-url origin git@github.com:mkorangestripe/devops.git  # Update existing remote origin URL
-git remote remove origin  # Remove remote origin
-git remote add origin git@github.com:mkorangestripe/linux.git  # Add remote origin
-git config branch.master.remote origin  # For master branch, set remote origin
+git remote -v  # show remote URL of the repo
+git remote set-url origin git@github.com:mkorangestripe/devops.git  # update existing remote origin URL
+git remote remove origin  # remove remote origin
+git remote add origin git@github.com:mkorangestripe/linux.git  # add remote origin
+git config branch.master.remote origin  # for master branch, set remote origin
 git config branch.master.merge refs/heads/master
 ```
 
@@ -24,72 +24,72 @@ git config --global user.email "username@example.com"
 ```
 
 ```shell script
-git add msfile2.map  # Add file to tracking
-git add -u  # Stages modifications and deletions, without new files
+git add msfile2.map  # add file to tracking
+git add -u  # stages modifications and deletions, without new files
 ```
 
 ```shell script
-git commit msfile2.map -m "Some comment here"  # Commit changes
-git commit --allow-empty -m 'trigger build'  # Allow empty commit
+git commit msfile2.map -m "Some comment here"  # commit changes
+git commit --allow-empty -m 'trigger build'  # allow empty commit
 git commit --amend  # amend the last commit message
 ```
 
 ```shell script
-git push  # Upload commits to the remote master
-git push origin feature/PBPRB-1579  # Upload commits to the remote branch
-git push -f  # Force push
+git push  # upload commits to the remote master
+git push origin feature/PBPRB-1579  # upload commits to the remote branch
+git push -f  # force push
 ```
 
 ```shell script
-git stash  # Stash changes
-git stash pop  # Remove a single stashed state from the stash list and apply it on top
+git stash  # stash changes
+git stash pop  # remove a single stashed state from the stash list and apply it on top
 ```
 
 ```shell script
-git ls-tree HEAD  # List files in cwd being tracked under current branch
-git ls-tree HEAD -r  # List files recursively being tracked under current branch
+git ls-tree HEAD  # list files in cwd being tracked under current branch
+git ls-tree HEAD -r  # list files recursively being tracked under current branch
 ```
 
 ```shell script
-git status  # Status of changes
-git status origin feature/PBPRB-1651  # Status of the branch
+git status  # status of changes
+git status origin feature/PBPRB-1651  # status of the branch
 ```
 
 ```shell script
-git log --pretty=oneline  # One line for each change
-git log -p msfile1.map  # Commits for the given file, paged format
-git log -p -2  # Last two committed changes, paged format
+git log --pretty=oneline  # one line for each change
+git log -p msfile1.map  # commits for the given file, paged format
+git log -p -2  # last two committed changes, paged format
 
-git show fc8334d9  # Show changes in the commit
-git show fc8334d9 --name-only  # Show commit info and files names only
-git diff 13a9608  # Diff between given commit and latest commit on current branch
-git diff a1699b4 fc8334d9  # Changes the 2nd commit makes to the 1st
+git show fc8334d9  # show changes in the commit
+git show fc8334d9 --name-only  # show commit info and files names only
+git diff 13a9608  # diff between given commit and latest commit on current branch
+git diff a1699b4 fc8334d9  # changes the 2nd commit makes to the 1st
 ```
 
 ```shell script
-git clean -f  # Remove untracked files
+git clean -f  # remove untracked files
 ```
 
 ```shell script
-git checkout nothing.txt  # Discard changes to nothing.txt
-git checkout c4ec54c7863 cleversafe_account_deleter.py  # Checkout the given file version
-git checkout .  # Discard changes to all files in the directory
+git checkout nothing.txt  # discard changes to nothing.txt
+git checkout c4ec54c7863 cleversafe_account_deleter.py  # checkout the given file version
+git checkout .  # discard changes to all files in the directory
 
-git revert 9cc3be0  # Revert the commit
+git revert 9cc3be0  # revert the commit
 ```
 
 ```shell script
-git rm nothing.txt  # Remove the file nothing.txt from tracking
-git mv file1.txt bin/file2.txt  # Move/rename file1.txt
+git rm nothing.txt  # remove the file nothing.txt from tracking
+git mv file1.txt bin/file2.txt  # move/rename file1.txt
 ```
 
 ```shell script
-# Add more changes to the previous commit, or change the commit message
+# Add more changes to the previous commit, or change the commit message:
 git reset --soft HEAD~
 ```
 
 ```shell script
-# Disregard local changes and reset
+# Disregard local changes and reset:
 git fetch origin
 git reset --hard origin/master
 git pull
@@ -98,23 +98,23 @@ git pull
 ### Branches
 
 ```shell script
-git branch  # Lists existing branches
-git branch -a  # Lists existing branches including remote branches
-git branch -vv  # Show the last commit message for each branch
-git branch -m feature/PBPRB-1579  # Rename the current branch
-git branch -d feature/test  # Delete the branch
+git branch  # lists existing branches
+git branch -a  # lists existing branches including remote branches
+git branch -vv  # show the last commit message for each branch
+git branch -m feature/PBPRB-1579  # rename the current branch
+git branch -d feature/test  # delete the branch
 
-git checkout PBPRB-1579  # Checkout and switch to the new branch based
-git checkout master  # Switch to master
-git checkout -b PBPRB-1651  # Create and switch to the new branch based on current branch
-git checkout -b feature/PBPRB-1568 develop  # Create new branch based on develop
+git checkout PBPRB-1579  # checkout and switch to the new branch based
+git checkout master  # switch to master
+git checkout -b PBPRB-1651  # create and switch to the new branch based on current branch
+git checkout -b feature/PBPRB-1568 develop  # create new branch based on develop
 
-git push --set-upstream origin ping-scan-classes  # Push the current branch and set the remote as upstream
+git push --set-upstream origin ping-scan-classes  # push the current branch and set the remote as upstream
 
 git pull  # git fetch followed by git merge FETCH_HEAD
-git pull origin feature/PBPRB-1579  # Merge updates from the remote branch into the local branch
+git pull origin feature/PBPRB-1579  # merge updates from the remote branch into the local branch
 
-git merge feature/PBPRB-1651  # Merge the branch into the current branch
+git merge feature/PBPRB-1651  # merge the branch into the current branch
 ```
 
 ```shell script
