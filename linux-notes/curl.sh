@@ -53,5 +53,6 @@ openssl enc -base64 -bf -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
 
 
 # Misc
+
 # List memcached stats on memcached server:
 echo stats | nc server1 11211
