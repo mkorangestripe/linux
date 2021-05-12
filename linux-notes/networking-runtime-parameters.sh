@@ -1,8 +1,5 @@
-# Kernel runtime parameters
+# Packet forwarding
 
-### Packet forwarding
-
-```shell script
 # Enable packet forwarding (non-persistent):
 echo 1 > /proc/sys/net/ipv4/ip_forward
 /etc/sysctl.conf  # net.ipv4.ip_forward = 1
@@ -10,10 +7,10 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 # Enable packet forwarding using sysctl (persistent):
 sysctl -w net.ipv4.ip_forward=1  # sets ip_forward to 1
 sysctl net.ipv4.ip_forward  # shows current ip_forward value
-```
 
-### ICMP, ping
-```shell script
+
+# ICMP, ping
+
 # Drop icmp echo requests (pings), results in “Request timed out”:
 echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
 /etc/sysctl.conf  # icmp_echo_ignore_all = 1
@@ -21,11 +18,10 @@ echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
 # Return icmp echo broadcast requests:
 echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
 /etc/sysctl.conf  # icmp_echo_ignore_all = 0
-```
 
-### Connection tracking
 
-```shell script
+# Connection tracking
+
 # Enable Connection Tracking, either of the following:
 echo 1 > /proc/sys/net/netfilter/nf_conntrack_acct
 sysctl -w net.netfilter.nf_conntrack_acct=1
@@ -44,8 +40,8 @@ echo 32768 > /sys/module/nf_conntrack/parameters/hashsize
 # Show the current used connections, either of the following:
 cat /proc/sys/net/netfilter/nf_conntrack_count
 sysctl net.netfilter.nf_conntrack_count
-```
 
-```shell script
+
+# Sysctl
+
 sysctl -p  # reread sysctl.conf, use after manually editing a file
-```
