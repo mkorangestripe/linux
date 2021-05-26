@@ -54,6 +54,8 @@ Subnets (10.0.0.0/18 and 10.0.64.0/18) and (10.0.128.0/18 and 10.0.192.0/18)
 Addresses (10.0.0.0 - 10.0.31.255) and (10.0.32.0 - 10.0.63.255)...
 ```
 
+* Subnetting ensures that traffic between hosts within a subnet stays in that subnet which minimizes congestion.
+
 Local communication on a private subnet
 1. Devices send ARP requests by IP address for MAC addresses on a local network.
 2. Devices reply with MAC address.
@@ -76,6 +78,10 @@ SYN=4321          | host -> server
 SYN=5501 ACK=4322 | host <- server
 ACK=5502          | host -> server
 ```
+
+Duplex
+* Full duplex (FDX): traffic can move in both directions simultaneously.
+* Half duplex (HDX): traffic can only move in one direction at a time.
 
 Ports and Sockets
 
