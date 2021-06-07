@@ -53,6 +53,9 @@ gpk-prefs - GNOME PackageKit Update Preferences
 
 ### APT
 ```shell script
+apt list --installed  # list installed packages
+dpkg -l  # list installed packages
+
 apt-get clean  # remove deb files from /var/cache/apt/archives
 apt-get autoclean  # remove obsolete deb files from /var/cache/apt/archives
 apt-get autoremove  # remove unneeded deb files from /var/cache/apt/archives installed as dependencies
