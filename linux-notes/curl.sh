@@ -37,14 +37,6 @@ curl -H 'HOST: ordersummary-dev.esri.com' server1.domain.com:7775
 # Allow insecure server connections when using SSL:
 curl -k https://fake.fakeapp-0be7676-6.zpc-sandbox.zebra.com/fake/
 
-# Find the expiration date, etc of a cert:
-openssl x509 -text -noout -in wildcard.domain.net.crt
-
-# Get the intermediate cert, example:
-openssl x509 -text -noout -in wildcard.domain.net.crt | grep "CA Issuers"
-wget http://SVRSecure-G3-aia.verisign.com/SVRSecureG3.cer
-openssl x509 -inform DER -outform PEM -in SVRSecureG3.cer -out verisign_g3.crt
-
 # Encrypt/decrypt a password with a key:
 echo "p@sswd123" > passwd.txt
 echo "redgreenblue" | base64 > key.txt
