@@ -51,10 +51,17 @@ yum-complete-transaction --cleanup-only  # attempt to complete failed transactio
 gpk-prefs - GNOME PackageKit Update Preferences
 ```
 
-### APT
+### APT, dpkg
 ```shell script
 apt list --installed  # list installed packages
 dpkg -l  # list installed packages
+
+apt install wget  # install wget
+dpkg -i wget.deb  # install wget
+
+apt remove wget  # remove wget
+dpkg -r wget  # remove wget
+dpkg -P wget  # purge - remove package and config files
 
 apt-get clean  # remove deb files from /var/cache/apt/archives
 apt-get autoclean  # remove obsolete deb files from /var/cache/apt/archives
