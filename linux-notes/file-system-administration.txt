@@ -156,6 +156,8 @@ When using rm -rf type rm, then the directory, then -rf.  This is to avoid remov
 rm /var/logs/nada/ -rf
 
 strings /dev/sdb | less  (search for strings in raw disk space)
+
+dd if=/dev/zero of=localhost_access_log.txt bs=1024 count=33000  (create a 33M file)
 badblocks -c 10240 -s -w -t random -v /dev/sdb1  (write random data to /dev/sdb1)
 shred -u nothing.log  (overwrite and remove nothing.log)
 
