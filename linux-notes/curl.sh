@@ -1,6 +1,5 @@
-# HTTP requests
-
-curl -I www.redhat.com  # Fetch the headers only
+# Fetch the headers only:
+curl -I www.redhat.com
 
 # GET request - status codes and locations:
 curl -svL redhat.com 2>&1 | egrep '^< HTTP|^< Location'
@@ -31,20 +30,5 @@ localhost\r\nConnection: Close\r\nUser-Agent: netcat\r\n\r\n" | nc server1 8080
 # Connect to a specific node:
 curl -H 'HOST: ordersummary-dev.esri.com' server1.domain.com:7775
 
-
-# Certificates, Encryption
-
 # Allow insecure server connections when using SSL:
 curl -k https://fake.fakeapp-0be7676-6.zpc-sandbox.zebra.com/fake/
-
-# Encrypt/decrypt a password with a key:
-echo "p@sswd123" > passwd.txt
-echo "redgreenblue" | base64 > key.txt
-openssl enc -base64 -bf -in passwd.txt -out passwd_encrypted.txt -kfile key.txt
-openssl enc -base64 -bf -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
-
-
-# Misc
-
-# List memcached stats on memcached server:
-echo stats | nc server1 11211

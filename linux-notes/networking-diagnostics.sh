@@ -93,6 +93,9 @@ nc -l 5900  # listen on port 5900
 tail -f /var/tmp/nclog | nc blackbox 5900  # tail nclog and send to blackbox on 5900
 
 
+# List memcached stats on memcached server:
+echo stats | nc server1 11211
+
 # snmp, get proc and mem info:
 snmpwalk -c <public> -v 2c 192.168.1.112 proc
 snmpwalk -c <public> -v 2c 192.168.1.112 mem
