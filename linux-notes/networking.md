@@ -79,6 +79,23 @@ SYN=5501 ACK=4322 | host <- server
 ACK=5502          | host -> server
 ```
 
+```shell script
+# TCP 3-way handshake and termination, the output is trimmed to what's relevant:
+tcpdump host google.com
+
+192.168.1.6.61976 > den16s08-in-f14.1e100.net.http: Flags [S], seq 2891417253, win 65535
+den16s08-in-f14.1e100.net.http > 192.168.1.6.61976: Flags [S.], seq 3848443320, ack 2891417254, win 65535
+192.168.1.6.61976 > den16s08-in-f14.1e100.net.http: Flags [.], ack 1, win 2060
+192.168.1.6.61976 > den16s08-in-f14.1e100.net.http: Flags [F.], seq 1, ack 1, win 2060
+den16s08-in-f14.1e100.net.http > 192.168.1.6.61976: Flags [F.], seq 1, ack 2, win 256
+192.168.1.6.61976 > den16s08-in-f14.1e100.net.http: Flags [.], ack 2, win 2060
+
+# To establish the connection above, run either of the following:
+nc -zv google.com 80
+nc -v -w 1 google.com 80
+```
+
+
 Duplex
 * Full duplex (FDX): traffic can move in both directions simultaneously.
 * Half duplex (HDX): traffic can only move in one direction at a time.

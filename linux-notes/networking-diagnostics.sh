@@ -65,6 +65,9 @@ tcpdump -r capture.cap | less
 # Listen to traffic for host on port 80.  Don’t resolve hostname or port:
 tcpdump -nni eth0 host 10.48.116.28 and port 80
 
+# Listen for tcp-syn, and all ack packets:
+tcpdump "tcp[tcpflags] & (tcp-syn|tcp-ack) != 0"
+
 
 # Port scan:
 
