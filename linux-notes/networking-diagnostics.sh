@@ -71,14 +71,20 @@ tcpdump "tcp[tcpflags] & (tcp-syn|tcp-ack) != 0"
 
 # Port scan:
 
+nmap -sS -p 53 8.8.8.8  # scan SYN port 53, after the syn-ack is received, a rst packet is sent
+nmap -sA -p 53 8.8.8.8  # scan ACK port 53, useful for finding filtered ports
+
 nmap centoskvm1  # scan for any open ports on centoskvm1
+nc -zv google.com 80  # scan port 80
+nc -z -w 1 centoskvm1 20-640  # scan ports 20-640
+nc -v -i 1 server1 2049  # scan port 2049 (ncat version)
+nc -zu centoskvm1 514  # scan udp port 514
+
 nc centoskvm1 22  # connect to port 22 if open on centoskvm1
+telnet centoskvm1 22  # connect to port 22 if open on centoskvm1
+
 curl centoskvm1:22  # connect to port 22 and print message from daemon
 curl -v centoskvm1:22  # same as above but verbose
-telnet centoskvm1 22  # connect to port 22 if open on centoskvm1
-nc -z -w 1 centoskvm1 20-640  # scan ports 20-640
-nc -v -i 1 server1 2049  # ncat, scan port 2049
-nc -zu centoskvm1 514  # scan udp port 514
 
 # Check a broader range and filter for succeeded connections:
 for OCTET3 in `seq 1 255`; do for OCTET4 in `seq 1 255`; do echo $OCTET3 $OCTET4; nc -z -w 1 24.118.$OCTET3.$OCTET4 2222; done; done | tee port2222.txt | grep succeeded
