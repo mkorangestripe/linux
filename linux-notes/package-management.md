@@ -93,6 +93,24 @@ brew install --cask docker  # install docker desktop
 xcode-select --install  # update Xcode CommandLineTools on OSX
 ```
 
+### Pip
+
+```shell script
+pip list  # list packages installed by pip
+pip list --outdated  # list outdated and current versions
+pip list --uptodate  # list up to date packages
+pip list --editable  # list editable projects
+pip list --local  # use when in virtualenv to exclude global packages
+pip freeze  # list packages in "requirements format"
+pip show ipython  # show info about the ipython package
+pip search ipython  # search for ipython packages
+pip install ipython  # install ipython
+pip install --user ipython  # install ipython in user directory
+pip install --upgrade ipython  # upgrade ipython
+pip install --upgrade --force-reinstall ipython  # upgrade or force-reinstall current version
+pip uninstall ipython  # uninstall ipython
+pip install -r requirements.txt  # install required packages
+```
 
 ### Yum repo files
 ```
