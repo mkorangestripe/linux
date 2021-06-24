@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Bash history
 !! # executes last command in history
 !58 # executes 58th command in history
