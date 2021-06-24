@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Packet forwarding
 
 # Enable packet forwarding (non-persistent):

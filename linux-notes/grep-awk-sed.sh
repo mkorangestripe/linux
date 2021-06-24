@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ps -e | awk '/firefox/ {print $1}' # print the PID of firefox
 awk -F: '{print $1}' /etc/passwd # print 1st column in /etc/passwd
 cut -d: -f 1-4 /etc/passwd # prints 1st - 4th columns in /etc/passwd

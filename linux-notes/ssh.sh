@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # In the examples below 10.0.0.1 is a firewall that is forwarding port 22 to a host in the network.
 
 # Setup port forwarding to 192.168.1.112 through 10.0.0.1:

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Fetch the headers only:
 curl -I www.redhat.com
 

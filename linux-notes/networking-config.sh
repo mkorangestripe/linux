@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Enable/disable networking:
 /etc/sysconfig/network:
 NETWORKING=yes

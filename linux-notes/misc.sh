@@ -1,3 +1,5 @@
+#!/bin/bash
+
 screen -S green1  # start screen session green1
 screen -ls  # list screen sessions
 screen -d  # detach from current screen

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Find files
 
 # The exec option needs an argument to terminate itself and because the semicolon is also a Bash token...

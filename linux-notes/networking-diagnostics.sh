@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Arp displays a table of IP addresses or hostnames with HW addresses.
 # This can be helpful in identifying duplicate HW addresses.
 cat /proc/net/arp  # print IP addresses and HW addresses

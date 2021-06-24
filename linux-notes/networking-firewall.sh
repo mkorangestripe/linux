@@ -1,4 +1,4 @@
-# iptables firewall
+#!/bin/bash
 
 iptables  # -L (list rules) -S (print rules) -F (flush rules)
 /etc/init.d/iptables status  # similar output as iptables -L

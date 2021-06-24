@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # cron
 # minute, hour, day or month, month, day of week
 /etc/crontab  # just contains the format for crontab entries

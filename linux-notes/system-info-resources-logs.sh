@@ -1,4 +1,4 @@
-# System Info, Resources, Logs
+#!/bin/bash
 
 cat /etc/*release  # Linux distribution info
 lsb_release -d  # Linux distribution info
