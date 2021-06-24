@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Find files
-
 # The exec option needs an argument to terminate itself and because the semicolon is also a Bash token...
 # Bash will evaluate the semicolon unless the semicolon is escaped with a backslash.
 find . -type f -exec ls {} \;
