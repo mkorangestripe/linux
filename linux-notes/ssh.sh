@@ -38,7 +38,9 @@ exec /usr/bin/ssh-agent $SHELL
 ssh-add
 
 # Enforce the key-based authentication:
+# Either of following depending on the system.
 # /etc/ssh/ssh_config --> PasswordAuthentication no
+# /etc/ssh/sshd_config --> PasswordAuthentication no
 
 
 # Disable pseudo tty allocation, commands can still be executed:
