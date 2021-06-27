@@ -128,7 +128,6 @@ baseurl=ftp://192.168.122.1/pub/os
 exclude=kernel* mdadm  # exclude all kernel packages and mdadm from updates
 
 
-
 # Remote host updates with Yum
 
 # Update just 192.168.0.11:
@@ -139,7 +138,6 @@ cat ~/.VMhostlist.txt | xargs -P2 -I HOST ssh -tt HOST sudo yum -y update
 
 # Update all VMs in the space delimited VMHL variable:
 echo $VMHL | xargs -n 1 | xargs -P 2 -I HOST ssh -tt HOST sudo yum -y update
-
 
 
 # Create an RPM package
@@ -156,7 +154,6 @@ rpmdev-newspec SPECS/testscript.spec  # edit this file as needed
 rpmbuild -bb -v SPECS/testscript.spec  # build a binary package
 
 
-
 # Spacewalk
 
 # Spacewalk user config file:
@@ -169,7 +166,6 @@ password=xxxxx
 spacecmd -q group_list
 spacecmd -q group_listsystems gc-mst-e1
 spacecmd -q system_list
-
 
 
 # Alternatives
