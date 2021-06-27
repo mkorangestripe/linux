@@ -49,7 +49,6 @@ yum-complete-transaction --cleanup-only  # attempt to complete failed transactio
 gpk-prefs - GNOME PackageKit Update Preferences
 
 
-
 # APT, dpkg
 
 apt list --installed  # list installed packages
@@ -68,7 +67,6 @@ apt-get autoremove  # remove unneeded deb files from /var/cache/apt/archives ins
 
 sudo apt update && sudo apt -y dist-upgrade  # update and dist-upgrade the localhost
 sudo sh -c “apt update && apt -y dist-upgrade”  # same as above but useful when sudo permission may timeout
-
 
 
 # Homebrew on macOS
@@ -91,7 +89,6 @@ brew search --cask docker  # search for docker cask packages
 brew install --cask docker  # install docker desktop
 
 xcode-select --install  # update Xcode CommandLineTools on OSX
-
 
 
 # Pip
