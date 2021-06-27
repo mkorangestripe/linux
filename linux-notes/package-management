@@ -1,7 +1,6 @@
-# Package Management
+#!/bin/bash
 
-### RPM
-```shell script
+# RPM
 rpm -ihv  <package>  # standard verbose install command, use for kernel updates
 rpm -uhv <package>  # same as -ihv but removes other versions of the package
 rpm -ihv ftp://ftp.redhat.com/<rpm>  # install from an ftp server
@@ -19,10 +18,9 @@ rpm --rebuilddb  # rebuild rpm database(s) in /var/lib/rpm
 rpm --verify -p <package>
 rpm --verify --file <filename>
 rpm -Va  # verify all packages, beware of changes in binaries
-```
 
-### Yum
-```shell script
+
+# Yum
 yum list  # all, installed, available, updates, extras
 yum list nmap  # shows packages for nmap
 yum info nmap  # shows more detailed info of packages for nmap
@@ -49,10 +47,11 @@ yum history redo last  # redo last transaction
 yum history undo last  # undo last transaction
 yum-complete-transaction --cleanup-only  # attempt to complete failed transactions, journal files only
 gpk-prefs - GNOME PackageKit Update Preferences
-```
 
-### APT, dpkg
-```shell script
+
+
+# APT, dpkg
+
 apt list --installed  # list installed packages
 dpkg -l  # list installed packages
 
@@ -69,10 +68,11 @@ apt-get autoremove  # remove unneeded deb files from /var/cache/apt/archives ins
 
 sudo apt update && sudo apt -y dist-upgrade  # update and dist-upgrade the localhost
 sudo sh -c “apt update && apt -y dist-upgrade”  # same as above but useful when sudo permission may timeout
-```
 
-### Homebrew on macOS
-```shell script
+
+
+# Homebrew on macOS
+
 brew tap  # list repositories
 brew update  # update the formulae and Homebrew itself
 brew outdated  # show outdated with current / available versions
@@ -91,11 +91,11 @@ brew search --cask docker  # search for docker cask packages
 brew install --cask docker  # install docker desktop
 
 xcode-select --install  # update Xcode CommandLineTools on OSX
-```
 
-### Pip
 
-```shell script
+
+# Pip
+
 pip list  # list packages installed by pip
 pip list --outdated  # list outdated and current versions
 pip list --uptodate  # list up to date packages
@@ -110,10 +110,11 @@ pip install --upgrade ipython  # upgrade ipython
 pip install --upgrade --force-reinstall ipython  # upgrade or force-reinstall current version
 pip uninstall ipython  # uninstall ipython
 pip install -r requirements.txt  # install required packages
-```
 
-### Yum repo files
-```
+
+
+# Yum repo files
+
 man yum.conf  # the repository options section has a simple example
 
 /etc/yum.repos.d/CentOS-Base.repo:
@@ -128,12 +129,11 @@ baseurl=ftp://192.168.122.1/pub/os
 
 /etc/yum.conf:
 exclude=kernel* mdadm  # exclude all kernel packages and mdadm from updates
-```
 
 
-### Remote host updates with Yum
 
-```shell script
+# Remote host updates with Yum
+
 # Update just 192.168.0.11:
 ssh -t 192.168.0.11 sudo yum -y update
 
@@ -142,11 +142,11 @@ cat ~/.VMhostlist.txt | xargs -P2 -I HOST ssh -tt HOST sudo yum -y update
 
 # Update all VMs in the space delimited VMHL variable:
 echo $VMHL | xargs -n 1 | xargs -P 2 -I HOST ssh -tt HOST sudo yum -y update
-```
 
 
-### Create an RPM package
-```shell script
+
+# Create an RPM package
+
 # http://www.oracle-base.com/articles/linux/linux-build-simple-rpm-packages.php
 yum groupinstall "Development tools"  # this provides gcc, and others
 yum install rpm-build rpmdevtools  # install build tools
@@ -157,12 +157,11 @@ echo "echo \"This is a test\"" > testscript-1.0/testscript.sh
 tar cvzf SOURCES/testscript-1.0.tar.gz testscript-1.0
 rpmdev-newspec SPECS/testscript.spec  # edit this file as needed
 rpmbuild -bb -v SPECS/testscript.spec  # build a binary package
-```
 
 
-### Spacewalk
 
-```shell script
+# Spacewalk
+
 # Spacewalk user config file:
 ~/.spacecmd/config
 [spacecmd]
@@ -173,12 +172,11 @@ password=xxxxx
 spacecmd -q group_list
 spacecmd -q group_listsystems gc-mst-e1
 spacecmd -q system_list
-```
 
 
-### Alternatives
 
-```shell script
+# Alternatives
+
 # Set a specific version of java as the system default:
 alternatives --install /usr/bin/java java /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.45-28.b13.el6_6.x86_64/jre/bin/java 1
 alternatives --config java
@@ -187,4 +185,3 @@ alternatives --config java
 update-alternatives --get-selections
 # Change default editor:
 update-alternatives --config editor
-```
