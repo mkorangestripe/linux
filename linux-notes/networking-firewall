@@ -1,33 +1,37 @@
 #!/bin/bash
 
-iptables  # -L (list rules) -S (print rules) -F (flush rules)
+iptables -L  # list rules
+iptables -S  # print rules
+iptables -F  # flush rules
+
 /etc/init.d/iptables status  # similar output as iptables -L
-/etc/init.d/iptables restart  # restarts and put rules in effect
+/etc/init.d/iptables restart  # restart and put rules into effect
+
 /etc/sysconfig/iptables  # contains firewall rules
-system-config-firewall-tui
+system-config-firewall-tui  # text-based UI for setting firewall rules
 
 # Reject all network traffic from the specified network:
--A INPUT -s 192.168.110.0/24 -j REJECT
+iptables -A INPUT -s 192.168.110.0/24 -j REJECT
 
 # Delete the reject rule:
--D INPUT -s 192.168.110.0/24 -j REJECT
+iptables -D INPUT -s 192.168.110.0/24 -j REJECT
 
 # Drop icmp echo requests (pings).  Results in “Request timed out”
--A INPUT -p icmp --icmp-type echo-request -j DROP
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
 
 # Reject icmp echo requests (pings). Results in “Destination port unreachable”
--A INPUT -p icmp --icmp-type echo-request -j REJECT
+iptables -A INPUT -p icmp --icmp-type echo-request -j REJECT
 
 # Reject icmp echo requests (pings).  Results in “Destination host unreachable”
--A INPUT -p icmp --icmp-type echo-request -j REJECT --reject-with icmp-host-prohibited
+iptables -A INPUT -p icmp --icmp-type echo-request -j REJECT --reject-with icmp-host-prohibited
 
 # Drop icmp echo replies:
--A INPUT -p icmp --icmp-type echo-reply -j DROP
+iptables -A INPUT -p icmp --icmp-type echo-reply -j DROP
 
 # Stop packet forwarding:
--A FORWARD -j DROP
+iptables -A FORWARD -j DROP
 
-# Open port 80 (on RHEL 7):
+# Open port 80:
 firewall-cmd --zone=public --add-port=80/tcp --permanent
 firewall-cmd --reload
 iptables-save | grep 80
@@ -45,7 +49,7 @@ iptables -A FORWARD -o eth0 -j ACCEPT
 iptables -A FORWARD -i eth0 -m state --state NEW -m tcp -p tcp -d 192.168.0.12 --dport 80 -j ACCEPT
 
 # Enable port forwarding from port 22 to 13579:
-## System-config-firewall > Port Forwarding
+## system-config-firewall > Port Forwarding
 ## The following rules will be added:
 -A PREROUTING -i eth0 -p tcp --dport 22 -j MARK --set-mark 0x64
 -A PREROUTING -i eth0 -p tcp --dport 22 -m mark --mark 0x64 -j DNAT --to-destination :13579
