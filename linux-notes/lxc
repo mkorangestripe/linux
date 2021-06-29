@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# Install lxc/lxd on Redhat:
-# https://computingforgeeks.com/how-to-deploy-lxd-on-centos-7-with-snap/
-# https://discuss.linuxcontainers.org/t/lxd-on-centos-7/1250
-
-# Install lxc/lxd on Ubuntu:
-apt install lxd lxd-client
-
-
 # Initialize lxd:
 lxd init
 
