@@ -1,6 +1,5 @@
-# Terraform Notes
+#!/bin/bash
 
-```shell script
 terrform fmt  # autoformat terraform scripts
 terraform validate  # check and report errors in config
 terraform console  # terraform cli
@@ -17,4 +16,3 @@ terraform apply --parallelism=2 tf.plan  # apply changes, limit parallelism, use
 
 terraform show  # show state
 terraform destroy  # terminate resources defined in Terraform configuration
-```
