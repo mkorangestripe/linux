@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# runlevels (rhel 6):
-# Boot into a specific runlevel from the kernel line in the grub menu,
-# delete rhgb quiet (if desired), and append one of the following.
+# Nonstandard runlevels (rhel 6):
+# From the kernel line in the grub menu delete rhgb quiet (if desired), and append one of the following.
 
 init=/bin/sh
 # / is mounted (ro) although mount reports (rw)
