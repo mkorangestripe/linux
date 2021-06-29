@@ -89,10 +89,15 @@ curl centoskvm1:22  # connect to port 22 and print message from daemon
 curl -v centoskvm1:22  # same as above but verbose
 
 # Check a broader range and filter for succeeded connections:
-for OCTET3 in `seq 1 255`; do for OCTET4 in `seq 1 255`; do echo $OCTET3 $OCTET4; nc -z -w 1 24.118.$OCTET3.$OCTET4 2222; done; done | tee port2222.txt | grep succeeded
+for OCTET3 in `seq 1 255`; do
+    for OCTET4 in `seq 1 255`; do
+        echo $OCTET3 $OCTET4
+        nc -zv -w 1 192.168.$OCTET3.$OCTET4 80
+    done
+done 2>&1 | tee port80.txt | grep succeeded
 
 # In a second terminal, check the progress:
-tail -f port2222.txt
+tail -f port80.txt
 
 
 # Transfer a file with netcat:
