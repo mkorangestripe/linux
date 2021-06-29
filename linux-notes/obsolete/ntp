@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# NTP server setup
+
+# /etc/ntp.conf:
+restrict default kod nomodify notrap  # remove nopeer
+restrict 192.168.0.0 mask 255.255.255.0 notrap nomodify  # allow ntp clients access
+# Uncomment the existing or add server lines.
+
+# Open UDP port 123
+
+
+# NTP client setup
+
+# /etc/ntp.conf:
+server 192.168.0.12
+
+service ntpd restart
+
+# Another option:
+service ntpd stop; chkconfig ntpd off
+/etc/ntp/step-tickers  # add ip or hostname of the ntp server
+service ntpdate start; chkconfig ntpdate on
+
+ntpq -p localhost  # test NTP servers in /etc/ntp.conf
+ntpq -p <remote ip addr>  # test remote ntp server

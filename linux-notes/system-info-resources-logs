@@ -27,9 +27,9 @@ prtconf | grep Mem  # installed memory on Solaris
 free  -m  # memory info in MB
 vmstat  # Report virtual memory statistics
 
-top  # realtime display of load, cpu, mem, and swap usag# 
-top -n 1 -b  # 1 iteration, batch mode, useful for outputting to other program# 
-prstat -Z  # realtime display of process statistics including zones - Solari# 
+top  # realtime display of load, cpu, mem, and swap usage
+top -n 1 -b  # 1 iteration, batch mode, useful for outputting to other programs
+prstat -Z  # realtime display of process statistics including zones - Solaris
 
 ps aux  # all processes, %CPU, %MEM
 ps eux  # all processes, %CPU, %MEM, environment variables
@@ -128,6 +128,14 @@ w | head -1
 # During the last 5 minutes, the CPU was idling 40% of the time on average.
 # During the last 15 minutes, the system was overloaded 698% on average (7.98 runnable processes, so that 6.98 processes had to wait for a turn for a single CPU system on average).
 
+# Memory page:
+# A fixed-length contiguous block of virtual memory, 
+# the smallest unit of data for memory allocation and 
+# the transfer between main memory and any other auxiliary store.
+
+
+# SAR
+
 /etc/cron.d/sysstat  # runs the following scripts which output to /var/log/sa/
 /usr/lib64/sa/sa1 1 1  # writes every 10 minutes to the daily saDD file
 /usr/lib64/sa/sa2 -A  # writes daily reports by processing the binary saDD files into text sarDD files at 23:53
@@ -164,6 +172,9 @@ sadf -s 02:00:00 -e 03:00:00 /var/log/sa/sa10 > activity10.txt
 /etc/cron.d/sysstat
 0 2 * * * root /usr/lib64/sa/sa2 -A
 
+
+# System messages
+
 /var/log/messages  # system diagnostic messages from current date
 /var/adm/messages  # system diagnostic messages from current date on Solaris
 dmesg  # system diagnostic messages on Solaris
@@ -177,18 +188,15 @@ less +F /var/log/system.log  # follow mode, like tail -f
 # Log to the syslog (/var/log/messages) with tag "catalina-logrotate":
 logger -t catalina-logrotate "ALERT exited abnormally with [$EXITVALUE]"
 
-# Memory page:
-# A fixed-length contiguous block of virtual memory, 
-# the smallest unit of data for memory allocation and 
-# the transfer between main memory and any other auxiliary store.
 
 # Logrotate:
-# /etc/cron.d/0hourly includes /etc/cron.hourly/
-# /etc/cron.hourly/0anacron runs /usr/sbin/anacron -s
-# /etc/anacrontab includes /etc/cron.daily/
-# /etc/cron.daily/logrotate runs (/usr/sbin/logrotate /etc/logrotate.conf)
-# /etc/logrotate.conf includes /etc/logrotate.d/
-# /etc/logrotate.d/ contains conf files for individual apps.
+
+/etc/cron.d/0hourly  # includes /etc/cron.hourly/
+/etc/cron.hourly/0anacron  # runs /usr/sbin/anacron -s
+/etc/anacrontab  # includes /etc/cron.daily/
+/etc/cron.daily/logrotate  # runs '/usr/sbin/logrotate /etc/logrotate.conf'
+/etc/logrotate.conf  # includes /etc/logrotate.d/
+/etc/logrotate.d/  # contains conf files for individual apps
 
 # Status of log rotation.  If zero bytes or too large, logrotate may fail.
 /var/lib/logrotate.status
@@ -211,8 +219,11 @@ logrotate -fv
 }
 
 
-# Remote system logging - server setup - udp data from only 192.168.0.11
-# ------------------------------
+# Rsyslog
+
+# Server setup:
+# udp data from only 192.168.0.11
+
 # /etc/rsyslog.conf (uncomment the following lines for UDP)
 $ModLoad imtcp
 $InputTCPServerRun 514
@@ -226,8 +237,9 @@ $InputTCPServerRun 514
 
 tail -f /var/log/messages  # watch for entries from the client
 
-# Remote system logging - Client Setup - send udp data, info level, to 192.168.0.12
-# ------------------------------
+# Client Setup:
+# send udp data, info level, to 192.168.0.12
+
 # /etc/rsyslog.conf  (uncomment the following lines, edit the last line as needed)
 $WorkDirectory /var/lib/rsyslog # where to place spool files
 $ActionQueueFileName fwdRule1 # unique name prefix for spool files
@@ -240,30 +252,7 @@ $ActionResumeRetryCount -1    # infinite retries if host is down
 /etc/init.d/rsyslog restart
 
 
-# NTP server setup:
-# ------------------------------
-# /etc/ntp.conf (something like the following)
-restrict default kod nomodify notrap  # remove nopeer
-restrict 192.168.0.0 mask 255.255.255.0 notrap nomodify  # allow ntp clients access
-# Uncomment the existing or add server lines.
-
-# Open UDP port 123
-
-# NTP Client setup:
-# ------------------------------
-# /etc/ntp.conf:
-server 192.168.0.12
-
-service ntpd restart
-
-# Another option:
-service ntpd stop; chkconfig ntpd off
-# /etc/ntp/step-tickers  (add the ip or hostname of the ntp server)
-service ntpdate start; chkconfig ntpdate on
-
-ntpq -p localhost  # test NTP servers in /etc/ntp.conf
-ntpq -p <remote ip addr>  # test remote ntp server
-
+# Date
 
 # Set local time to Central:
 unlink /etc/localtime
