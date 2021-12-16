@@ -68,6 +68,9 @@ apt-get autoremove  # remove unneeded deb files from /var/cache/apt/archives ins
 sudo apt update && sudo apt -y dist-upgrade  # update and dist-upgrade the localhost
 sudo sh -c “apt update && apt -y dist-upgrade”  # same as above but useful when sudo permission may timeout
 
+# An alias for the above update commands:
+UPD_CMD='"apt update && apt -y dist-upgrade"'
+alias upd="echo $UPD_CMD; sudo sh -c $UPD_CMD"
 
 # Homebrew on macOS
 
