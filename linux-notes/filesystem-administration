@@ -144,8 +144,8 @@ base64 -d encoded.txt → green, yellow, bright orange
 # Encrypt/decrypt a password with a key:
 echo "p@sswd123" > passwd.txt
 echo "redgreenblue" | base64 > key.txt
-openssl enc -base64 -bf -in passwd.txt -out passwd_encrypted.txt -kfile key.txt
-openssl enc -base64 -bf -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
+openssl enc -base64 -aes256 -in passwd.txt -out passwd_encrypted.txt -kfile key.txt
+openssl enc -base64 -aes256 -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
 
 fold -w76  # wrap each line to be 76 characters
 
