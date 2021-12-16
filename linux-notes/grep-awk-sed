@@ -114,11 +114,21 @@ grep 'node\|env' # matches node or env
 echo cardinal.xml.13 | egrep '\.xml\.[0-9]+' # cardinal.xml.13
 echo cardinal-xml.13 | egrep '\.xml\.[0-9]+' # no match
 
+# Regex
+# ^ line starts with
+# $ line ends with
 # ? Zero or one occurrences of the preceding element
 # * Zero or more occurrences of the preceding element
 # + One or more occurrences of the preceding element
-# . Any single character
+# . Any single character except for line terminators
 # .* Zero or more characters
+# .? The previous token between zero and unlimited times, as few times as possible
+# {1,2} The previous token between 1 and 2 times, as many times as possible
+
+# Match up to and including the first v2, simpler variations also work:
+^(.*?/v\d{1,2}).*?
+https://somedomain.com/api/Online/Users/v2/Users/137769/Applications/v2
+https://somedomain.com/api/Online/Users/v2
 
 # Alternative formats, useful for keeping the pattern at the end of the line:
 cat flora.txt | grep maple
