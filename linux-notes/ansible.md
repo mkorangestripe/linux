@@ -63,6 +63,9 @@ ansible-playbook web.yml --check  # dry run
 ansible-playbook -i inv web.yml  # run web.yml playbook against the given inventory file
 ansible-playbook --limit web.retry  # rerun only on failed hosts
 
+ansible-vault create secrets.yml  # encrypt file
+ansible-playbook update_inventory.yml --ask-vault-pass  # prompt for vault password
+
 # Run a playbook using variables:
 ansible-playbook web2.yml -e \
 "target_hosts=server1 \
