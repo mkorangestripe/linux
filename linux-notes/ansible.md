@@ -46,8 +46,11 @@ ansible server1 -m setup
 ansible server1 -a "cat /proc/cpuinfo" | grep "cpu cores"  # run command on a single host
 ansible vms -a "cat /proc/cpuinfo" | grep "cpu cores"  # run command on hosts in vms host group
 
-# Run the command against the group in the inventory file, as root, one line per host, prompt for password:
+# Run the command on the host group in the inventory file, as root, output one line per host, prompt for password:
 ansible -i appd-docker-images.ini 5009ea0cc087 -b -m shell -a 'docker images | grep -i appd' -o -u SUDOUSER -k
+
+# Copy and run the script on all hosts in the inventory file:
+ansible -i lin-prod.ini all -b -m script -a check-install.sh -o -u SUDOUSER -k
 
 # Install httpd on a Red Hat host:
 ansible server1 -b -m yum -a "name=httpd state=latest"
