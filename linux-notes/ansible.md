@@ -86,8 +86,7 @@ ansible-playbook web2.yml -e \
 "target_hosts=server1 \
 target_service=httpd";
 
-# Run a playbook against Windows hosts:
-nc -vz server1 5986  # check the https port used by winrm
+# Run a playbook against Windows hosts using Kerberos authentication:
 kinit user1@somedomain.com  # authenticate with Kerberos
 ansible-playbook chef-client.yml -i inventory.yml -u user1@somedomain.com
 ```
