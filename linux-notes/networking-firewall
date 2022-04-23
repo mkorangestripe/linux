@@ -31,7 +31,10 @@ iptables -A INPUT -p icmp --icmp-type echo-reply -j DROP
 # Stop packet forwarding:
 iptables -A FORWARD -j DROP
 
-# Open port 80:
+# Open port 1270, enable connection tracking, add the rule to the IN_public_allow chain:
+iptables -A IN_public_allow -p tcp -m tcp --dport 1270 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT
+
+# Open port 80 using firewall-cmd:
 firewall-cmd --zone=public --add-port=80/tcp --permanent
 firewall-cmd --reload
 iptables-save | grep 80
