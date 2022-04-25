@@ -36,25 +36,25 @@ visudo
 ansible ALL=(ALL) NOPASSWD: ALL
 
 # Verify the connection to the hosts:
-ansible server1 -m ping
-ansible server1 -m setup
+ansible -i server1, all -m ping
+ansible -i server1, all -m setup
 ```
 
 ### Ansible ad-hoc commands
 
 ```shell script
-ansible all -i server1, -m ping -u user1 -k  # test connection to Linux host
+ansible -i server1, all -m ping -u user1 -k  # test connection to Linux host
 
 # Test the connection to Windows hosts:
 nc -vz server1 5986  # check the https port used by winrm
 kinit user1@somedomain.com  # authenticate with Kerberos
-ansible all -m win_ping -i inventory.yml -u user1@somedomain.com  # login using Kerberos authentication
+ansible -i inventory.yml all -m win_ping -u user1@somedomain.com  # login using Kerberos authentication
 ansible -i visualcron.ini dev -m win_ping -u user1 -k  # login with username and password
 
 # Find kerberos servers (PowerShell):
 nslookup -type=srv _kerberos._tcp.somedomain.com
 
-ansible all -i server100, -a "uname -a" -u SUDOUSER -k  # run command on a single host, prompt for password
+ansible -i server100, all -a "uname -a" -u SUDOUSER -k  # run command on a single host, prompt for password
 ansible vms -a "cat /proc/cpuinfo" | grep "cpu cores"  # run command on hosts in vms host group
 
 # Run the command on the host group in the inventory file, as root, output one line per host, prompt for password:
@@ -64,8 +64,8 @@ ansible -i appd-docker-images.ini 5009ea0cc087 -b -m shell -a 'docker images | g
 ansible -i lin-prod.ini all -b -m script -a "scx-1.6.8-1.universalr.1.x64.sh --upgrade" -u sudouser1 -k
 
 # Install httpd on a Red Hat host:
-ansible server1 -b -m yum -a "name=httpd state=latest"
-ansible server1 -b -m service -a "name=httpd state=started"
+ansible -i server1, all -m yum -a "name=httpd state=latest" -b
+ansible -i server1, all -m service -a "name=httpd state=started" -b 
 ```
 
 ### Ansible playbook commands
