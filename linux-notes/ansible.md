@@ -73,14 +73,17 @@ ansible server1 -b -m service -a "name=httpd state=started"
 ```shell script
 ansible-playbook update_visualcron.yml --syntax-check
 ansible-lint update_visualcron.yml  # checks and recommendations
-ansible-playbook update_visualcron.yml -i visualcron.ini --limit dev --list-hosts  # just list targeted hosts
-ansible-playbook update_visualcron.yml -i visualcron.ini --limit dev -k --diff --check # show diff in files and templates, dry run
-ansible-playbook update_visualcron.yml -i visualcron.ini --limit dev -k --check  # dry run
+ansible-playbook update_visualcron.yml -i visualcron.ini -l dev --list-hosts  # just list targeted hosts
+ansible-playbook update_visualcron.yml -i visualcron.ini -l dev -k --diff --check # show diff in files and templates, dry run
+ansible-playbook update_visualcron.yml -i visualcron.ini -l dev -k --check  # dry run
+
+# Run the update_visualcron.yml playbook against the dev group in /etc/ansible/hosts, prompt for password:
+ansible-playbook update_visualcron.yml -l dev -k
 
 # Run the update_visualcron.yml playbook against the dev group in the visualcron.ini inventory file, prompt for password:
-ansible-playbook update_visualcron.yml -i visualcron.ini --limit dev -k
+ansible-playbook update_visualcron.yml -i visualcron.ini -l dev -k
 
-ansible-playbook --limit web.retry  # rerun only on failed hosts
+ansible-playbook -l web.retry  # rerun only on failed hosts
 
 ansible-vault create secrets.yml  # encrypt file
 ansible-playbook update_inventory.yml --ask-vault-pass  # prompt for vault password
