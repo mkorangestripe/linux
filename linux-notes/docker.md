@@ -136,7 +136,8 @@ docker run -d --name hello-bridge host.docker.internal:5000/hello-socket bridge
 docker-compose ps  # process state of containers started by docker-compose, -a for all
 docker-compose up  # create and start containers
 docker-compose up -d  # detached mode
-docker-compose down #  stop containers and remove resources
+docker-compose down  #  stop containers and remove resources
+docker compose down --remove-orphans  # remove orphaned containers
 ```
 
 ```shell script
