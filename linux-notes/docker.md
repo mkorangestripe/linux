@@ -138,6 +138,7 @@ docker-compose up  # create and start containers
 docker-compose up -d  # detached mode
 docker-compose down  #  stop containers and remove resources
 docker compose down --remove-orphans  # remove orphaned containers
+docker-compose exec datadog agent status  # execute the command in the datadog container
 ```
 
 ```shell script
