@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # cron
-# minute, hour, day or month, month, day of week
+# minute, hour, day of month, month, day of week
 /etc/crontab  # just contains the format for crontab entries
 /var/spool/cron/  # current entries for users
 /etc/cron.deny  # lists users denied use of crontab, cron.allow takes precedence
