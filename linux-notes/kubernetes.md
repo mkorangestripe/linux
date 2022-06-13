@@ -67,10 +67,12 @@ kubectl delete po -l app=nginx  # delete a pod with the app=nginx label
 kubectl describe svc -n zpc fakeapp  # show info on the fakeapp service
 kubectl get svc -n kube-system  # show the service resource associated with the registry
 kubectl get svc -n zpc | grep fakeapp  # show the fakeapp service in the zpc namespace
+kubectl get service nginx  # show the nginx service
 
-kubectl expose deploy mynginx --type=NodePort  # expose a service
+kubectl expose deployment nginx --target-port=80 --type=NodePort  # create a NodePort service on port 80
 
 kubectl api-resources | grep ingress  # find the ingress service
+kubectl get ing basic-ingress  # show the basic-ingress service including IP address
 kubectl get ingresses.voyager.appscode.com -n zpc  # show info for the ingress service in the zpc namespace
 kubectl describe ingresses.voyager -n zpc fakeapp-ingress  # show info for the ingress service including external IP and hostname
 ```
@@ -123,13 +125,21 @@ kubectl get deploy mynginx -o yaml  # show deployment info for the mynginx deplo
 
 kubectl describe deploy mynginx  # show info for the mynginx deployment
 
-# Create a deployment that creates a pod with a single instastance:
-kubectl create deployment single-container-catlb --image mkorangestripe/loadbalancer:1.3.0
-
 kubectl create -f mynginx.yaml  # create a deployment from file
 
 # Create an nginx deployment (just a pod in this case) in the development namespace:
 kubectl --namespace=development run nginx --image=nginx
+
+# Create a deployment that creates a pod with a single instance:
+kubectl create deployment single-container-catlb --image mkorangestripe/loadbalancer:1.3.0
+
+# Create a deployment running Apache and expose it as a service:
+kubectl run apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+
+# Create a horizontal pod autoscaler (HPA) that maintains between 1 and 10 replicas and average cpu utilization of 50% across all pods:
+kubectl autoscale deployment apache --cpu-percent=50 --min=1 --max-10
+
+kubectl get hpa  # show HPA's including target percentages
 
 # Create and attach to a pod from a busybox image:
 kubectl run -i --tty --image busybox dns-test --restart=Never /bin/sh
