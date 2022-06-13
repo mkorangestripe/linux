@@ -136,7 +136,8 @@ kubectl create deployment single-container-catlb --image mkorangestripe/loadbala
 # Create a deployment running Apache and expose it as a service:
 kubectl run apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
 
-# Create a horizontal pod autoscaler (HPA) that maintains between 1 and 10 replicas and average cpu utilization of 50% across all pods:
+# Create a horizontal pod autoscaler (HPA) that maintains between 1 and 10 replicas...
+# and average cpu utilization of 50% across all pods:
 kubectl autoscale deployment apache --cpu-percent=50 --min=1 --max-10
 
 kubectl get hpa  # show HPA's including target percentages
@@ -208,7 +209,8 @@ helm install --name hello-gp1 --set imageRegistry=us.gcr.io/xxx-xx-xx --set dock
 
 # More helm install examples
 helm install --name fakeapp --namespace zpc spg-zpc-sb-charts/fakeapp
-helm install --name fakeapp --namespace zpc spg-zpc-sb-charts/fakeapp --set replicaCount=1 --set deployment.environment.productDomain=gp-cluster.zpc-sandbox.xxxxx.com --set deployment.envirionment.type=sandbox
+helm install --name fakeapp --namespace zpc spg-zpc-sb-charts/fakeapp --set replicaCount=1 \
+--set deployment.environment.productDomain=gp-cluster.zpc-sandbox.xxxxx.com --set deployment.envirionment.type=sandbox
 
 # Delete the helm release
 helm delete nordic-quail
