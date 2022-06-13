@@ -4,6 +4,7 @@
 
 ```Shell script
 minikube start  # start minikube cluster
+minikube start --vm-driver hyperv  # start using hyperv
 minikube stop  # stop minikube cluster
 minikube delete  # delete the minikube cluster
 minikube addons enable registry  # enable docker registry
@@ -12,10 +13,13 @@ minikube addons enable registry  # enable docker registry
 ### kubectl
 
 ```Shell script
+kubectl version
 kubectl config current-context  # get project, zone, cluster
 kubectl config get-contexts  # get contexts
 
 kubectl get namespaces  # get namespaces
+kubectl get nodes  # get nodes
+kubectl get nodes -o wide  # more info
 kubectl get po  # get running pods in the cluster
 kubectl get po -n kube-system  # get pods running in the "kube-system" namespace
 kubectl get po -n zpc | grep fakeapp
@@ -77,6 +81,9 @@ kubectl exec -it -n zpc fakeapp-6d4c445dc8-rjps9 /bin/sh
 
 # Delete the pod:
 kubectl delete po hello
+
+kubectl expose deploy mynginx --type=NodePort  # expose a service
+minikube service mynginx  # hit the service endpoint and open in default browser
 ```
 
 ### Helm
