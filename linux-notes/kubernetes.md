@@ -42,15 +42,14 @@ kubectl get nodes -o wide  # list nodes, wide output
 ### Pods
 
 ```Shell script
-kubectl get po  # get running pods in the cluster
-kubectl get po -n kube-system  # get pods running in the "kube-system" namespace
+kubectl get po  # list running pods in the cluster
+kubectl get po -n kube-system  # list pods running in the "kube-system" namespace
 kubectl get po -n zpc | grep fakeapp  # show the fakeapp pod in the zpc namespace
-kubectl get pods -l run=mynginx -o wide  # get pods with label run=mynginx, wide output
-kubectl get pods -l tier=backend -o wide  # get pods with label tier=backend, wide output
+kubectl get pods -l run=mynginx -o wide  # list pods with label run=mynginx, wide output
+kubectl get pods -l tier=backend -o wide  # list pods with label tier=backend, wide output
+kubectl get pods --show-all  # list all pods including completed
+kubectl get pods --show-all --selector=job-name=pi --output=jsonpath='{.itmes..metadata.name}'
 kubectl describe po hello  # list the containers in the pod
-
-# Create or update existing pod:
-kubectl apply -f deploy/pod-args.yaml
 
 # Attach to a pod:
 kubectl exec -it hello bash
@@ -63,6 +62,9 @@ kubectl delete po -l app=nginx  # delete a pod with the app=nginx label
 
 ### Services
 
+* Services define a logical set of pods and a policy by which to access them.
+* The set of Pods targeted by a Service is usually determined by a selector.
+* Services allow the pods within to be replaced or modified while maintaining consistent access.
 ```Shell script
 kubectl describe svc -n zpc fakeapp  # show info on the fakeapp service
 kubectl get svc -n kube-system  # show the service resource associated with the registry
@@ -75,14 +77,6 @@ kubectl api-resources | grep ingress  # find the ingress service
 kubectl get ing basic-ingress  # show the basic-ingress service including IP address
 kubectl get ingresses.voyager.appscode.com -n zpc  # show info for the ingress service in the zpc namespace
 kubectl describe ingresses.voyager -n zpc fakeapp-ingress  # show info for the ingress service including external IP and hostname
-```
-
-### Replica Sets
-
-```Shell script
-kubectl create -f replication_controller.yaml  # create a replication controller
-kubectl describe rc/nginx  # show info on replication controller
-kubectl scale rc nginx --replicas=3  # scale the replica set to 3
 ```
 
 ### Volumes
@@ -120,42 +114,93 @@ kubectl port-forward po/single-container-catlb-58dcf6dd59-mswqd 8080:80
 
 ```Shell script
 kubectl get deployments  # show deployments
-
 kubectl get deploy mynginx -o yaml  # show deployment info for the mynginx deployment
-
 kubectl describe deploy mynginx  # show info for the mynginx deployment
 
-kubectl create -f mynginx.yaml  # create a deployment from file
 
 # Create an nginx deployment (just a pod in this case) in the development namespace:
 kubectl --namespace=development run nginx --image=nginx
 
+# Create a deployment running Apache and expose it as a service:
+kubectl run apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+
+# Create and attach to a pod from a busybox image:
+kubectl run -i --tty --image busybox dns-test --restart=Never /bin/sh
+
+
+# Create a deployment from file:
+kubectl create -f mynginx.yaml
+
 # Create a deployment that creates a pod with a single instance:
 kubectl create deployment single-container-catlb --image mkorangestripe/loadbalancer:1.3.0
 
-# Create a deployment running Apache and expose it as a service:
-kubectl run apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+
+# Edit the deployment manifest and update the deployment:
+kubectl edit deployment/nginx-deployment
+
+# Update pods to use the latest image version:
+kubectl set image deployment/nginx-deployment nginx=nginx
+
+# Create and update resources in the cluser:
+kubectl apply -f deployment.yaml
+
+# Get the rollout status of the deployment:
+kubectl rollout status deployment/single-container-catlb-deployment
+
+# Get the rollout status of the daemon set:
+kubectl rollout status ds fluentd
+
 
 # Create a horizontal pod autoscaler (HPA) that maintains between 1 and 10 replicas...
 # and average cpu utilization of 50% across all pods:
 kubectl autoscale deployment apache --cpu-percent=50 --min=1 --max-10
 
-kubectl get hpa  # show HPA's including target percentages
+# Show HPA's including target percentages:
+kubectl get hpa
 
-# Create and attach to a pod from a busybox image:
-kubectl run -i --tty --image busybox dns-test --restart=Never /bin/sh
-
-kubectl rollout status deployment/single-container-catlb-deployment  # get the deployment rollout status
 
 kubectl delete deployment single-container-catl  # delete the deployment
-
 kubectl delete namesspaces development  # delete everything under the development namespace
+kubectl delete deploy --all  # delete all
 ```
 
 ### PetSets
 
 * Stateful pods treated as clustered applications. 
 * Decouple dependency on hardware/infrastructure by assigning identities to individual instances of an application.
+* PetSets have been repalced by Stateful Sets.
+
+### Replica Sets
+
+* Use deployments to manage replica sets instead of defining replica sets directly in most cases.
+```Shell script
+kubectl create -f replication_controller.yaml  # create a replication controller
+kubectl describe rc/nginx  # show info on replication controller
+kubectl scale rc nginx --replicas=3  # scale the replica set to 3
+```
+
+### Stateful Sets
+
+* Manages pods based on an identical container specification but maintains an identity for each pod in the set.
+* Each pod has a persistent identifier and is maintained across rescheduling events.
+* The desired state is defined in a stateful set object and the controller maintains this state.
+* Uses a StatefulSet Controller to update to the desired state.
+
+### Daemon Sets
+
+* Manage groups of replicated pods.
+* They try to maintain one pod per node and add pods to new nodes as required.
+* Useful for ongoing background tasks like log collection fluentd.
+* Use a pod templete.
+
+### Jobs
+
+* Creates one or more pods and ensures that the specified number successfully terminates.
+* The job tracks the successful completions and is itself complete when the specified number is reached.
+* Deleting a job, deletes the pods it created. 
+```Shell script
+kubectl delete jobs --all  # delete all jobs
+```
 
 ### Anotations
 
@@ -166,6 +211,7 @@ kubectl annotate deploy mynginx description='deployment for testing my replicati
 ```
 
 ### Labels & Selectors
+
 * Used for selecting objects.
 * Can be added/modified during or after creation of objects.
 * Each key must be unique for an object.
