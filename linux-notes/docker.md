@@ -9,16 +9,15 @@ yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 ### Docker related system info
 ```shell script
-systemctl status docker  # Status of docker service
-systemctl enable docker  # Enable the docker service
-systemctl start docker  # Start the docker service
-systemctl show docker  # Environment variables used by docker
+systemctl status docker  # status of docker service
+systemctl enable docker  # enable the docker service
+systemctl start docker  # start the docker service
+systemctl show docker  # environment variables used by docker
 
 docker version #  show version info
-docker info  # Display system-wide information
+docker info  # display system-wide information
 
 docker system df  # show docker disk usage
-
 docker system prune  # remove various docker items
 ```
 
