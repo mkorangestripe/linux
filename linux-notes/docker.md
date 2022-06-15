@@ -2,9 +2,9 @@
 
 ##### Install Docker CE (Comunity Edition) on Redhat/Centos
 ```shell script
-yum install -y yum-utils device-mapper-persistent-data lvm2
+yum install -y yum-utils
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce
+yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
 
 ### Docker related system info
