@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Nonstandard runlevels (rhel 6):
+# Nonstandard runlevels on RHEL 6:
 # From the kernel line in the grub menu delete rhgb quiet (if desired), and append one of the following.
 
 init=/bin/sh
@@ -19,7 +19,7 @@ single, s, S
 # runs everything but scripts in /etc/rc1.d ???
 
 
-# /etc/inittab (rhel 6):
+# /etc/inittab on RHEL 6
 0 - halt (Do NOT set initdefault to this)
 1 - Single user mode
 2 - Multiuser, without NFS (The same as 3, if you do not have networking)
@@ -39,17 +39,18 @@ who -r  # current runlevel
 # Linux kernel calls the init process
 # init process runs /etc/rc.d/rc.sysinit
 
-# rc files (rhel 6):
+# rc files on RHEL 6
 /etc/init/rcS.conf  # exec /etc/rc.d/rc.sysinit
 /etc/rc.d/rc.sysinit  # sets the environment path, starts swap, checks the file systems, etc
 /etc/init/rc.conf  # exec /etc/rc.d/rc $RUNLEVEL
 /etc/rc.d/rc  # executes scripts in runlevel, /etc/rc.d/rc[0-6].d/
-# rc stands for runcom, run command
+# rc short for runcom, run command
 
 /etc/init/prefdm.conf  # persistently start/stop the GUI on a specific runlevel
 startx  # starts the GUI
 
-# chkconfig (rhel 6):
+
+# chkconfig on RHEL 6
 chkconfig --list postfix
 chkconfig postfix on
 chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfix
@@ -57,26 +58,30 @@ chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfi
 # Links beginning with "S" are to be started, whenever the system is entering the runlevel they are about to go in to.
 ntsysv --level 345  # config services for runlevels 3,4,and 5
 
-# services (rhel 6 and Solaris):
+# service on RHEL 6
 service --status-all  # shows status of all services
-svcs -a  # show status of all services on Solaris
-svcs -v ssh  # show verbose of ssh, -l for all available info
-svcs -x http  # displays explanations for service states on Solaris
 service httpd start  # start httpd
-svcadm enable -t http  # enable and start http on Solaris
 service sshd restart  # restart sshd
-svcadm restart ssh  # restart ssh on Solaris
 service sshd reload  # reload sshd config
-svcadm refresh ssh  # reload ssh config on Solaris
 service httpd stop  # stop httpd
-svcadm disable -t http  # disable and stop http on Solaris
-svcadm clear http  # clear http from maintenance state on Solaris
-/var/svc/log/  # service logs on Solaris
-/etc/systemd/  # SystemD info
+
+/etc/systemd/  # system info
+
+# Services on Solaris
+svcs -a  # show status of all services on Solaris
+svcs -v ssh  # show verbose status of ssh, -l for all available info
+svcs -x http  # show explanations for service state
+svcadm enable -t http  # enable and start http
+svcadm restart ssh  # restart ssh
+svcadm refresh ssh  # reload ssh config
+svcadm disable -t http  # disable and stop http
+svcadm clear http  # clear http from maintenance state
+/var/svc/log/  # service logs
+
+sudo launchctl list  # list services on macOS
 
 
 # Reboot, shutdown
-
 shutdown -r 10 “message”  # reboot in 10 minutes with message
 shutdown -h now  # halt or poweroff after bringing down system
 shutdown -y -i5 -g0  # yes, init 5, grace period 0s - halt or poweroff on Solaris
@@ -121,7 +126,7 @@ chroot /mnt/sysimage  # mount the root partition
 /boot/grub/grub.conf  # review changes
 
 
-# XCFS:
+# XCFS
 showdomainstatus -a  # show status of all domains
 showlogs power  # display log of resets, poweron/off
 showstatus  # Lists degraded components
