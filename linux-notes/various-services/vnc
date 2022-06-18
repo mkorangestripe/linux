@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# VNC server
+
+# Install the vnc server package:
+yum install tigervnc-server
+
+# Server configuration:
+/etc/sysconfig/vncservers
+VNCSERVERS="1:root 2:gp"
+VNCSERVERARGS[2]="-geometry 800x600"  # this does not require an ssh tunnel
+
+vncserver :2  # run as user to setup account, creates ~/.vnc
+/etc/init.d/vncserver status
+chkconfig vncserver on
+system-config-firewall-tui  # open port 5902/tcp for user
+
+vncpasswd  # set/change the vnc password on the vncserver
+
+# VNC client
+
+yum install tigervnc  # install the vnc client
+vncviewer 192.168.122.50:2  # vnc viewer - connect to the vnc server on port 5902
+vncviewer 192.168.122.50:2 -geometry 1024x768  # set window size if not set in config file
+vinagre  192.168.122.50:2  # remote desktop viewer - connect to the vnc server on port 5902
+
+# Route through ssh:
+ssh -L 5902:vncserver:5902 vncserver
+vncviewer localhost:5902  # or just vncviewer :2
+
+# Create an ssh tunnel, run in the background, run vncviewer.
+# The tunnel closes when vncviewer exits.
+ssh -f -L 5902:192.168.0.12:5902 gp@99.999.999.99 sleep 10; vncviewer 127.0.0.1:5902
+
+vino-preferences  # various restriction setting
