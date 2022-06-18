@@ -235,20 +235,23 @@ resize2fs -p /dev/vg_test/lv_test 8G  # resize to 8G
 xfs_growfs  # for xfs filesystem
 
 
-zfs list  # list ZFS file systems on Solaris
-zfs mount  # show currently mounted filesystems on Solaris
+# ZFS on Solaris
 
-# Setting a quota (limit on disk space) on Solaris ZFS:
+zfs list  # list file systems
+zfs mount  # show currently mounted filesystems
+
+# Set a quota (limit on disk space):
 zfs set quota=15G oracle_zpool01/opt_oracle
 zfs get quota oracle_zpool01/opt_oracle
 
-# Setting a reservation (guaranteed disk space) on Solaris ZFS:
+# Set a reservation (guaranteed disk space):
 zfs set reservation=10G oracle_zpool01/opt_oracle
 zfs get reservation oracle_zpool01/opt_oracle
 
-zpool status  # detailed health status of pools on Solaris
-zpool status -v  # verbose, data errors since the last complete pool scrub on Solaris
-zpool status -x  # status of pools with errors and unavailable pools on Solaris
+zpool status  # detailed health status of pools
+zpool status -v  # verbose, data errors since the last complete pool scrub
+zpool status -x  # status of pools with errors and unavailable pools
+
 
 # Volume Encryption:
 yum install cryptsetup-luks  # install cryptsetup-luks
