@@ -20,6 +20,9 @@ kubectl config current-context  # show project, zone, cluster
 kubectl config get-contexts  # list contexts
 
 kubectl get all  # list all objects
+
+kubectl get secret/datadog-api -o json  # show base64 encoded API key, namespace, uid, etc
+kubectl get secret/datadog-api -o json | jq .data.token | base64 -d -i  # show base64 decoded API key
 ```
 
 ### Namespaces
@@ -49,7 +52,16 @@ kubectl get pods -l run=mynginx -o wide  # list pods with label run=mynginx, wid
 kubectl get pods -l tier=backend -o wide  # list pods with label tier=backend, wide output
 kubectl get pods --show-all  # list all pods including completed
 kubectl get pods --show-all --selector=job-name=pi --output=jsonpath='{.itmes..metadata.name}'
+
+# Get pods, filter by NAME column:
+kubectl get pods --no-headers -o custom-columns=":metadata.name" | grep datadog
+
+# Get counts of pods by status:
+kubectl get pods --no-headers | awk {'print $3'} | datamash -s -g 1 count 1
+
 kubectl describe po hello  # list the containers in the pod
+
+kubectl exec datadog-agent-khj9q -- agent status  # run the 'agent status' command on the pod
 
 # Attach to a pod:
 kubectl exec -it hello bash
@@ -192,6 +204,9 @@ kubectl scale rc nginx --replicas=3  # scale the replica set to 3
 * They try to maintain one pod per node and add pods to new nodes as required.
 * Useful for ongoing background tasks like log collection fluentd.
 * Use a pod templete.
+```Shell script
+kubectl get daemonset  # get state of daemon sets
+```
 
 ### Jobs
 
