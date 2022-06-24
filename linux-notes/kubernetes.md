@@ -102,6 +102,7 @@ kubectl exec datadog-agent-khj9q -- agent status  # run the 'agent status' comma
 kubectl exec -it hello bash
 kubectl exec -it hello -- /bin/bash
 kubectl exec -it -n zpc fakeapp-6d4c445dc8-rjps9 /bin/sh
+kubectl exec -it my-pod --container main-app -- /bin/bash  # attach to a specific container
 
 kubectl delete po hello  # delete the hello pod
 kubectl delete po -l app=nginx  # delete a pod with the app=nginx label
