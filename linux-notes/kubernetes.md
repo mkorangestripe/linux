@@ -1,5 +1,37 @@
 # Kubernetes Notes
 
+Control Plane / Master
+* Container orchestration layer that exposes the API and interfaces.
+* Manages the worker nodes and the pods.
+* In production, runs across multiple nodes in the cluster.
+* Control plane components:
+  * API server
+  * etcd
+  * scheduler
+  * controller manager
+
+API server
+* Front end for the Kubernetes control plane.
+* Validates and configures data for the api objects which include pods, services.
+
+etcd
+* Runs on an odd number of machines, commonly 5 to 7.
+* A five member cluster can tolerate up to 2 member failures.
+* The leader receives config changes and fsyncs the proposal to the other members.
+* When the leader receives confirmation from a quorum, the proposal is approved, and the changes are stored.
+* A Quorum is a majority (half the members plus one) of cluster members in agreement.
+* Consensus by quorum is reached by the raft protocol.
+
+Scheduler
+* Maintains the state of the cluster by assigning workloads to the nodes available to the cluster.
+
+Controller manager
+* Runs various controllers that watch the state of the cluster and help to maintain the desired state.
+* Job controller checks that the correct number of pods are running.
+* Node controller checks that the nodes are healthy.
+
+<br>
+
 ### minikube
 
 ```Shell script
@@ -46,10 +78,13 @@ kubectl get nodes -o wide  # list nodes, wide output
 
 ```Shell script
 kubectl get po  # list running pods in the cluster
-kubectl get po -n kube-system  # list pods running in the "kube-system" namespace
+kubectl get po -n kube-system  # list pods running in the kube-system namespace
 kubectl get po -n zpc | grep fakeapp  # show the fakeapp pod in the zpc namespace
+kubectl get pods -w  # watch state of pods
+
 kubectl get pods -l run=mynginx -o wide  # list pods with label run=mynginx, wide output
 kubectl get pods -l tier=backend -o wide  # list pods with label tier=backend, wide output
+
 kubectl get pods --show-all  # list all pods including completed
 kubectl get pods --show-all --selector=job-name=pi --output=jsonpath='{.itmes..metadata.name}'
 
@@ -246,17 +281,18 @@ kubectl logs -n zpc voyager-fakeapp-ingress-6cddc864f5-84ksf --container haproxy
 ### Helm
 
 ```Shell script
-# Perform syntax validation of helm chart
-helm lint hello
+helm list  # list deployed releases
+helm search fakeapp  # search helm charts in the repo
 
-# Setup helm in the cluster
-helm init
+helm repo list  # list helm repos
+helm repo add xxx-xx-xx-charts gs://xxx-xx-xx-helm-repo  # add the helm repo
 
-# Install GCS plugin for helm
+# Install GCS plugin for helm:
 helm plugin install https://github.com/hayorov/helm-gcs --version 0.2.1
 
-# Validate template on server
-# Get the template without passing the data on to k8s
+helm lint hello  # syntax validation of helm chart
+
+# Validate the template:
 helm install --dry-run --debug hello
 helm install --dry-run --debug hello --set 'helloArgs[0]=Ben'
 
@@ -268,24 +304,15 @@ helm install hello --set helloArgs[0]=Ben
 helm install --set imageRegistry=us.gcr.io/xxx-xx-xx hello
 helm install --name hello-gp1 --set imageRegistry=us.gcr.io/xxx-xx-xx --set dockerTag=gp-1 hello-socket
 
-# More helm install examples
+# More helm install examples:
 helm install --name fakeapp --namespace zpc spg-zpc-sb-charts/fakeapp
 helm install --name fakeapp --namespace zpc spg-zpc-sb-charts/fakeapp --set replicaCount=1 \
 --set deployment.environment.productDomain=gp-cluster.zpc-sandbox.xxxxx.com --set deployment.envirionment.type=sandbox
 
-# Delete the helm release
+# Upgrade the release:
+helm upgrade datadogagent --set datadog.apiKey=$DD_API_KEY --set datadog.appKey=$DD_APP_KEY -f values.yaml datadog/datadog 
+
+# Delete the helm release:
 helm delete nordic-quail
 helm delete --purge hello-gp1 # and free up the name for later use
-
-# List deployed releases
-helm list
-
-# List helm charts in the repo
-helm search fakeapp
-
-# List chart repos
-helm repo list
-
-# Add helm repo
-helm repo add xxx-xx-xx-charts gs://xxx-xx-xx-helm-repo
 ```
