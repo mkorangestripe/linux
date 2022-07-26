@@ -123,8 +123,9 @@ udisks --mount /dev/sdb2
 udisks --unmount /dev/sdb2
 
 mkswap /dev/sdb2  # make swap
-swapon /dev/sdb2  # put swap into use
-cat /proc/swaps  # verify swaps, also free or top
+swapon /dev/sdb2  # enable swap using sdb2
+swapoff /dev/sdb2  # disable swap using sdb2
+cat /proc/swaps  # view swaps, also see 'free' and 'top'
 
 /etc/fstab  # dump = 1 or 0; pass: root dir = 2, others = 1 or 0
 
