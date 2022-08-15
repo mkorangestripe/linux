@@ -79,7 +79,7 @@ kubectl get nodes -o wide  # list nodes, wide output
 ```Shell script
 kubectl get po  # list running pods in the cluster
 kubectl get po -n kube-system  # list pods running in the kube-system namespace
-kubectl get po -n zpc | grep fakeapp  # show the fakeapp pod in the zpc namespace
+kubectl get po -n ns1 | grep fakeapp  # show the fakeapp pod in the ns1 namespace
 kubectl get pods -w  # watch state of pods
 
 kubectl get pods -l run=mynginx -o wide  # list pods with label run=mynginx, wide output
@@ -101,7 +101,7 @@ kubectl exec datadog-agent-khj9q -- agent status  # run the 'agent status' comma
 # Attach to a pod:
 kubectl exec -it hello bash
 kubectl exec -it hello -- /bin/bash
-kubectl exec -it -n zpc fakeapp-6d4c445dc8-rjps9 /bin/sh
+kubectl exec -it -n ns1 fakeapp-6d4c445dc8-rjps9 /bin/sh
 kubectl exec -it my-pod --container main-app -- /bin/bash  # attach to a specific container
 
 kubectl delete po hello  # delete the hello pod
@@ -114,17 +114,17 @@ kubectl delete po -l app=nginx  # delete a pod with the app=nginx label
 * The set of Pods targeted by a Service is usually determined by a selector.
 * Services allow the pods within to be replaced or modified while maintaining consistent access.
 ```Shell script
-kubectl describe svc -n zpc fakeapp  # show info on the fakeapp service
+kubectl describe svc -n ns1 fakeapp  # show info on the fakeapp service
 kubectl get svc -n kube-system  # show the service resource associated with the registry
-kubectl get svc -n zpc | grep fakeapp  # show the fakeapp service in the zpc namespace
+kubectl get svc -n ns1 | grep fakeapp  # show the fakeapp service in the ns1 namespace
 kubectl get service nginx  # show the nginx service
 
 kubectl expose deployment nginx --target-port=80 --type=NodePort  # create a NodePort service on port 80
 
 kubectl api-resources | grep ingress  # find the ingress service
 kubectl get ing basic-ingress  # show the basic-ingress service including IP address
-kubectl get ingresses.voyager.appscode.com -n zpc  # show info for the ingress service in the zpc namespace
-kubectl describe ingresses.voyager -n zpc fakeapp-ingress  # show info for the ingress service including external IP and hostname
+kubectl get ingresses.voyager.appscode.com -n ns1  # show info for the ingress service in the ns1 namespace
+kubectl describe ingresses.voyager -n ns1 fakeapp-ingress  # show info for the ingress service including external IP and hostname
 ```
 
 ### Volumes
@@ -152,7 +152,7 @@ kubectl port-forward -n kube-system svc/registry 5000:80 &> /dev/null &
 curl localhost:5000/v2/_catalog  # {"repositories":["hello"]}
 
 # Enable port forwarding for port 8080
-kubectl port-forward -n zpc po/fakeapp-6d4c445dc8-9xz66 8080
+kubectl port-forward -n ns1 po/fakeapp-6d4c445dc8-9xz66 8080
 
 # Enable port forwarding from 127.0.0.1:8080 -> 80
 kubectl port-forward po/single-container-catlb-58dcf6dd59-mswqd 8080:80
@@ -275,8 +275,8 @@ kubeclt label --overwrite pods --all status=healthy  # overwrite the status labe
 
 ```Shell script
 kubectl logs hello-7f5c49b6c6-ct86z  # logs for the pod
-kubectl logs -n zpc fakeapp-6d4c445dc8-rjps9  # logs for the pod in the zpc namespace
-kubectl logs -n zpc voyager-fakeapp-ingress-6cddc864f5-84ksf --container haproxy
+kubectl logs -n ns1 fakeapp-6d4c445dc8-rjps9  # logs for the pod in the ns1 namespace
+kubectl logs -n ns1 voyager-fakeapp-ingress-6cddc864f5-84ksf --container haproxy
 ```
 
 ### Helm
@@ -306,9 +306,9 @@ helm install --set imageRegistry=us.gcr.io/xxx-xx-xx hello
 helm install --name hello-gp1 --set imageRegistry=us.gcr.io/xxx-xx-xx --set dockerTag=gp-1 hello-socket
 
 # More helm install examples:
-helm install --name fakeapp --namespace zpc spg-zpc-sb-charts/fakeapp
-helm install --name fakeapp --namespace zpc spg-zpc-sb-charts/fakeapp --set replicaCount=1 \
---set deployment.environment.productDomain=gp-cluster.zpc-sandbox.xxxxx.com --set deployment.envirionment.type=sandbox
+helm install --name fakeapp --namespace ns1 spg-ns1-sb-charts/fakeapp
+helm install --name fakeapp --namespace ns1 spg-ns1-sb-charts/fakeapp --set replicaCount=1 \
+--set deployment.environment.productDomain=gp-cluster.ns1-sandbox.xxxxx.com --set deployment.envirionment.type=sandbox
 
 # Upgrade the release:
 helm upgrade datadogagent --set datadog.apiKey=$DD_API_KEY --set datadog.appKey=$DD_APP_KEY -f values.yaml datadog/datadog 
