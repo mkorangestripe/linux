@@ -83,6 +83,9 @@ ansible-playbook update_visualcron.yml -l dev -k
 # Run the update_visualcron.yml playbook against the dev group in the visualcron.ini inventory file, prompt for password:
 ansible-playbook update_visualcron.yml -i visualcron.ini -l dev -k
 
+# Run only the tasks with the 'pip' tag in the playbook:
+ansible-playbook deploy_custom_linux_monitor.yml -t pip -i datadog.ini -k
+
 ansible-playbook -l web.retry  # rerun only on failed hosts
 
 ansible-vault create secrets.yml  # encrypt file
