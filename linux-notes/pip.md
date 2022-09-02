@@ -59,7 +59,7 @@ pipenv install  # install packages in Pipfile.lock, create Pipfile.lock from Pip
 pipenv sync  # installs all packages in Pipfile.lock
 pipenv update  # runs lock then sync, with no version constraints in Pipfile, this updates all packages
 
-pip graph  # display currently–installed dependency graph
+pipenv graph  # display currently–installed dependency graph
 pipenv check  # check installed dependencies for security vulnerabilities
 
 pipenv run python linux_monitoring_datadog.py  # run a command within the virtualenv
