@@ -52,12 +52,15 @@ deactivate  # deactivate the virtual environment
 ```shell script
 pipenv --python 3.8  # create a project using Python 3.8
 pipenv --python 3.8 install  # create project and Pipfile and Pipfile.lock
+pipenv --rm # remove virtualenv used by local directory
 
 pipenv lock  # generate a Pipfile.lock from the Pipfile or requirements.txt
-pipenv install psutil  # Add psutil to Pipfile and Pipfile.lock and install
-pipenv install  # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
 pipenv sync  # installs all packages in Pipfile.lock
 pipenv update  # runs lock then sync, with no version constraints in Pipfile, this updates all packages
+
+pipenv install psutil  # Add psutil to Pipfile and Pipfile.lock and install
+pipenv install  # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
+pipenv install -e .  # install from local setup.py into virtualenv/Pipfile
 
 pipenv graph  # display currently–installed dependency graph
 pipenv check  # check installed dependencies for security vulnerabilities
