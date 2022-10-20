@@ -34,4 +34,8 @@ openssl x509 -text -noout -in wildcard.domain.net.crt
 openssl x509 -text -noout -in wildcard.domain.net.crt | grep "CA Issuers"
 wget http://SVRSecure-G3-aia.verisign.com/SVRSecureG3.cer
 openssl x509 -inform DER -outform PEM -in SVRSecureG3.cer -out verisign_g3.crt
+
+# Manually install a cert on Ubuntu:
+# Copy the crt file to /usr/local/share/ca-certificates/
+update-ca-certificates
 ```
