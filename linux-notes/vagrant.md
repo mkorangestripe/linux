@@ -16,6 +16,7 @@ vagrant login  # old command
 vagrant cloud auth login  # new command
 
 vagrant global-status  # show status of all VMs
+vagrant global-status --prune  # prune invalid entries
 vagrant status 2a44541  # show status of given VM
 
 vagrant box list  # list vagrant boxes
