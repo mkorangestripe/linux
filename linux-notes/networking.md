@@ -37,7 +37,7 @@ Reserved private IPv4 network ranges, cannot be used on the Internet
 ```
 class A: 10.0.0.0 - 10.255.255.255
 class B: 172.16.0.0 - 172.31.255.255
-class C: - 192.168.0.0 - 192.168.255.255
+class C: 192.168.0.0 - 192.168.255.255
 ```
 
 Subnetting
