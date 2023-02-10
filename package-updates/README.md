@@ -70,3 +70,5 @@ chklog() {
     fi
 }
 ```
+
+Remember to source the bash/zsh files you've updated or just close and repoen your terminal window.
