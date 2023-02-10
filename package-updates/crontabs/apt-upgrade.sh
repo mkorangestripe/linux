@@ -13,4 +13,4 @@ test $(( $(date +"%s") - $(stat -c '%Y' $CRON_APT_OUT) )) -ge 61200 &&
 { /usr/bin/date
   /usr/bin/apt update &&
   /usr/bin/apt -y dist-upgrade &&
-  /usr/bin/apt -y autoremove; } > /var/log/cron.apt.out 2>&1
+  /usr/bin/apt -y autoremove; } > $CRON_APT_OUT 2>&1
