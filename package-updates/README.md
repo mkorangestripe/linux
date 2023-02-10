@@ -3,15 +3,15 @@ Schedule package updates on your device during a daily window.
 
 ## macOS
 
-Create the **/var/log/cron.brew.out** file and change ownership to your user
+Create the **~/cron** directory for the out file
 ```shell script
-sudo touch /var/log/cron.brew.out
-sudo chown [YOUR_USER] /var/log/cron.brew.out
+mkdir ~/cron
 ```
 
-Copy the package upgrade script in place and verify it is executable
+Copy the package upgrade script in place, replace 'user1' with your user, and verify the script is executable
 ```shell script
 cp crontabs/brew-upgrade.sh ~/.local/bin/
+sed -i '' "s/user1/$USER/" .local/bin/brew-upgrade.sh
 ls -l ~/.local/bin/brew-upgrade.sh
 ```
 
@@ -22,8 +22,8 @@ crontab -e
 
 Add these aliases to your **.zshrc** file. The chkupd alias requires the chklog function below.  The upd alias runs updates manually.
 ```shell script
-alias upd="{ date; echo; brew upgrade; } | tee /var/log/cron.brew.out 2>&1"
-alias chkupd='chklog /var/log/cron.brew.out'
+alias upd="{ date; echo; brew upgrade; } | tee ~/cron/cron.brew.out 2>&1"
+alias chkupd='chklog ~/cron/cron.brew.out'
 ```
 
 ## Ubuntu
