@@ -3,11 +3,6 @@ Schedule package updates on your device during a daily window.
 
 ## macOS
 
-Create the **~/cron** directory for the out file
-```shell script
-mkdir ~/cron
-```
-
 Copy the package upgrade script in place, replace 'user1' with your user, and verify the script is executable
 ```shell script
 cp crontabs/brew-upgrade.sh ~/.local/bin/
