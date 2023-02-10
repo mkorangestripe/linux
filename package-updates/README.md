@@ -1,5 +1,5 @@
 # Package Updates
-Schedule package updates during a daily window.
+Schedule package updates on your device during a daily window.
 
 ## macOS
 
@@ -15,7 +15,7 @@ cp crontabs/brew-upgrade.sh /usr/local/bin/
 ls -l /usr/local/bin/brew-upgrade.sh
 ```
 
-Add a crontab entry to schedule the **brew-upgrade.sh** script. See **crontabs/brew-upgrade.cron** for example.
+Add a crontab entry to schedule the [brew-upgrade.sh](crontabs/brew-upgrade.sh) script. See [brew-upgrade.cron](crontabs/brew-upgrade.cron) for example.
 ```shell script
 crontab -e
 ```
@@ -34,7 +34,7 @@ cp crontabs/apt-upgrade.sh /usr/local/bin/
 ls -l /usr/local/bin/brew-upgrade.sh
 ```
 
-Add an entry to root's crontab to schedule the **apt-upgrade.sh** script. See **crontabs/apt-upgrade.cron** for example.
+Add an entry to root's crontab to schedule the [apt-upgrade.sh](crontabs/apt-upgrade.sh) script. See [apt-upgrade.cron](crontabs/apt-upgrade.cron) for example.
 ```shell script
 sudo crontab -e
 ```
@@ -53,7 +53,7 @@ If you are using WSL, add this service command to your **~/.bashrc** file. This 
 
 ## Check Log
 
-Add the chklog function to **~/.zshrc** on macOS and **~/.bashrc** on Linux. This fits the log file to the terminal by showing only the first and last few lines based on the terminal size. Use the chkupd aliases above to run this.
+Add the chklog function to **~/.zshrc** on macOS and **~/.bashrc** on Linux. This fits the log file to the terminal by showing only the first and last few lines based on the terminal size. Use the chkupd aliases above to run this function against the package update out file.
 
 ```shell script
 chklog() {
