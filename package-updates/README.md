@@ -20,7 +20,7 @@ Add a crontab entry to schedule the [brew-upgrade.sh](crontabs/brew-upgrade.sh) 
 crontab -e
 ```
 
-Add these aliases to your **.zshrc** file. The chkupd alias requires the chklog function below.
+Add these aliases to your **.zshrc** file. The chkupd alias requires the chklog function below.  The upd alias runs updates manually.
 ```shell script
 alias upd="{ date; echo; brew upgrade; } | tee /var/log/cron.brew.out 2>&1"
 alias chkupd='chklog /var/log/cron.brew.out'
@@ -39,7 +39,7 @@ Add an entry to root's crontab to schedule the [apt-upgrade.sh](crontabs/apt-upg
 sudo crontab -e
 ```
 
-Add these aliases to your .bash_aliases file. The chkupd alias requires the chklog function below.
+Add these aliases to your **.bash_aliases** file. The chkupd alias requires the chklog function below.  The upd alias runs updates manually.
 ```shell script
 UPD_CMD='"apt update && apt -y dist-upgrade && apt -y autoremove"'
 alias upd="echo $UPD_CMD; sudo sh -c $UPD_CMD"
