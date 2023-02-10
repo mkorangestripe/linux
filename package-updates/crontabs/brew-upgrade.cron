@@ -1,2 +1,2 @@
 #!/bin/sh
-00 6-12 * * * /usr/local/bin/brew-upgrade.sh
+00 6-12 * * * /Users/user1/.local/bin/brew-upgrade.sh

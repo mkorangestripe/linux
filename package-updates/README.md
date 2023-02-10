@@ -11,8 +11,8 @@ sudo chown [YOUR_USER] /var/log/cron.brew.out
 
 Copy the package upgrade script in place and verify it is executable
 ```shell script
-cp crontabs/brew-upgrade.sh /usr/local/bin/
-ls -l /usr/local/bin/brew-upgrade.sh
+cp crontabs/brew-upgrade.sh ~/.local/bin/
+ls -l ~/.local/bin/brew-upgrade.sh
 ```
 
 Add a crontab entry to schedule the [brew-upgrade.sh](crontabs/brew-upgrade.sh) script. See [brew-upgrade.cron](crontabs/brew-upgrade.cron) for example.
@@ -30,8 +30,8 @@ alias chkupd='chklog /var/log/cron.brew.out'
 
 Copy the package upgrade script in place and verify it is executable
 ```shell script
-cp crontabs/apt-upgrade.sh /usr/local/bin/
-ls -l /usr/local/bin/brew-upgrade.sh
+cp crontabs/apt-upgrade.sh ~/.local/bin/
+ls -l ~/.local/bin/apt-upgrade.sh
 ```
 
 Add an entry to root's crontab to schedule the [apt-upgrade.sh](crontabs/apt-upgrade.sh) script. See [apt-upgrade.cron](crontabs/apt-upgrade.cron) for example.

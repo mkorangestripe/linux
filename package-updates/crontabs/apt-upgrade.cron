@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-00 6-12 * * * /usr/local/bin/apt-upgrade.sh
+00 6-12 * * * /home/user1/.local/bin/apt-upgrade.sh
