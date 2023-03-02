@@ -1,9 +1,9 @@
 # Package Updates
-Schedule package updates on your device during a daily window.
+##### Schedule package updates on your device during a daily window.
 
 ## macOS
 
-Copy the package upgrade script in place, replace 'user1' with your user, and verify the script is executable
+Copy the package upgrade script in place, replace 'user1' with your user, and verify that the script is executable.
 ```shell script
 cp crontabs/brew-upgrade.sh ~/.local/bin/
 sed -i '' "s/user1/$USER/" .local/bin/brew-upgrade.sh
@@ -15,7 +15,7 @@ Add a crontab entry to schedule the [brew-upgrade.sh](crontabs/brew-upgrade.sh) 
 crontab -e
 ```
 
-Add these aliases to your **.zshrc** file. The chkupd alias requires the chklog function below.  The upd alias runs updates manually.
+Add these aliases to your **.zshrc** file. The **chkupd** alias requires the **chklog** function below.  The upd alias runs updates manually.
 ```shell script
 alias upd="{ date; echo; brew upgrade; } | tee ~/cron/cron.brew.out 2>&1"
 alias chkupd='chklog ~/cron/cron.brew.out'
@@ -23,7 +23,7 @@ alias chkupd='chklog ~/cron/cron.brew.out'
 
 ## Ubuntu
 
-Copy the package upgrade script in place and verify it is executable
+Copy the package upgrade script in place and verify it is executable.
 ```shell script
 cp crontabs/apt-upgrade.sh ~/.local/bin/
 ls -l ~/.local/bin/apt-upgrade.sh
@@ -34,7 +34,7 @@ Add an entry to root's crontab to schedule the [apt-upgrade.sh](crontabs/apt-upg
 sudo crontab -e
 ```
 
-Add these aliases to your **.bash_aliases** file. The chkupd alias requires the chklog function below.  The upd alias runs updates manually but does not write to the cron.apt.out file.
+Add these aliases to your **.bash_aliases** file. The **chkupd** alias requires the **chklog** function below. The upd alias runs updates manually but does not write to the cron.apt.out file.
 ```shell script
 UPD_CMD='"apt update && apt -y dist-upgrade && apt -y autoremove"'
 alias upd="echo $UPD_CMD; sudo sh -c $UPD_CMD"
@@ -48,7 +48,10 @@ If you are using WSL, start cron manually, or add this service command to your *
 
 ## Check Log
 
-Add the chklog function to **~/.zshrc** on macOS and **~/.bashrc** on Linux. This fits the log file to the terminal by showing only the first and last few lines based on the terminal size. Use the chkupd aliases above to run this function against the package update out file.
+* Add the chklog function to **~/.zshrc** on macOS and **~/.bashrc** on Linux.
+* This fits the log file to the terminal by showing only the first and last few lines based on the terminal size.
+* Use the **chkupd** aliases above to run this function against the package update out file.
+* Remember to source the bash/zsh files you've updated or just close and repoen your terminal window after updating these files.
 
 ```shell script
 chklog() {
@@ -71,4 +74,4 @@ chklog() {
 }
 ```
 
-Remember to source the bash/zsh files you've updated or just close and repoen your terminal window.
+![chkupd_output_800](../readme_images/chkupd_output_800.png)
