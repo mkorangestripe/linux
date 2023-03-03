@@ -23,7 +23,7 @@ alias chkupd='chklog ~/cron/cron.brew.out'
 
 ## Ubuntu
 
-Copy the package upgrade script in place and verify it is executable.
+Copy the package upgrade script in place and verify that it is executable.
 ```shell script
 cp crontabs/apt-upgrade.sh ~/.local/bin/
 ls -l ~/.local/bin/apt-upgrade.sh
@@ -34,16 +34,16 @@ Add an entry to root's crontab to schedule the [apt-upgrade.sh](crontabs/apt-upg
 sudo crontab -e
 ```
 
+If you are using WSL, start cron manually, or add this service command to your **.bashrc** file. This requires passwordless sudo privilege to run.
+```shell script
+{ service cron status || sudo service cron start; } > /dev/null
+```
+
 Add these aliases to your **.bash_aliases** file. The **chkupd** alias requires the **chklog** function below. The upd alias runs updates manually but does not write to the cron.apt.out file.
 ```shell script
 UPD_CMD='"apt update && apt -y dist-upgrade && apt -y autoremove"'
 alias upd="echo $UPD_CMD; sudo sh -c $UPD_CMD"
 alias chkupd='chklog /var/log/cron.apt.out'
-```
-
-If you are using WSL, start cron manually, or add this service command to your **.bashrc** file. This requires passwordless sudo privilege to run.
-```shell script
-{ service cron status || sudo service cron start; } > /dev/null
 ```
 
 ## Check Log
