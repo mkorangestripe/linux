@@ -34,7 +34,7 @@ Add an entry to root's crontab to schedule the [apt-upgrade.sh](crontabs/apt-upg
 sudo crontab -e
 ```
 
-If you are using WSL, start cron manually, or add this service command to your **.bashrc** file. This requires passwordless sudo privilege to run.
+If you're using WSL, start cron manually, or add this service command to your **.bashrc** file. This requires passwordless sudo privilege to run.
 ```shell script
 { service cron status || sudo service cron start; } > /dev/null
 ```
