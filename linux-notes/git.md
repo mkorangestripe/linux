@@ -21,6 +21,8 @@ git config branch.master.merge refs/heads/master
 # Add username and email to git config
 git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
+
+git config --global http.sslBackend schannel  # use Windows certificate store
 ```
 
 ```shell script
