@@ -23,6 +23,7 @@ git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
 
 git config --global http.sslBackend schannel  # use Windows certificate store
+git config —global core.autocrlf false. # do not convert newline characters
 ```
 
 ```shell script
