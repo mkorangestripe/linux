@@ -15,10 +15,6 @@ pip freeze           # list packages in "requirements format"
 pip show ipython     # show info about the ipython package
 pip search ipython   # search for ipython packages - deprecated
 
-sudo docker run --rm -it python:3  # get packages inside Docker container
-pip3 freeze | grep -i yaml         # run in container
-python -V                          # run in container
-
 pip install ipython                              # install ipython
 pip install --user ipython                       # install ipython in user directory
 pip install --upgrade ipython                    # upgrade ipython
@@ -53,16 +49,16 @@ pipenv --python 3.8          # create a project using Python 3.8
 pipenv --python 3.8 install  # create project and Pipfile and Pipfile.lock
 pipenv --rm                  # remove virtualenv used by local directory
 
-pipenv lock    # generate a Pipfile.lock from the Pipfile or requirements.txt
-pipenv sync    # installs all packages in Pipfile.lock
-pipenv update  # runs lock then sync, with no version constraints in Pipfile this updates all packages
+pipenv lock                  # generate a Pipfile.lock from the Pipfile or requirements.txt
+pipenv sync                  # installs all packages in Pipfile.lock
+pipenv update                # runs lock then sync, with no version constraints in Pipfile this updates all packages
 
-pipenv install psutil  # Add psutil to Pipfile and Pipfile.lock and install
-pipenv install         # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
-pipenv install -e .    # install from local setup.py into virtualenv/Pipfile
+pipenv install psutil        # add psutil to Pipfile and Pipfile.lock and install
+pipenv install               # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
+pipenv install -e .          # install from local setup.py into virtualenv/Pipfile
 
-pipenv graph   # display currently–installed dependency graph
-pipenv check   # check installed dependencies for security vulnerabilities
+pipenv graph                 # display currently–installed dependency graph
+pipenv check                 # check installed dependencies for security vulnerabilities
 
 pipenv run python linux_monitoring_datadog.py  # run a command within the virtualenv
 pipenv shell                                   # start a shell within the virtualenv
@@ -87,23 +83,23 @@ pyenv which python       # show actual path
 ### Anaconda
 
 ```
-conda search python  # list available versions of Python
+conda search python         # list available versions of Python
 
-conda env list                             # list installed envs
-conda create -n env3.10.12 python=3.10.12  # create the env in default location
+conda env list                                       # list installed envs
+conda create -n env3.10.12 python=3.10.12            # create the env in default location
 conda env create -p envs/py3.10.12 -f py3.10.12.yml  # create the env in envs/ and using the yml config
-conda env remove -n env3.10.12             # remove the env
+conda env remove -n env3.10.12                       # remove the env
 
-conda init bash       # configure the shell for anaconda
-conda init bash -d    # dry-run, not change to files
+conda init bash             # configure the shell for anaconda
+conda init bash -d          # dry-run, not change to files
 
 conda activate evn.3.10.12  # activate the env
 conda deactivate            # deactivate the env
 
-conda list            # list installed packages in an env
-conda install pandas  # install pandas into the currently-active env
-conda remove pandas   # remove pandas from the currently-active env
-conda update --all    # update all installed packages in the env
+conda list                  # list installed packages in an env
+conda install pandas        # install pandas into the currently-active env
+conda remove pandas         # remove pandas from the currently-active env
+conda update --all          # update all installed packages in the env
 ```
 
 ### Packaging (Python 2)
