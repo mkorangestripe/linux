@@ -18,10 +18,11 @@ rpm -qi <package>    # displays basic info of a package
 rpm -ql <package>    # lists all files from a package
 rpm -qR <package>    # lists all dependencies
 
-rpm --rebuilddb  # rebuild rpm database(s) in /var/lib/rpm
+rpm --rebuilddb      # rebuild rpm database(s) in /var/lib/rpm
+
 rpm --verify -p <package>
 rpm --verify --file <filename>
-rpm -Va          # verify all packages, beware of changes in binaries
+rpm -Va              # verify all packages, beware of changes in binaries
 ```
 
 ### Yum

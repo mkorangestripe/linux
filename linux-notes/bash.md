@@ -1,52 +1,59 @@
-#!/bin/bash
+# Bash Notes
 
-# Bash history
-!! # executes last command in history
-!58 # executes 58th command in history
-!ssh # executes last command starting with ssh
-!?ssh # executes last command containing the string ssh
-echo !$ # echos last argument of last command
-echo !*  # echos all but first word of last command
-echo $? # echos exit status of last command
-echo $@ # echos all arguments given to the script
-echo $# # echos the number of arguments given to the script
-^echo # executes last command without echo
-^eth0^lo^ # executes last command substituting eth0 with lo
-history -a # appends current session history to history file
+### Bash history
+
+```shell script
+!!          # executes last command in history
+!58         # executes 58th command in history
+!ssh        # executes last command starting with ssh
+!?ssh       # executes last command containing the string ssh
+echo !$     # echos last argument of last command
+echo !*     # echos all but first word of last command
+echo $?     # echos exit status of last command
+echo $@     # echos all arguments given to the script
+echo $#     # echos the number of arguments given to the script
+^echo       # executes last command without echo
+^eth0^lo^   # executes last command substituting eth0 with lo
+history -a  # appends current session history to history file
 pushd +n, popd, dirs -v
 # This keeps the password out of the bash history; type the password and press Ctrl+d:
 PASSWD=$(cat)
+```
 
+### Environment and Shell Options
 
-# Environment and Shell Options
-exec bash # replaces bash shell with new bash shell
-grep -l PATH ~/.[^.]*  # finds file in ~ that sets PATH
-.bash_profile # User specific environment and startup programs, also sources .bashrc
+```shell script
+exec bash      # replaces bash shell with new bash shell
+grep -l PATH ~/.[^.]*      # finds file in ~ that sets PATH
+.bash_profile  # User specific environment and startup programs, also sources .bashrc
 export PS1="\[\033[1;31m\][\u@\h \w]# \[\033[0m\]"  # light red root prompt
 export PS1="\[\033[1;32m\][\u@\h \w]$ \[\033[0m\]"  # light green user prompt
-.bashrc # User specific aliases and functions, also sources /etc/bashrc
-alias grep='grep --color' # color greps
-alias # prints aliases
-alias grep # prints the alias for grep
-env # prints environment variables
-export -p # prints environment variables
+.bashrc        # User specific aliases and functions, also sources /etc/bashrc
+alias grep='grep --color'  # color greps
+alias          # prints aliases
+alias grep     # prints the alias for grep
+env            # prints environment variables
+export -p      # prints environment variables
 # press $ Tab Tab (prints environment variables)
-set # prints names and values of all current shell variables
-set -o emacs # emacs style line editing
-set -x # turn on execution tracing, use in scripts to print commands during execution
-set +x # turn off execution tracing
+set            # prints names and values of all current shell variables
+set -o emacs   # emacs style line editing
+set -x         # turn on execution tracing, use in scripts to print commands during execution
+set +x         # turn off execution tracing
+```
 
+### Redirection
 
-# Redirection...
+```shell script
 # File descriptors: 0 stdin, 1 stdout, 2 strerr
-grep calc * 2> err.log # redirects stderr to file
-grep calc * &> err.log # redirects stdout and stderr to file; useful if no read
-grep calc * > err.log 2>&1 # redirects stderr to stdout; seems same as using &>
-grep calc * > err.log 1>&2 # redirects stdout to stderr which in this case is tty
-grep calc < err.log # redirects stdin to grep, same as ‘grep cacl err.log’
-./prime_gen.py < /dev/null # EOFError, redirects stdin to /dev/null so the script doesn’t hang on user input
-./prime_gen.py <&- # IOError, closes stdin so the script doesn’t hang on user input
-nohup ./ps1b.py & # run ps1b.py in the background, ignore hangup signal
+
+grep calc * 2> err.log      # redirects stderr to file
+grep calc * &> err.log      # redirects stdout and stderr to file; useful if no read
+grep calc * > err.log 2>&1  # redirects stderr to stdout; seems same as using &>
+grep calc * > err.log 1>&2  # redirects stdout to stderr which in this case is tty
+grep calc < err.log         # redirects stdin to grep, same as ‘grep cacl err.log’
+./prime_gen.py < /dev/null  # EOFError, redirects stdin to /dev/null so the script doesn’t hang on user input
+./prime_gen.py <&-          # IOError, closes stdin so the script doesn’t hang on user input
+nohup ./ps1b.py &           # run ps1b.py in the background, ignore hangup signal
 nohup mydaemonscript 0<&- 1>/dev/null 2>& &
 nohup mydaemonscript >>/var/log/myadmin.log 2>&1 <&- &
 >&-  (closes stdout)
@@ -67,20 +74,22 @@ ssh gp@tester1 << EOF
 uname -a
 lsb_release -d
 EOF
+```
 
+### Loops and Tests
 
-# Loops and Tests
+```shell script
 for i in `seq -w 0 20`; do touch file.$i; done # creates 20 files with padding for zeros
-for((j=0; j<9; j++)); do echo $j; done # C-style for loop
-ls -d */ 2> /dev/null | wc -l # returns the number for dirs only
+for((j=0; j<9; j++)); do echo $j; done         # C-style for loop
+ls -d */ 2> /dev/null | wc -l                  # returns the number for dirs only
 while [ -f errors.log ]; do echo 'file exists'; sleep 1; done
 while [ ! -d log ]; do echo 'log directory does not exist'; sleep 1; done
 test $? == 0 && echo success || echo fail
 [ $? == 0 ] && echo success || echo fail
 if [ $? == 0 ]; then echo success; else echo fail; fi
 c=17; f=15
-[ $f < $c ] && echo true || echo false # results in error, $f and $c are interpreted as filenames
-[[ $f < $c ]] && echo true || echo false # true
+[ $f < $c ] && echo true || echo false         # results in error, $f and $c are interpreted as filenames
+[[ $f < $c ]] && echo true || echo false       # true
 [ -z $FIRST_AVAIL_IP ] && echo "zero length"
 [ ! $FIRST_AVAIL_IP ] && echo "zero length"
 [ ! -z $FIRST_AVAIL_IP ] && echo "not zero length"
@@ -118,9 +127,11 @@ while true; do [ -f nothing3.txt ] && echo "file present" || { echo "file not pr
 
 # Status bar:
 for i in `seq 1 10`; do printf "\e[31m#\e[00m"; sleep 0.5; done; printf "\rDone      "; echo
+```
 
+### Bitwise Operators
 
-# Bitwise Operators...
+```shell script
 # The left number in the double parenthesis is a decimal.
 # The right number is the binary shift.
 # With every shift, the decimal is either doubled or halved.
@@ -140,8 +151,11 @@ echo $((3<<2))
 # The decimal 12 (binary: 1100) shifted 2 places to the right becomes 3 (binary: 11)
 echo $((12>>2))
 # 3
+```
 
+### Scripts and shell vars
 
+```shell script
 # Pass shell variables to a python command; in this example, -c is sys.argv[0] and $COLOR is sys.argv[1].
 COLOR=green
 python -c "import sys; print sys.argv[1].lower()" $COLOR
@@ -151,18 +165,21 @@ python -c "import sys; print sys.argv[1].lower()" $COLOR
 lower() { python -c "import sys; print sys.argv[1].lower()" $1; }
 lower BLUE
 # blue
+```
 
 
-# Arrays...
+### Arrays
+
+```shell script
 arr[0]=asdf1234
 arr[1]=777
 arr[2]=black
 
 colors=([91]=red [92]=yellow [93]=yellow)
  
-echo ${arr[@]} # This prints all elements in the array
+echo ${arr[@]}     # This prints all elements in the array
 asdf1234 777 black
-echo ${#arr[@]} # prints the number of elements in the array (length of the array)
+echo ${#arr[@]}    # prints the number of elements in the array (length of the array)
 # 3
 echo ${#string[0]} # prints the length of the first element
 # 8
@@ -170,15 +187,17 @@ echo ${#string[1]} # prints the length of the second element
 # 3
 echo ${#string[2]} # prints the length of the third element
 # 5
+```
 
+### Subshells and Code Blocks
 
-# Subshells and Code Blocks
+```shell script
 touch nothing
-test -f nothing || cd / && ls # ls runs on current dir
-test -f nothing || { cd / && ls; } # neither cd nor ls runs
+test -f nothing || cd / && ls       # ls runs on current dir
+test -f nothing || { cd / && ls; }  # neither cd nor ls runs
 rm nothing
 test -f nothing || { cd / && ls; }  # ls is run on / and the current dir is now /
-test -f nothing || (cd / && ls) # ls is run on / but the current dir does not change
+test -f nothing || (cd / && ls)     # ls is run on / but the current dir does not change
 
 # Redirect output of a subshell to a script or command:
 ./stack-check.sh <(cat hostlist.txt | grep -v dc1)
@@ -211,35 +230,37 @@ for SCRIPT in $@; do
     FORKS=$(( $FORKS + 1 ))
 done
 wait
+```
 
+### Evaluation, Expansion
 
-# Evaluation, Expansion...
+```shell script
 VAR1=apple
 VAR2="orange
 grape"
-echo $VAR1 # apple
-echo "$VAR1" # apple
-echo "$VAR2" # line1: orange; line 2: grape
-echo '$VAR1' # $VAR1
-echo cart$VAR1 # cartapple
-echo $VAR1cart # (no output)
-echo ${VAR1}cart # applecart
+echo $VAR1        # apple
+echo "$VAR1"      # apple
+echo "$VAR2"      # line1: orange; line 2: grape
+echo '$VAR1'      # $VAR1
+echo cart$VAR1    # cartapple
+echo $VAR1cart    # (no output)
+echo ${VAR1}cart  # applecart
 VAR1=${VAR1}cart; echo $VAR1 # applecart
-echo a{pp,,is}le # apple ale aisle
+echo a{pp,,is}le  # apple ale aisle
 VAR3=ORANGEapple
-echo ${VAR3,,} # orangeapple
-echo ${VAR3^^} # ORANGEAPPLE
+echo ${VAR3,,}    # orangeapple
+echo ${VAR3^^}    # ORANGEAPPLE
 
 REGEXs_EGREP_ARGS=" -e 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50"
-echo $REGEXs_EGREP_ARGS # 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50
-echo "$REGEXs_EGREP_ARGS" # -e 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50
+echo $REGEXs_EGREP_ARGS    # 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50
+echo "$REGEXs_EGREP_ARGS"  # -e 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50
 
-touch img.{00..23} # creates img.00 through img.23
-ls img.{00..09} # matches the first 10
+touch img.{00..23}  # creates img.00 through img.23
+ls img.{00..09}     # matches the first 10
 
 touch apple
-ls ap?le # apple (matches any one char)
-ls a*le # apple (matches patterns beginning with a, ending with le)
+ls ap?le  # apple (matches any one char)
+ls a*le   # apple (matches patterns beginning with a, ending with le)
 
 VAR2=yellow ./fruit.sh; echo $VAR2
 # yellow pear (VAR2 is only set for the 1st command)
@@ -256,9 +277,10 @@ alias insert='printf "|%s|\n"'
 insert "camera operator"
 # |camera operator|
 
-basename $0 # filename of the script being run
-dirname $0 # relative path of the script being executed
-readlink -f $0 # full path and filename of the script being run
+basename $0     # filename of the script being run
+dirname $0      # relative path of the script being executed
+readlink -f $0  # full path and filename of the script being run
+```
 
 
-chsh -s /bin/zsh # set zsh as default shell on OSX
+chsh -s /bin/zsh  # set zsh as default shell on OSX
