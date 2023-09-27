@@ -31,7 +31,7 @@ single, s, S
 # Runlevel 4 is listed as unused, but starts based on system initialization.
 
 runlevel  # previous, current runlevel
-who -r  # current runlevel
+who -r    # current runlevel
 
 # Boot process:
 # BIOS loads grub
@@ -40,10 +40,10 @@ who -r  # current runlevel
 # init process runs /etc/rc.d/rc.sysinit
 
 # rc files on RHEL 6
-/etc/init/rcS.conf  # exec /etc/rc.d/rc.sysinit
+/etc/init/rcS.conf    # exec /etc/rc.d/rc.sysinit
 /etc/rc.d/rc.sysinit  # sets the environment path, starts swap, checks the file systems, etc
-/etc/init/rc.conf  # exec /etc/rc.d/rc $RUNLEVEL
-/etc/rc.d/rc  # executes scripts in runlevel, /etc/rc.d/rc[0-6].d/
+/etc/init/rc.conf     # exec /etc/rc.d/rc $RUNLEVEL
+/etc/rc.d/rc          # executes scripts in runlevel, /etc/rc.d/rc[0-6].d/
 # rc short for runcom, run command
 
 /etc/init/prefdm.conf  # persistently start/stop the GUI on a specific runlevel
@@ -60,35 +60,35 @@ ntsysv --level 345  # config services for runlevels 3,4,and 5
 
 # service on RHEL 6
 service --status-all  # shows status of all services
-service httpd start  # start httpd
+service httpd start   # start httpd
 service sshd restart  # restart sshd
-service sshd reload  # reload sshd config
-service httpd stop  # stop httpd
+service sshd reload   # reload sshd config
+service httpd stop    # stop httpd
 
 /etc/systemd/  # system info
 
 # Services on Solaris
-svcs -a  # show status of all services on Solaris
-svcs -v ssh  # show verbose status of ssh, -l for all available info
-svcs -x http  # show explanations for service state
-svcadm enable -t http  # enable and start http
-svcadm restart ssh  # restart ssh
-svcadm refresh ssh  # reload ssh config
+svcs -a                 # show status of all services on Solaris
+svcs -v ssh             # show verbose status of ssh, -l for all available info
+svcs -x http            # show explanations for service state
+svcadm enable -t http   # enable and start http
+svcadm restart ssh      # restart ssh
+svcadm refresh ssh      # reload ssh config
 svcadm disable -t http  # disable and stop http
-svcadm clear http  # clear http from maintenance state
-/var/svc/log/  # service logs
+svcadm clear http       # clear http from maintenance state
+/var/svc/log/           # service logs
 
 sudo launchctl list  # list services on macOS
 
 
 # Reboot, shutdown
 shutdown -r 10 “message”  # reboot in 10 minutes with message
-shutdown -h now  # halt or poweroff after bringing down system
-shutdown -y -i5 -g0  # yes, init 5, grace period 0s - halt or poweroff on Solaris
-shutdown -H now  # halts the system after being brought down
-shutdown -P now  # powers off the system after being brought down
-shutdown -c  # cancel a running shutdown
-shutdown -k now  # send warning msg, disable logins, do not shutdown
+shutdown -h now           # halt or poweroff after bringing down system
+shutdown -y -i5 -g0       # yes, init 5, grace period 0s - halt or poweroff on Solaris
+shutdown -H now           # halts the system after being brought down
+shutdown -P now           # powers off the system after being brought down
+shutdown -c               # cancel a running shutdown
+shutdown -k now           # send warning msg, disable logins, do not shutdown
 
 # Symlinks:
 /usr/sbin/reboot -> /bin/systemctl
@@ -101,15 +101,15 @@ shutdown -k now  # send warning msg, disable logins, do not shutdown
 
 # Grub bootloader
 
-grub-md5-crypt  # create an md5 password
-password --md5 <password-hash>  # place after ‘timeout’ or a title line in  grub.conf
+grub-md5-crypt                     # create an md5 password
+password --md5 <password-hash>     # place after ‘timeout’ or a title line in  grub.conf
 
 # From the grub prompt at system start:
-grub> root  # identify partition with boot directory
-grub> find /grub/grub.conf  # identify partition with boot directory
+grub> root                         # identify partition with boot directory
+grub> find /grub/grub.conf         # identify partition with boot directory
 grub> find (hd0,0)/grub/grub.conf  # identify Linux partitions
-grub> cat (hd0,0)/grub/grub.conf  # print grub.conf
-grub> cat (hd0,1)/etc/fstab  # print fstab, does not work with logical volumes
+grub> cat (hd0,0)/grub/grub.conf   # print grub.conf
+grub> cat (hd0,1)/etc/fstab        # print fstab, does not work with logical volumes
 
 # Boot system from grub prompt:
 # Use tab to autocomplete and list file names.
@@ -121,24 +121,24 @@ grub> boot
 # Reinstalling the Boot Loader:
 # Choose Rescue installed system from the menu or try the following:
 # Type linux rescue at the installation boot prompt to enter the rescue environment.
-chroot /mnt/sysimage  # mount the root partition
+chroot /mnt/sysimage         # mount the root partition
 /sbin/grub-install /dev/sda  # reinstall the GRUB boot loader
-/boot/grub/grub.conf  # review changes
+/boot/grub/grub.conf         # review changes
 
 
 # XCFS
 showdomainstatus -a  # show status of all domains
-showlogs power  # display log of resets, poweron/off
-showstatus  # Lists degraded components
-fmdump -v  # view fault management logs, verbose
-reset -d 0  # Domain 0 reset
-reset -d 0 por  # Domain 0 system reset
-reset -d 0 xir  # Domain 0 CPU reset
-poweroff -d 0  # poweroff domain 0
-poweron -d 0  # poweron domain 0
-console -yd 0  # connect to domain 0 console
-printenv  # from the OK prompt, check whether auto-boot is enabled
-boot  # from the OK prompt on the console, boot the OS
+showlogs power       # display log of resets, poweron/off
+showstatus           # Lists degraded components
+fmdump -v            # view fault management logs, verbose
+reset -d 0           # Domain 0 reset
+reset -d 0 por       # Domain 0 system reset
+reset -d 0 xir       # Domain 0 CPU reset
+poweroff -d 0        # poweroff domain 0
+poweron -d 0         # poweron domain 0
+console -yd 0        # connect to domain 0 console
+printenv             # from the OK prompt, check whether auto-boot is enabled
+boot                 # from the OK prompt on the console, boot the OS
 #. (pound+period, return to XSCF shell)
 
 

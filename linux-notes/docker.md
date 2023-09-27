@@ -11,23 +11,23 @@ yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```shell script
 systemctl status docker  # status of docker service
 systemctl enable docker  # enable the docker service
-systemctl start docker  # start the docker service
-systemctl show docker  # environment variables used by docker
+systemctl start docker   # start the docker service
+systemctl show docker    # environment variables used by docker
 
 docker version #  show version info
-docker info  # display system-wide information
+docker info    # display system-wide information
 
-docker system df  # show docker disk usage
+docker system df     # show docker disk usage
 docker system prune  # remove various docker items
 ```
 
 ### Docker networks
 ```shell script
-docker network ls  # list networks
+docker network ls           # list networks
 docker network inspect lb1  # show info for the network
 docker network connect lb1 cat_loadbalancer  # connect the container to lb1 network
-docker network create lb2  # create the network
-docker network rm lb2  # remove the network
+docker network create lb2   # create the network
+docker network rm lb2       # remove the network
 ```
 
 ### Docker images
@@ -36,12 +36,12 @@ docker pull centos  # pull a centos image from Docker Hub
 docker pull host.docker.internal:5000/hello  # pull from the local registry, OSX
 docker pull harbor.somedomain.io/prlb-platform/util-chefdk:latest  # pull latest image from private registry
 
-docker images  # list images
-docker image ls  # list images, new style
-docker images --no-trunc  # list images, no truncate image ID
+docker images               # list images
+docker image ls             # list images, new style
+docker images --no-trunc    # list images, no truncate image ID
 docker image history nginx  # show history for image 'nginx'
 docker image inspect centos | grep CMD  # show command the container will run
-docker rmi 4ab4c602aa5e  # delete image with given image ID
+docker rmi 4ab4c602aa5e     # delete image with given image ID
 
 # Tag an image, either of the following:
 docker tag 311d49c8619b dtest1:v1
@@ -66,17 +66,17 @@ RUN apt-get install -y python3
 
 ##### Build Docker image, examples
 ```shell script
-docker build -t hello1 .  # build image from Dockerfile and name 'hello1'
+docker build -t hello1 .         # build image from Dockerfile and name 'hello1'
 packer build packer/hello1.json  # build image using packer
-docker build -t mkorangestripe/loadbalancer:1.1.0 .  # build image including repo in name
+docker build -t mkorangestripe/loadbalancer:1.1.0 .         # build image including repo in name
 docker build -t harbor.somedomain.io/prlb-platform/test1 .  # build image including registry and repo in name
 ```
 
 ##### Push to a registry
 ```shell script
-docker push localhost:5000/hello  # push in local registry, Linux
-docker push host.docker.internal:5000/hello  # push in local registry, OSX
-docker push mkorangestripe/loadbalancer:1.1.0  # push to dockerhub
+docker push localhost:5000/hello                      # push in local registry, Linux
+docker push host.docker.internal:5000/hello           # push in local registry, OSX
+docker push mkorangestripe/loadbalancer:1.1.0         # push to dockerhub
 docker push harbor.somedomain.io/prlb-platform/test1  # push to harbor
 ```
 
@@ -132,11 +132,11 @@ docker run -d --name hello-bridge host.docker.internal:5000/hello-socket bridge
 ```
 
 ```shell script
-docker-compose ps  # process state of containers started by docker-compose, -a for all
-docker-compose up  # create and start containers
+docker-compose ps     # process state of containers started by docker-compose, -a for all
+docker-compose up     # create and start containers
 docker-compose up -d  # detached mode
-docker-compose down  #  stop containers and remove resources
-docker compose down --remove-orphans  # remove orphaned containers
+docker-compose down   #  stop containers and remove resources
+docker compose down --remove-orphans      # remove orphaned containers
 docker-compose exec datadog agent status  # execute the command in the datadog container
 ```
 

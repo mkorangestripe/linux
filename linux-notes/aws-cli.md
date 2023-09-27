@@ -52,7 +52,7 @@ aws ecs list-task-definitions
 ### ECR
 
 ```shell script
-aws ecr create-repository --repository-name lb-repo  # create a repo
+aws ecr create-repository --repository-name lb-repo      # create a repo
 aws ecr get-login --region us-east-1 --no-include-email  # get login info
 docker login -u AWS -p [PRIVATE KEY] https://xxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com  # get uri from repository['repositoryUri']
 ```

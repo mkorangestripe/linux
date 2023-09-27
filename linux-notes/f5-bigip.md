@@ -4,17 +4,17 @@
 ### GTM
 
 ```shell script
-tail -f /var/log/ltm  # watch for ltm info
+tail -f /var/log/ltm              # watch for ltm info
 tail -f /var/log/gtm | grep 'UP'  # watch for something going up or down
 
-tmsh list gtm datacenter  # list datacenters
+tmsh list gtm datacenter       # list datacenters
 tmsh list gtm datacenter c020  # list datacenter
-tmsh show gtm datacenter  # show datacenters with status
+tmsh show gtm datacenter       # show datacenters with status
 tmsh show gtm datacenter c020  # show datacenter status
 
-tmsh list gtm server  # list virtual servers by datacenter
+tmsh list gtm server       # list virtual servers by datacenter
 tmsh list gtm server c021  # list virtual server
-tmsh show gtm server  # show virtual servers with status
+tmsh show gtm server       # show virtual servers with status
 tmsh show gtm server c021  # show gtm server with status
 
 tmsh list gtm pool  # list WIP pools
@@ -65,13 +65,13 @@ GTM > Global Traffic > ZoneRunner > Resource Record List.
 zgrep 10.211.156.18 /var/log/audit*.gz
 zgrep 10.211.156.18 /var/log/ltm*.gz
 
-bigtop  # show statistic summary
-b self show  # show self IPs
+bigtop            # show statistic summary
+b self show       # show self IPs
 b interface show  # show interfaces
 
 tmsh show cm sync-status  # check synchronization status
 tmsh run cm config-sync to-group cloudbank032  # save config to group cloudbank032
-tmsh save sys config  # save config
+tmsh save sys config      # save config
 ```
 
 
@@ -80,8 +80,8 @@ tmsh save sys config  # save config
 ```shell script
 # List all VIPs
 tmsh list ltm virtual  # list virtual servers with configuration
-b virtual list  # list virtual servers with configuration
-tmsh list ltm virtual pool  # list virtual servers with pool configuration
+b virtual list         # list virtual servers with configuration
+tmsh list ltm virtual pool         # list virtual servers with pool configuration
 tmsh list ltm virtual destination  # list virtual servers with destination configuration
 
 # Find an unused IP address for the VIP
@@ -89,9 +89,9 @@ tmsh list ltm virtual destination | awk '/67.216.236/ {print $2}' | awk -F: '{pr
 
 # List specific VIP
 tmsh list ltm virtual c090-prd-c090-d1-active.dr.com-80  # list virtual server configuration
-b virtual dc2-c5-store5.esellerate.net-80 list  # list virtual server config
+b virtual dc2-c5-store5.esellerate.net-80 list           # list virtual server config
 tmsh show ltm virtual c090-prd-c090-d1-active.dr.com-80  # show virtual server status
-b virtual dc2-c5-store5.esellerate.net-80 show  # show virtual server status
+b virtual dc2-c5-store5.esellerate.net-80 show           # show virtual server status
 
 # Create a VIP
 tmsh create ltm virtual c034-somevip-prd-80 { description "Example VIP" destination 67.216.236.231:80 ip-protocol tcp mask 255.255.255.255 persist replace-all-with { cookie { default yes } } pool p-somepool-prd-c034 profiles replace-all-with { http-oneconnect-drh { } oneconnect-drh { } tcp-oneconnect-drh-lan { context serverside } tcp-oneconnect-drh-wan { context clientside } } rules { r-headerinsert-clientip-ipaddr } source 0.0.0.0/0 source-address-translation { type automap } vlans-disabled}
@@ -110,8 +110,8 @@ tmsh modify ltm virtual $VIRTUAL profiles delete { wildcard.wipint.drws.net } pr
 
 ```shell script
 # List all VIP pools
-tmsh list ltm pool  # list pools with configuration
-b pool list  # list pools with configuration
+tmsh list ltm pool          # list pools with configuration
+b pool list                 # list pools with configuration
 tmsh list ltm pool members  # list pools with member configuration
 tmsh list ltm pool monitor  # list pools with monitor configuration
 
@@ -141,7 +141,7 @@ Mark down nodes at the node level, not the pool level.  The node could be in mul
 
 ```shell script
 tmsh list ltm node  # list nodes with configuration
-b node list  # list nodes with configuration
+b node list         # list nodes with configuration
 tmsh list ltm node 10.211.156.18  # list node configuration
 b node 10.128.69.11 list  # list node configuration
 tmsh show ltm node 10.211.156.18  # show node status
@@ -151,11 +151,11 @@ tmsh create ltm node 10.48.255.4  # create the node
 tmsh delete ltm node 10.48.255.4  # delete the node
 
 # Nodes that have been disabled accept only new connections that match an existing persistence session.
-tmsh modify ltm node 10.211.156.18 session user-enabled  # enable node
+tmsh modify ltm node 10.211.156.18 session user-enabled   # enable node
 tmsh modify ltm node 10.211.156.18 session user-disabled  # disable node
 
 # Nodes that have been forced offline do not accept any new connections, even if they match an existing persistence session.
-tmsh modify ltm node 10.211.156.18 state user-up  # force a node online
+tmsh modify ltm node 10.211.156.18 state user-up    # force a node online
 tmsh modify ltm node 10.211.156.18 state user-down  # force a node offline
 ```
 
