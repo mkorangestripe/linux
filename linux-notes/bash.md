@@ -29,9 +29,11 @@ grep -l PATH ~/.[^.]*      # finds file in ~ that sets PATH
 export PS1="\[\033[1;31m\][\u@\h \w]# \[\033[0m\]"  # light red root prompt
 export PS1="\[\033[1;32m\][\u@\h \w]$ \[\033[0m\]"  # light green user prompt
 .bashrc        # User specific aliases and functions, also sources /etc/bashrc
+
 alias grep='grep --color'  # color greps
 alias          # prints aliases
 alias grep     # prints the alias for grep
+
 env            # prints environment variables
 export -p      # prints environment variables
 # press $ Tab Tab (prints environment variables)
