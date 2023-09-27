@@ -212,7 +212,8 @@ tail -f words.log | tee >(grep leaf > leaves.txt) >(grep apple > apples.txt)
 ssh USER@$HOSTNAME /bin/bash < drhloggzip-ssh.sh
 
 # The script below uses subshells and background execution to run commands in parallel.
-# The "wait" ensures the terminal will not display a prompt until execution is complete and also that the terminal will in fact display a prompt when processing is complete.
+# The "wait" ensures the terminal will not display a prompt until execution is complete and...
+# also that the terminal will in fact display a prompt when processing is complete.
 # Invoking subshells isn’t absolutely necessary in this example.
 
 #!/bin/bash
