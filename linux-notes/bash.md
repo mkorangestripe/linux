@@ -81,20 +81,29 @@ EOF
 ### Loops and Tests
 
 ```shell script
-for i in `seq -w 0 20`; do touch file.$i; done # creates 20 files with padding for zeros
-for((j=0; j<9; j++)); do echo $j; done         # C-style for loop
-ls -d */ 2> /dev/null | wc -l                  # returns the number for dirs only
+for i in `seq -w 0 20`; do touch file.$i; done  # creates 20 files with padding for zeros
+for((j=0; j<9; j++)); do echo $j; done          # C-style for loop
+ls -d */ 2> /dev/null | wc -l                   # returns the number for dirs only
+
 while [ -f errors.log ]; do echo 'file exists'; sleep 1; done
 while [ ! -d log ]; do echo 'log directory does not exist'; sleep 1; done
+
 test $? == 0 && echo success || echo fail
 [ $? == 0 ] && echo success || echo fail
 if [ $? == 0 ]; then echo success; else echo fail; fi
+
 c=17; f=15
-[ $f < $c ] && echo true || echo false         # results in error, $f and $c are interpreted as filenames
-[[ $f < $c ]] && echo true || echo false       # true
+[ $f < $c ] && echo true || echo false          # results in error when $f and $c are interpreted as filenames
+[[ $f < $c ]] && echo true || echo false        # true
+
 [ -z $FIRST_AVAIL_IP ] && echo "zero length"
 [ ! $FIRST_AVAIL_IP ] && echo "zero length"
 [ ! -z $FIRST_AVAIL_IP ] && echo "not zero length"
+
+# Test whether $VAR1 is set:
+if [ $VAR1 ]; then
+    echo $VAR1
+fi
 
 # Get user input from a script:
 echo -n "Enter CVS username: "

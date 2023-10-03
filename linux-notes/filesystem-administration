@@ -39,6 +39,8 @@ cp -a  # --archive, same as -dr --preserve=all
 cp -n  # --no-clobber, do not overwrite an existing file
 cp -i  # --interactive, prompt before overwrite
 cp -f  # --force, if dest file cannot be read, remove it, and try again
+cp -uv file1.txt src/file1.txt  # copy only when access or modify timestamp of source file is newer than destination
+cp -ruv dir1 src/               # same as above, but recursive, this works on individual files
 cp -RPp@ /nfs/pub/ .  # recursive & replicate pipes, copy symlinks, preserve file attributes, preserve extended attributes - on Solaris
 
 # rsync unlike cp, copies only when the source and destination files differ.
