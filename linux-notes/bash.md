@@ -1,6 +1,6 @@
 # Bash Notes
 
-### Bash history
+### Bash history, args
 
 ```shell script
 !!          # executes last command in history
@@ -9,13 +9,17 @@
 !?ssh       # executes last command containing the string ssh
 echo !$     # echos last argument of last command
 echo !*     # echos all but first word of last command
+
 echo $?     # echos exit status of last command
 echo $@     # echos all arguments given to the script
 echo $#     # echos the number of arguments given to the script
+
 ^echo       # executes last command without echo
 ^eth0^lo^   # executes last command substituting eth0 with lo
+
 history -a  # appends current session history to history file
 pushd +n, popd, dirs -v
+
 # This keeps the password out of the bash history; type the password and press Ctrl+d:
 PASSWD=$(cat)
 ```
@@ -24,6 +28,7 @@ PASSWD=$(cat)
 
 ```shell script
 exec bash      # replaces bash shell with new bash shell
+
 grep -l PATH ~/.[^.]*      # finds file in ~ that sets PATH
 .bash_profile  # User specific environment and startup programs, also sources .bashrc
 export PS1="\[\033[1;31m\][\u@\h \w]# \[\033[0m\]"  # light red root prompt
@@ -223,8 +228,8 @@ tail -f words.log | tee >(grep leaf > leaves.txt) >(grep apple > apples.txt)
 ssh USER@$HOSTNAME /bin/bash < drhloggzip-ssh.sh
 
 # The script below uses subshells and background execution to run commands in parallel.
-# The "wait" ensures the terminal will not display a prompt until execution is complete and...
-# also that the terminal will in fact display a prompt when processing is complete.
+# The "wait" ensures the terminal will not display a prompt until execution is complete
+# and also that the terminal will in fact display a prompt when processing is complete.
 # Invoking subshells isn’t absolutely necessary in this example.
 
 #!/bin/bash
