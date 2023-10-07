@@ -65,8 +65,8 @@ startx                 # starts the GUI
 chkconfig --list postfix
 chkconfig postfix on
 chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfix
-# Links beginning with "K" are to be stopped whenever leaving the runlevel they are in.
-# Links beginning with "S" are to be started, whenever the system is entering the runlevel they are about to go in to.
+# Links beginning with "K" are stopped when the system leaves the given runlevel.
+# Links beginning with "S" are started when the system enters the given runlevel.
 
 ntsysv --level 345  # config services for runlevels 3,4,and 5
 
