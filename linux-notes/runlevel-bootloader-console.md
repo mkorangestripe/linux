@@ -1,6 +1,9 @@
-#!/bin/bash
+# Runlevel, Bootloader, Console
 
-# Nonstandard runlevels on RHEL 6:
+### Runlevels
+
+```shell script
+# Nonstandard runlevels on RHEL 6
 # From the kernel line in the grub menu delete rhgb quiet (if desired), and append one of the following.
 
 init=/bin/sh
@@ -19,7 +22,8 @@ single, s, S
 # runs everything but scripts in /etc/rc1.d ???
 
 
-# /etc/inittab on RHEL 6
+# Standard runlevels on RHEL 6
+# /etc/inittab
 0 - halt (Do NOT set initdefault to this)
 1 - Single user mode
 2 - Multiuser, without NFS (The same as 3, if you do not have networking)
@@ -32,33 +36,41 @@ single, s, S
 
 runlevel  # previous, current runlevel
 who -r    # current runlevel
+```
 
-# Boot process:
-# BIOS loads grub
-# grub loads the linux kernel
-# Linux kernel calls the init process
-# init process runs /etc/rc.d/rc.sysinit
+### Boot process
 
+1) BIOS loads grub
+1) grub loads the linux kernel
+1) Linux kernel calls the init process
+1) init process runs /etc/rc.d/rc.sysinit
+
+```shell script
 # rc files on RHEL 6
 /etc/init/rcS.conf    # exec /etc/rc.d/rc.sysinit
 /etc/rc.d/rc.sysinit  # sets the environment path, starts swap, checks the file systems, etc
 /etc/init/rc.conf     # exec /etc/rc.d/rc $RUNLEVEL
 /etc/rc.d/rc          # executes scripts in runlevel, /etc/rc.d/rc[0-6].d/
-# rc short for runcom, run command
+
+# rc, short for runcom, run command
 
 /etc/init/prefdm.conf  # persistently start/stop the GUI on a specific runlevel
-startx  # starts the GUI
+startx                 # starts the GUI
+```
 
+### Services
 
-# chkconfig on RHEL 6
+```shell script
+# Chkconfig on RHEL 6:
 chkconfig --list postfix
 chkconfig postfix on
 chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfix
 # Links beginning with "K" are to be stopped whenever leaving the runlevel they are in.
 # Links beginning with "S" are to be started, whenever the system is entering the runlevel they are about to go in to.
+
 ntsysv --level 345  # config services for runlevels 3,4,and 5
 
-# service on RHEL 6
+# Service on RHEL 6:
 service --status-all  # shows status of all services
 service httpd start   # start httpd
 service sshd restart  # restart sshd
@@ -67,7 +79,7 @@ service httpd stop    # stop httpd
 
 /etc/systemd/  # system info
 
-# Services on Solaris
+# Services on Solaris:
 svcs -a                 # show status of all services on Solaris
 svcs -v ssh             # show verbose status of ssh, -l for all available info
 svcs -x http            # show explanations for service state
@@ -79,9 +91,11 @@ svcadm clear http       # clear http from maintenance state
 /var/svc/log/           # service logs
 
 sudo launchctl list  # list services on macOS
+```
 
+### Shutdown, Reboot
 
-# Reboot, shutdown
+```shell script
 shutdown -r 10 “message”  # reboot in 10 minutes with message
 shutdown -h now           # halt or poweroff after bringing down system
 shutdown -y -i5 -g0       # yes, init 5, grace period 0s - halt or poweroff on Solaris
@@ -90,17 +104,18 @@ shutdown -P now           # powers off the system after being brought down
 shutdown -c               # cancel a running shutdown
 shutdown -k now           # send warning msg, disable logins, do not shutdown
 
-# Symlinks:
-/usr/sbin/reboot -> /bin/systemctl
-/usr/sbin/halt -> /bin/systemctl
+# Symlinks for various commands:
+/usr/sbin/reboot   -> /bin/systemctl
+/usr/sbin/halt     -> /bin/systemctl
 /usr/sbin/poweroff -> /bin/systemctl
 /usr/sbin/shutdown -> /bin/systemctl
-/usr/sbin/telinit -> /bin/systemctl
-/usr/sbin/init -> /lib/systemd/systemd
+/usr/sbin/telinit  -> /bin/systemctl
+/usr/sbin/init     -> /lib/systemd/systemd
+```
 
+### Grub bootloader
 
-# Grub bootloader
-
+```shell script
 grub-md5-crypt                     # create an md5 password
 password --md5 <password-hash>     # place after ‘timeout’ or a title line in  grub.conf
 
@@ -124,9 +139,12 @@ grub> boot
 chroot /mnt/sysimage         # mount the root partition
 /sbin/grub-install /dev/sda  # reinstall the GRUB boot loader
 /boot/grub/grub.conf         # review changes
+```
 
+### XSCF
+eXtended System Control Facility
 
-# XCFS
+```shell script
 showdomainstatus -a  # show status of all domains
 showlogs power       # display log of resets, poweron/off
 showstatus           # Lists degraded components
@@ -140,22 +158,27 @@ console -yd 0        # connect to domain 0 console
 printenv             # from the OK prompt, check whether auto-boot is enabled
 boot                 # from the OK prompt on the console, boot the OS
 #. (pound+period, return to XSCF shell)
+```
 
+### iLO / ILOM
+Integrated Lights Out Management
+```shell script
+# Reboot examples:
 
-# ilo/ilom reboot:
+# /SP is the service processor, /SYS is the server itself
 show
-# /SP is the service processor, /SYS is the server itself.
 cd /SP
 reset
 
-show
 # /system1 is the system, /map1 is the ilo
+show
 cd /map1
 reset
+```
 
+### Automated installation using a kickstart file
 
-# Automated Installation
-
+```shell script
 # Kickstart from an FTP Server:
 cp anaconda-ks.cfg ks.cfg
 system-config-kickstart ks.cfg  # or edit ks.cfg with vi
@@ -171,3 +194,4 @@ vmlinuz initrd=initrd.img ks=hd:fd0:/ks.cfg
 vmlinuz initrd=initrd.img ks=nfs:192.168.122.1/ks.cfg
 vmlinuz initrd=initrd.img ks=ftp://192.168.122.1/pub/ks.cfg
 vmlinuz initrd=initrd.img ks=http://192.168.122.1/pub/ks.cfg
+```
