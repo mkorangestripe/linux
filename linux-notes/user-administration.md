@@ -34,7 +34,8 @@ passwd -l user1     # lock account, -u unlocks
 passwd -r files user1  # specifies the ‘files’ repository on Solaris
 # By default /etc/nsswitch.conf determines the repository: files, ldap, nis, or nisplus.
 
-# Enter in /etc/passwd to disable interactive login for a user, this will prevent logins even if the account uses an ssh key:
+# Enter in /etc/passwd to disable interactive login for a user,
+# this will prevent logins even if the account uses an ssh key:
 /sbin/nologin
 
 /etc/securetty  # can be used to limit terminals
@@ -52,23 +53,27 @@ user host=(user:group) tag:commands
 host          # specifies which host the command can be run from
 (user:group)  # specifies which user or group the command can be run as
 
-# Allow members of the wheel group, connected from any host, as any user, without requiring a password, to run any command:
+# Allow members of the wheel group, connected from any host,
+# as any user, without requiring a password, to run any command:
 %wheel	ALL=(ALL)   	NOPASSWD: ALL
 
 # Allow members of the wheel group, connected from any host, as any user, to run any command:
 %wheel   	ALL=(ALL)   	ALL
 
-# Allow members of the wheel group, connected from any host, without providing a password, to install system updates:
+# Allow members of the wheel group, connected from any host,
+# without providing a password, to install system updates:
 %wheel  ALL=NOPASSWD:/usr/bin/yum -y update
 
-# On Ubuntu - allow members of the sudo group, connected from any host, without providing a password, to install system updates:
+# On Ubuntu - allow members of the sudo group, connected from any host,
+# without providing a password, to install system updates:
 Cmnd_Alias UPDATE_CMDS=/usr/bin/apt-get -y update, /usr/bin/apt-get -y dist-upgrade
 %sudo   ALL=	NOPASSWD:UPDATE_CMDS
 
 # Allow gp, connected from localhost, to reboot the system:
 gp  localhost=/usr/bin/reboot
 
-# Allow members of the wheel group, connected from any host, without providing a password, to list disk information:
+# Allow members of the wheel group, connected from any host,
+# without providing a password, to list disk information:
 %wheel  ALL=NOPASSWD:/sbin/fdisk -luc
 ```
 
