@@ -61,7 +61,7 @@ yum-complete-transaction --cleanup-only  # attempt to complete failed transactio
 gpk-prefs  # GNOME PackageKit Update Preferences
 ```
 
-#### APT, dpkg
+#### Apt, dpkg
 
 ```shell script
 apt list --installed  # list installed packages
