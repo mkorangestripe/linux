@@ -1,6 +1,6 @@
 # Vagrant Notes
 
-### VirtualBox
+#### VirtualBox
 
 ```shell script
 VBoxManage list vms  # list VirtualBox vm's
@@ -8,7 +8,7 @@ VBoxManage list vms -l  # list VirtualBox vm's with more details
 VBoxManage list hostonlyifs  # list host-only network interfaces
 ```
 
-### Vagrant
+#### Vagrant
 
 ```shell script
 # Login to Vagrant Cloud:
@@ -39,7 +39,7 @@ vagrant port  # show port forwarding from guest to host, e.g. 22 (guest) => 2222
 vagrant reload  # reload configuration in Vagrantfile
 ```
 
-### Vagrant, provision with Ansible
+#### Vagrant, provision with Ansible
 
 ```shell script
 # Provision the vagrant machines based on the config.vm.provision section in the Vagrantfile:

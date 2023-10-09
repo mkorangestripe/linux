@@ -1,6 +1,6 @@
 # Python Versions and Packages
 
-### Pip
+#### Pip
 
 ```shell script
 pip list             # list packages installed by pip
@@ -23,7 +23,7 @@ pip install -r requirements.txt                  # install required packages
 pip uninstall ipython                            # uninstall ipython
 ```
 
-### Install a project in editable mode (develop mode):
+#### Install a project in editable mode (develop mode):
 ```shell script
 # Project appears to be installed, but is still editable from the src tree.
 # This is done through symlinks.
@@ -31,7 +31,7 @@ pip install -e .  # install packages using ./setup.py
 pip install -e git+https://git.repo/some_pkg.git#egg=SomeProject
 ```
 
-### Virtualenv
+#### Virtualenv
 
 ```shell script
 mkdir virt-cos-sdk
@@ -42,7 +42,7 @@ deactivate                   # deactivate the virtual environment
 # Note, a leftover .Python file from virtualenv can cause problems when recreating the env.
 ```
 
-### Pipenv
+#### Pipenv
 
 ```shell script
 pipenv --python 3.8          # create a project using Python 3.8
@@ -64,7 +64,7 @@ pipenv run python linux_monitoring_datadog.py  # run a command within the virtua
 pipenv shell                                   # start a shell within the virtualenv
 ```
 
-### Pyenv
+#### Pyenv
 
 ```shell script
 pyenv install --list     # list available versions of Python
@@ -80,7 +80,7 @@ which python             # show path
 pyenv which python       # show actual path
 ```
 
-### Anaconda
+#### Anaconda
 
 ```shell script
 conda search python  # list available versions of Python
@@ -102,7 +102,7 @@ conda remove pandas  # remove pandas from the currently-active env
 conda update --all   # update all installed packages in the env
 ```
 
-### Packaging (Python 2)
+#### Packaging (Python 2)
 
 ```shell script
 setup.py               # defines packages to install, can reference requirements.txt for requirements
@@ -113,7 +113,7 @@ README.md
 tests/  # for unit tests, if any
 ```
 
-### Packaging (Python 3)
+#### Packaging (Python 3)
 
 ```shell script
 # This creates a dist directory with a .whl and a tar.gz file:

@@ -1,6 +1,6 @@
 # Package Management
 
-### RPM
+#### RPM
 
 ```shell script
 rpm -ihv  <package>                  # standard verbose install command, use for kernel updates
@@ -25,7 +25,7 @@ rpm --verify --file <filename>
 rpm -Va              # verify all packages, beware of changes in binaries
 ```
 
-### Yum
+#### Yum
 
 ```shell script
 yum list       # all, installed, available, updates, extras
@@ -61,7 +61,7 @@ yum-complete-transaction --cleanup-only  # attempt to complete failed transactio
 gpk-prefs  # GNOME PackageKit Update Preferences
 ```
 
-### APT, dpkg
+#### APT, dpkg
 
 ```shell script
 apt list --installed  # list installed packages
@@ -86,7 +86,7 @@ UPD_CMD='"apt update && apt -y dist-upgrade"'
 alias upd="echo $UPD_CMD; sudo sh -c $UPD_CMD"
 ```
 
-### Homebrew on macOS
+#### Homebrew on macOS
 
 ```shell script
 brew tap                    # list repositories
@@ -111,7 +111,7 @@ brew install --cask docker  # install docker desktop
 xcode-select --install      # update Xcode CommandLineTools on OSX
 ```
 
-### Yum repo files
+#### Yum repo files
 
 ```shell script
 man yum.conf  # the repository options section has a simple example
@@ -130,7 +130,7 @@ baseurl=ftp://192.168.122.1/pub/os
 exclude=kernel* mdadm  # exclude all kernel packages and mdadm from updates
 ```
 
-### Remote host updates with Yum
+#### Remote host updates with Yum
 
 ```shell script
 # Update just 192.168.0.11:
@@ -143,7 +143,7 @@ cat ~/.VMhostlist.txt | xargs -P2 -I HOST ssh -tt HOST sudo yum -y update
 echo $VMHL | xargs -n 1 | xargs -P 2 -I HOST ssh -tt HOST sudo yum -y update
 ```
 
-### Create an RPM package
+#### Create an RPM package
 
 ```shell script
 # http://www.oracle-base.com/articles/linux/linux-build-simple-rpm-packages.php
@@ -158,7 +158,7 @@ rpmdev-newspec SPECS/testscript.spec   # edit this file as needed
 rpmbuild -bb -v SPECS/testscript.spec  # build a binary package
 ```
 
-### Alternatives
+#### Alternatives
 
 ```shell script
 # Set a specific version of java as the system default:

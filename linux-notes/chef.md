@@ -1,6 +1,6 @@
 # Chef Notes
 
-### Chef
+#### Chef
 
 ```shell script
 chef gem install chef-sugar --version 5.1.8  # install chef-sugar package in chef
@@ -29,7 +29,7 @@ run_chef
 ```
 
 
-### Kitchen
+#### Kitchen
 
 ```shell script
 kitchen list  # lists instances
@@ -49,7 +49,7 @@ kitchen login default-centos-7  # login to instance
 ```
 
 
-### Knife
+#### Knife
 
 ```shell script
 knife ssl fetch  # copy SSL certificates from an HTTPS server to the trusted_certs_dir directory
@@ -90,7 +90,7 @@ knife data bag edit -z passwords root_pw --secret-file ~/.chef/encrypted_data_ba
 ```
 
 
-### Berks
+#### Berks
 ```shell script
 # Add cookbooks specified in Berksfile to Berksfile.lock:
 berks install

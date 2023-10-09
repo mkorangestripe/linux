@@ -1,6 +1,6 @@
 # Bash Notes
 
-### Bash history, args
+#### Bash history, args
 
 ```shell script
 !!          # executes last command in history
@@ -24,7 +24,7 @@ pushd +n, popd, dirs -v
 PASSWD=$(cat)
 ```
 
-### Environment and Shell Options
+#### Environment and Shell Options
 
 ```shell script
 exec bash      # replaces bash shell with new bash shell
@@ -48,7 +48,7 @@ set -x         # turn on execution tracing, use in scripts to print commands dur
 set +x         # turn off execution tracing
 ```
 
-### Redirection
+#### Redirection
 
 ```shell script
 # File descriptors: 0 stdin, 1 stdout, 2 strerr
@@ -83,7 +83,7 @@ lsb_release -d
 EOF
 ```
 
-### Loops and Tests
+#### Loops and Tests
 
 ```shell script
 for i in `seq -w 0 20`; do touch file.$i; done  # creates 20 files with padding for zeros
@@ -145,7 +145,7 @@ while true; do [ -f nothing3.txt ] && echo "file present" || { echo "file not pr
 for i in `seq 1 10`; do printf "\e[31m#\e[00m"; sleep 0.5; done; printf "\rDone      "; echo
 ```
 
-### Bitwise Operators
+#### Bitwise Operators
 
 ```shell script
 # The left number in the double parenthesis is a decimal.
@@ -169,7 +169,7 @@ echo $((12>>2))
 # 3
 ```
 
-### Scripts and shell vars
+#### Scripts and shell vars
 
 ```shell script
 # Pass shell variables to a python command; in this example, -c is sys.argv[0] and $COLOR is sys.argv[1].
@@ -184,7 +184,7 @@ lower BLUE
 ```
 
 
-### Arrays
+#### Arrays
 
 ```shell script
 arr[0]=asdf1234
@@ -205,7 +205,7 @@ echo ${#string[2]} # prints the length of the third element
 # 5
 ```
 
-### Subshells and Code Blocks
+#### Subshells and Code Blocks
 
 ```shell script
 touch nothing
@@ -249,7 +249,7 @@ done
 wait
 ```
 
-### Evaluation, Expansion
+#### Evaluation, Expansion
 
 ```shell script
 VAR1=apple
