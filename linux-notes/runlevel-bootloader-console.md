@@ -5,31 +5,35 @@
 **Nonstandard runlevels on RHEL 6**  
 From the kernel line in the grub menu delete rhgb quiet (if desired), and append one of the following.  
 
-**init=/bin/sh**  
-/ is mounted (ro) although mount reports (rw)  
-only /, /proc, and /sys are mounted  
+```
+init=/bin/sh
+/ is mounted (ro) although mount reports (rw)
+only /, /proc, and /sys are mounted
 
-**emergency**  
-/ is mounted (ro) although mount reports (rw)  
-only /, /proc, and /sys are mounted  
-init is running  
+emergency
+/ is mounted (ro) although mount reports (rw)
+only /, /proc, and /sys are mounted
+init is running
 
-**single, s, S**  
-/ is mounted (rw)  
-local filesystems mounted  
-init is running  
-runs everything but scripts in /etc/rc1.d ???  
+single, s, S
+/ is mounted (rw)
+local filesystems mounted
+init is running
+runs everything but scripts in /etc/rc1.d ???
+```
 
 **Standard runlevels on RHEL 6**  
-See /etc/inittab  
+See /etc/inittab
 
-0 - halt (Do NOT set initdefault to this)  
-1 - Single user mode  
-2 - Multiuser, without NFS  
-3 - Full multiuser mode  
-4 - unused  
-5 - X11  
-6 - reboot (Do NOT set initdefault to this)   
+```
+0 - halt (Do NOT set initdefault to this)
+1 - Single user mode
+2 - Multiuser, without NFS
+3 - Full multiuser mode
+4 - unused
+5 - X11
+6 - reboot (Do NOT set initdefault to this)
+```
 
 ```shell script
 runlevel  # previous, current runlevel
