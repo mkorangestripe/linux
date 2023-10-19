@@ -23,17 +23,17 @@ git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
 
 git config --global http.sslBackend schannel  # use Windows certificate store
-git config —global core.autocrlf false. # do not convert newline characters
+git config --global core.autocrlf false       # do not convert newline characters
 ```
 
 ```shell script
-git add msfile2.map  # add file to tracking
-git add -u  # stages modifications and deletions, without new files
+git add msfile2.map  # add file to tracking, add changes to file
+git add -u           # add changes for all tracked files
 ```
 
 ```shell script
 git commit msfile2.map -m "Some comment here"  # commit changes
-git commit --allow-empty -m 'trigger build'  # allow empty commit
+git commit --allow-empty -m 'trigger build'    # allow empty commit
 git commit --amend  # amend the last commit message
 ```
 
@@ -44,12 +44,12 @@ git push -f  # force push
 ```
 
 ```shell script
-git stash  # stash changes
-git stash pop  # remove a single stashed state from the stash list and apply it on top
+git stash      # stash changes
+git stash pop  # remove a single stashed state from the stash list and reapply it
 ```
 
 ```shell script
-git ls-tree HEAD  # list files in cwd being tracked under current branch
+git ls-tree HEAD     # list files in CWD being tracked under current branch
 git ls-tree HEAD -r  # list files recursively being tracked under current branch
 ```
 
@@ -60,7 +60,7 @@ git status origin feature/PBPRB-1651  # status of the branch
 
 ```shell script
 git log --pretty=oneline  # one line for each change
-git log -p msfile1.map  # commits for the given file, paged format
+git log -p msfile1.map    # commits for the given file, paged format
 git log -p -2  # last two committed changes, paged format
 
 git show fc8334d9  # show changes in the commit
@@ -101,14 +101,14 @@ git pull
 ### Branches
 
 ```shell script
-git branch  # lists existing branches
-git branch -a  # lists existing branches including remote branches
+git branch      # lists existing branches
+git branch -a   # lists existing branches including remote branches
 git branch -vv  # show the last commit message for each branch
 git branch -m feature/PBPRB-1579  # rename the current branch
-git branch -d feature/test  # delete the branch
+git branch -d feature/test        # delete the branch
 
-git checkout PBPRB-1579  # checkout and switch to the new branch based
-git checkout master  # switch to master
+git checkout PBPRB-1579     # checkout and switch to the new branch based
+git checkout master         # switch to master
 git checkout -b PBPRB-1651  # create and switch to the new branch based on current branch
 git checkout -b feature/PBPRB-1568 develop  # create new branch based on develop
 
@@ -127,13 +127,13 @@ git fetch
 git rebase origin/master
 
 git rebase --continue  # run after conflict has been resolved
-git rebase --abort  # abort a rebase if paused
+git rebase --abort     # abort a rebase if paused
 ```
 
 ### Tags
 
 ```shell script
-git tag  # list tags
+git tag          # list tags
 git show v1.0.0  # show tag info
 
 # Create an annotated tag:
