@@ -1,11 +1,13 @@
 # Filesystem Administration
 
-#### Symlink, Hardlinks, inodes
+#### Symlinks, Hardlinks, inodes
 
 ```shell script
-# inode - index node, stores all the information about a regular file, directory, or other file system object, except its data and name.
-# Hardlink - directory entry that associates a name with a file on a file system.
-# Softlink - file that contains a reference to another file or directory, a symlink.
+# Inode - index node, stores all the information about a regular file, directory, or
+# other file system object, except its data and name.
+
+# Hardlink - a directory entry that associates a name with a file on a file system.
+# Symlink - symbolic link, a file that contains a reference to another file or directory.
 
 # Create a symlink:
 ln -s ~/Documents/ Desktop/
@@ -19,8 +21,8 @@ ls -di Desktop/Documents
 # 523454 Desktop/Documents
 
 # The hidden . and .. in directories are hard links to the current directory and the parent directory.
-# Creation of hard links to directories is not permitted by users because the links could cause infinite
-# loops for programslike find and du that traverse the filesystem.
+# Creation of hard links to directories is not permitted by users because the links could
+# cause infinite loops for programs like find and du that traverse the filesystem.
 
 # Directories have at least two hardlinks. The 2 after the file permissions in the output below
 # indicates two hard links to the same inode as indicated by the first number.
@@ -30,7 +32,8 @@ ls -ldi Desktop/
 ls -ldi Desktop/.
 # 2236506 drwxr-xr-x 2 gp gp 4096 Mar 22 20:12 Desktop/.
 
-# Symlinks to directories can be created, but the behaviour of the symlink is not the same as the actually directory.
+# Symlinks to directories can be created, but the behaviour of the symlink
+# is not the same as the actually directory.
 ln -s ../.. ...  # creates a symlink to the parent’s parent directory
 ```
 
@@ -80,19 +83,24 @@ du -ch *.gz   # total size of gzip’ed files
 # Inode usage summary of current directory, top three:
 find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr | head -3
 
-# Hard disks can have at most 4 primary partitions or 3 primary with 1 extended partition which can point to several logical partitions.
+# Hard disks can have at most 4 primary partitions or 3 primary with 1 extended
+# partition which can point to several logical partitions.
 
 # With block devices with different geometry, recreate the partitions, then dd (copy) the partitions.
 
-# Identify unpartitioned disk space:
-fdisk -luc  # compare the end cylinder/sector of the last primary/logical partition with the total number of cylinders/sectors
-lsblk       # compare the sum of the partition sizes with the size of the hard drive
+# Identify unpartitioned disk space.
+# Compare the end cylinder/sector of the last primary/logical
+# partition with the total number of cylinders/sectors:
+fdisk -luc
+
+lsblk  # compare the sum of the partition sizes with the size of the hard drive
 
 fdisk -uc /dev/sdb  # dos mode off, display units in sectors
 
 partprobe  # inform the OS of partition table changes; if fails remount the filesystem and run again
 
-# Add partition devmappings; use only if none of the existing partitions were modified; might need to restart multipathd beforehand:
+# Add partition devmappings; use only if none of the existing partitions were modified;
+# might need to restart multipathd beforehand:
 kpartx -a /dev/mapper/mpathbp1  
 
 service multipathd restart  # restart multipathd
@@ -160,14 +168,18 @@ find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
 
 ```shell script
 # Instead of removing a log file that has grown to large, null it.
-# This preserves the inode data and should free disk space if the file is being used by a process (open file descriptor).
+# This preserves the inode data and should free disk space if the file is being
+# used by a process (open file descriptor).
 cat /dev/null > file.log
-# If the file is removed while a process is using the file, the file descriptor can be nulled to release disk space.
+
+# If the file is removed while a process is using the file, the file
+# descriptor can be nulled to release disk space.
 lsof | grep FILE  # 2nd column is PID, 4th column has FD followed by r,w,u, - read, write, both
 cat /dev/null > /proc/PID/fd/FD
 
 # When using rm -rf type rm, then the directory, then -rf.  This is to avoid removing parent directories 
-# by accidentally pressing enter before the full path has been typed.  For example, to remove /var/logs/nada/ type the following.
+# by accidentally pressing enter before the full path has been typed.
+# For example, to remove /var/logs/nada/ type the following.
 rm /var/logs/nada/ -rf
 
 strings /dev/sdb | less  # search for strings in raw disk space
@@ -187,9 +199,16 @@ cp -a  # --archive, same as -dr --preserve=all
 cp -n  # --no-clobber, do not overwrite an existing file
 cp -i  # --interactive, prompt before overwrite
 cp -f  # --force, if dest file cannot be read, remove it, and try again
-cp -uv file1.txt src/file1.txt  # copy only when access or modify timestamp of source file is newer than destination
-cp -ruv dir1 src/     # same as above, but recursive, this works on individual files
-cp -RPp@ /nfs/pub/ .  # recursive & replicate pipes, copy symlinks, preserve file attributes, preserve extended attributes - on Solaris
+
+# Copy only when access or modify timestamp of source file is newer than destination:
+cp -uv file1.txt src/file1.txt
+
+# same as above, but recursive, this works on individual files:
+cp -ruv dir1 src/
+
+# Recursive & replicate pipes, copy symlinks, preserve file attributes,
+# preserve extended attributes - on Solaris:
+cp -RPp@ /nfs/pub/ .
 
 # rsync unlike cp, copies only when the source and destination files differ.
 rsync -av /nfs/pub/ .  # archive options and verbose, copy the contents of 'pub'
@@ -292,7 +311,9 @@ modprobe dm_crypt            # load dm_crypt and dm_mod modules
 cryptsetup luksFormat /dev/sdb1           # create a LUKS-based filesystem, /dev/dm-? (*1)
 cryptsetup luksDump /dev/sdb1             # display the header
 cryptsetup luksUUID /dev/sdb1             # display the uuid
-cryptsetup luksOpen /dev/sdb1 sdb1-crypt  # open the luks partition and creates a symlink from /dev/mapper/sdb1-crypt to /dev/dm-? (*2)
+
+# Open the luks partition, create a symlink from /dev/mapper/sdb1-crypt to /dev/dm-? (*2)
+cryptsetup luksOpen /dev/sdb1 sdb1-crypt
 
 mkfs -t ext4 /dev/mapper/sdb1-crypt  # create ext4 filesystem  (*3)
 mount /dev/mapper/sdb1-crypt /dir1   # mount sdb1-crypt on /dir1
@@ -305,8 +326,10 @@ mount /dev/mapper/sdb1-crypt /dir1   # mount sdb1-crypt on /dir1
 #### Archiving, Compression
 
 ```shell script
-# Create a gzipped archive of Documents and all files in Documents including their path and preserve the leading forward slash:
+# Create a gzipped archive of Documents and all files in Documents
+# including their path and preserve the leading forward slash:
 tar -cvPzf nothing.tar.gz /home/gp/Documents/
+
 tar -tf nothing.tar.gz     # list the contents of nothing.tar, -v for verbose
 tar -xvPzf nothing.tar.gz  # extract nothing.tar.gz to absolute path
 
@@ -315,8 +338,10 @@ gzip -9 -c drh.log > drh.log.1.gz  # this utilizes memory or swap
 bzip2 nothing9                     # nothing9.bz2
 gzip or bzip2 -d nothing9          # decompress nothing9
 
-star -xattr -H=exustar -c -f=homebackup.star /home/  # create archive of /home including SELinux attributes and ACLs
-star -x -f=homebackup.star                           # extract homebackup.star
+# Create archive of /home including SELinux attributes and ACLs:
+star -xattr -H=exustar -c -f=homebackup.star /home/
+
+star -x -f=homebackup.star  # extract homebackup.star
 
 zip -r backup.zip dir1      # create a zip file from directory dir1
 unzip -l backup.zip         # list the contents of backup.zip, -v for verbose list
