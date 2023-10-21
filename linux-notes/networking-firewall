@@ -4,10 +4,10 @@ iptables -L  # list rules
 iptables -S  # print rules
 iptables -F  # flush rules
 
-/etc/init.d/iptables status  # similar output as iptables -L
+/etc/init.d/iptables status   # similar output as iptables -L
 /etc/init.d/iptables restart  # restart and put rules into effect
 
-/etc/sysconfig/iptables  # contains firewall rules
+/etc/sysconfig/iptables     # contains firewall rules
 system-config-firewall-tui  # text-based UI for setting firewall rules
 
 # Reject all network traffic from the specified network:

@@ -3,12 +3,12 @@
 # Arp displays a table of IP addresses or hostnames with HW addresses.
 # This can be helpful in identifying duplicate HW addresses.
 cat /proc/net/arp  # print IP addresses and HW addresses
-arp -n  # display IP addresses instead of hostnames
+arp -n             # display IP addresses instead of hostnames
 arp -s testbox 00:00:00:00:00:00  # sets HWaddress of testbox respectively
-arp -d testbox  # deletes HWaddress of testbox from table
+arp -d testbox     # deletes HWaddress of testbox from table
 
-netstat -r  # display routing table with gateway and interface
-netstat -t  # list only established tcp connections
+netstat -r     # display routing table with gateway and interface
+netstat -t     # list only established tcp connections
 netstat -atpn  # list established and listening tcp connections with PID, numeric
 
 ss  # socket statistics showing send and receive queues, useful for determining latency
@@ -18,17 +18,17 @@ ethtool eth0 | egrep 'Speed|Link'  # speed and link detected of network adaptor
 # Wireless networking info:
 # Channels 1, 6, and 11 do not overlap.  Try to use a channel that overlaps with the least number of other channels that are in use.
 /etc/wpa_supplicant/wpa_supplicant.conf
-iwconfig wlan0 | grep Link  # check link quality
+iwconfig wlan0 | grep Link                     # check link quality
 iwlist wlan0 scan | egrep '(Channel|Quality)'  # scan for channel numbers and link quality
 wpa_cli  # WPA command line client
 
 
 dig @192.168.0.1 google.com  # lookup google.com through 192.168.0.1
-dig +trace amazon.com  # find where domain is registered
+dig +trace amazon.com        # find where domain is registered
 dig +short soa amazon.com
 dig adobeconnect.digitalriver.com ns  # find name servers for domain
-dig -x 8.8.8.8  # reverse dns lookup for 8.8.8.8
-host 8.8.8.8  # reverse dns lookup for 8.8.8.8
+dig -x 8.8.8.8    # reverse dns lookup for 8.8.8.8
+host 8.8.8.8      # reverse dns lookup for 8.8.8.8
 nslookup 8.8.8.8  # reverse dns lookup for 8.8.8.8
 
 
@@ -76,16 +76,16 @@ tcpdump "tcp[tcpflags] & (tcp-syn|tcp-ack) != 0"
 nmap -sS -p 53 8.8.8.8  # scan SYN port 53, after the syn-ack is received, a rst packet is sent
 nmap -sA -p 53 8.8.8.8  # scan ACK port 53, useful for finding filtered ports
 
-nmap centoskvm1  # scan for any open ports on centoskvm1
-nc -zv google.com 80  # scan port 80
+nmap centoskvm1               # scan for any open ports on centoskvm1
+nc -zv google.com 80          # scan port 80
 nc -z -w 1 centoskvm1 20-640  # scan ports 20-640
-nc -v -i 1 server1 2049  # scan port 2049 (ncat version)
-nc -zu centoskvm1 514  # scan udp port 514
+nc -v -i 1 server1 2049       # scan port 2049 (ncat version)
+nc -zu centoskvm1 514         # scan udp port 514
 
-nc centoskvm1 22  # connect to port 22 if open on centoskvm1
+nc centoskvm1 22      # connect to port 22 if open on centoskvm1
 telnet centoskvm1 22  # connect to port 22 if open on centoskvm1
 
-curl centoskvm1:22  # connect to port 22 and print message from daemon
+curl centoskvm1:22     # connect to port 22 and print message from daemon
 curl -v centoskvm1:22  # same as above but verbose
 
 # Check a broader range and filter for succeeded connections:
@@ -101,7 +101,7 @@ tail -f port80.txt
 
 
 # Transfer a file with netcat:
-nc -l 5900 > ncfile  # listen on port 5900
+nc -l 5900 > ncfile            # listen on port 5900
 nc -w 1 tester1 5900 < ncfile  # transfer ncfile to tester1 on port 5900
 
 # Tail a remote log with netcat:

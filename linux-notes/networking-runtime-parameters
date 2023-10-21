@@ -8,7 +8,7 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 
 # Enable packet forwarding using sysctl (persistent):
 sysctl -w net.ipv4.ip_forward=1  # sets ip_forward to 1
-sysctl net.ipv4.ip_forward  # shows current ip_forward value
+sysctl net.ipv4.ip_forward       # shows current ip_forward value
 
 
 # ICMP, ping
