@@ -9,12 +9,12 @@ git init  # initialize a git repo
 ```
 
 ```shell script
-git remote -v                                                       # show remote URL of the repo
+git remote -v  # show remote URL of the repo
 git remote set-url origin git@github.com:mkorangestripe/devops.git  # update existing remote origin URL
-git remote remove origin                                            # remove remote origin
-git remote add origin git@github.com:mkorangestripe/linux.git       # add remote origin
+git remote remove origin
+git remote add origin git@github.com:mkorangestripe/linux.git
 
-git config branch.master.remote origin  # for master branch, set remote origin
+git config branch.master.remote origin  # set remote origin for master branch
 git config branch.master.merge refs/heads/master
 ```
 
@@ -79,7 +79,7 @@ git checkout nothing.txt                                # discard changes to not
 git checkout c4ec54c7863 cleversafe_account_deleter.py  # checkout the given file version
 git checkout .                                          # discard changes to all files in the directory
 
-git revert 9cc3be0                                      # revert the commit
+git revert 9cc3be0  # revert the commit
 ```
 
 ```shell script
