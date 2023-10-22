@@ -1,5 +1,6 @@
-#!/bin/bash
+# LXC
 
+```shell script
 # Initialize lxd:
 lxd init
 
@@ -32,16 +33,19 @@ lxc config edit ubuntu-test1  # live edit container configuration
 
 # Get a shell on the container:
 lxc exec ubuntu -- /bin/bash
+```
 
-
+```shell script
 lxc stop ubuntu-test1            # stop the container
 lxc start ubuntu-test1           # start the container
 lxc restart ubuntu-test1         # restart the container
 lxc pause ubuntu-test1           # pause the container
 lxc delete ubuntu-test1          # delete the container
 lxc delete --force ubuntu-test1  # delete the running container
+```
 
-
+```shell script
 lxc file pull ubuntu-test1/etc/hosts .       # copy a file from a container
 lxc file push nothing.txt ubuntu-test1/tmp/  # copy a file to a container
 lxc file edit ubuntu-test1/tmp/nothing.txt   # edit a file in a container
+```

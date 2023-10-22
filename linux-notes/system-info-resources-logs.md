@@ -1,9 +1,14 @@
-#!/bin/bash
+# System info, resources, logs
 
+#### System info
+
+```shell script
 cat /etc/*release  # Linux distribution info
 lsb_release -d     # Linux distribution info
+
 python -c "import platform; print platform.dist()"      # Linux distribution info
 python -c "import platform; print platform.platform()"  # platform, OS version info
+
 cat /proc/version  # Linux version info
 uname -a           # system info
 uname -r; ls -lt /boot/config*  # compare running kernel to installed kernels
@@ -23,7 +28,11 @@ lscpu               # cpu info
 prtdiag | grep CPU  # cpu info on Solaris
 psrinfo             # cpu info on Solaris
 isainfo             # instruction set architectures on Solaris
+```
 
+#### Processes, Memory
+
+```shell script
 cat /proc/meminfo   # memory info
 prtconf | grep Mem  # installed memory on Solaris
 free  -m            # memory info in MB
@@ -96,7 +105,8 @@ ls /proc/$(ps -u cassandra -o pid --no-headers | head -1 | sed 's/^[ \t]*//')/fd
 ulimit -n  # file descriptor limit
 
 time ./ps1a.py            # times the execution of the script ps1a.py
-# The -- is necessary on some systems to prevent the timeout command from evaluating the arguments of the subsequent command:
+# The -- is necessary on some systems to prevent the timeout command
+# from evaluating the arguments of the subsequent command:
 timeout -t 600 -- ls -lh  # timeout after 600 seconds
 
 strace  ls  # trace system calls and signals made by the ls command
@@ -116,7 +126,8 @@ zgrep "Out of memory" /var/log.archive/messages*
 echo -17 > /proc/PID/oom_adj
 
 # A range of -16 to 15 is from less likely to most likely to be killed by the OOM.
-# -17 exempts the process entirely from the OOM killer but could result in important operating system processes being killed.
+# -17 exempts the process entirely from the OOM killer but could
+# result in important operating system processes being killed.
 # Also see /proc/PID/oom_score and /proc/PID/oom_score_adj.
 
 # Load averages for the last 1, 5, and 15 minutes:
@@ -126,18 +137,30 @@ w | head -1
 
 # CPU queue lengths can directly reflect the amount of load on a CPU.
 # Load average of "1.73 0.60 7.98" on a single-CPU system:
-# During the last minute, the system was overloaded by 73% on average (1.73 runnable processes, so that 0.73 processes had to wait for a turn for a single CPU system on average).
+# During the last minute, the system was overloaded by 73% on average (1.73 runnable processes,
+# so that 0.73 processes had to wait for a turn for a single CPU system on average).
 # During the last 5 minutes, the CPU was idling 40% of the time on average.
-# During the last 15 minutes, the system was overloaded 698% on average (7.98 runnable processes, so that 6.98 processes had to wait for a turn for a single CPU system on average).
+# During the last 15 minutes, the system was overloaded 698% on average (7.98 runnable processes,
+# so that 6.98 processes had to wait for a turn for a single CPU system on average).
 
 # Memory page:
 # A fixed-length contiguous block of virtual memory, 
 # the smallest unit of data for memory allocation and 
 # the transfer between main memory and any other auxiliary store.
+```
 
+```shell script
+# SNMP, get proc and mem info:
+snmpwalk -c <public> -v 2c 192.168.1.112 proc
+snmpwalk -c <public> -v 2c 192.168.1.112 mem
 
-# SAR
+# Get memcached stats on memcached server:
+echo stats | nc server1 11211
+```
 
+#### SAR
+
+```shell script
 /etc/cron.d/sysstat    # runs the following scripts which output to /var/log/sa/
 /usr/lib64/sa/sa1 1 1  # writes every 10 minutes to the daily saDD file
 /usr/lib64/sa/sa2 -A   # writes daily reports by processing the binary saDD files into text sarDD files at 23:53
@@ -173,10 +196,11 @@ sadf -s 02:00:00 -e 03:00:00 /var/log/sa/sa10 > activity10.txt
 # Set the daily system activity report to run at 2am:
 /etc/cron.d/sysstat
 0 2 * * * root /usr/lib64/sa/sa2 -A
+```
 
+#### System logs
 
-# System messages
-
+```shell script
 /var/log/messages  # system diagnostic messages from current date
 /var/adm/messages  # system diagnostic messages from current date on Solaris
 dmesg              # system diagnostic messages on Solaris
@@ -189,10 +213,11 @@ less +F /var/log/system.log  # follow mode, like tail -f
 
 # Log to the syslog (/var/log/messages) with tag "catalina-logrotate":
 logger -t catalina-logrotate "ALERT exited abnormally with [$EXITVALUE]"
+```
 
+#### Logrotate
 
-# Logrotate:
-
+```shell script
 /etc/cron.d/0hourly        # includes /etc/cron.hourly/
 /etc/cron.hourly/0anacron  # runs /usr/sbin/anacron -s
 /etc/anacrontab            # includes /etc/cron.daily/
@@ -206,7 +231,7 @@ logger -t catalina-logrotate "ALERT exited abnormally with [$EXITVALUE]"
 # Force logrotate to run:
 logrotate -fv
 
-# Example logroate stanza:
+# Example logrotate stanza:
 # This will rotate the logs when the current log file grows to 30M.
 # Copy and compress the current log to localhost_access_log.txt.1.gz
 # Truncate localhost_access_log.txt.
@@ -219,10 +244,11 @@ logrotate -fv
   rotate 35
   compress
 }
+```
 
+#### Rsyslog
 
-# Rsyslog
-
+```shell script
 # Server setup:
 # udp data from only 192.168.0.11
 
@@ -252,10 +278,11 @@ $ActionResumeRetryCount -1       # infinite retries if host is down
 *.info @192.168.0.12:514         # tcp: @@, udp: @
 
 /etc/init.d/rsyslog restart
+```
 
+#### Date
 
-# Date
-
+```shell script
 # Set local time to Central:
 unlink /etc/localtime
 ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
@@ -273,9 +300,11 @@ date -u              # print date in UTC
 date -d @1299287329  # converts Unix time to readable output
 date "+%F %T"        # year-month-day hour:minute:second
 date --date='2 days ago' '+%Y%m%d'  # two days ago in YYYYMMDD
+```
 
+#### Solaris Zones
 
-# Solaris Zones
+```shell script
 cat /etc/zone_parent  # show global zone on Solaris
 ls /etc/zones/        # list zones on global
 zoneadm list -cv      # list configured zones on Solaris with status
@@ -284,3 +313,4 @@ zoneadm -z <zone> reboot
 zoneadm -z <zone> shutdown
 zoneadm -z <zone> halt
 zlogin <zone>         # login to zone
+```

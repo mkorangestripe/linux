@@ -1,13 +1,15 @@
-#!/bin/bash
+# Grep, Awk, Sed, Regex
 
+```shell script
 ps -e | awk '/firefox/ {print $1}'  # print the PID of firefox
 awk -F: '{print $1}' /etc/passwd    # print 1st column in /etc/passwd
 cut -d: -f 1-4 /etc/passwd  # prints 1st - 4th columns in /etc/passwd
 sed -n 1,8p /etc/passwd     # prints 1st - 8th lines in /etc/passwd
 sed '1d' /etc/passwd  # print all by the first line in /etc/passwd
 sed '$d' /etc/passwd  # print all but the last line in /etc/passwd
+```
 
-
+```shell script
 # Print the IP address of eth0, either of the following:
 ifconfig eth0 | awk '/inet addr/ {print $2}' | awk -F: '{print $2}'
 ifconfig eth0 | grep -w inet | awk '{print $2}' | awk -F: '{print $2}'
@@ -24,8 +26,9 @@ echo $PROC | awk '{print $0}' RS=";"
 # Print total size of gzip'ed files in megabytes, either of the following:
 du *.gz | awk '{total+=$1} {total/=1024} END {printf "%d%s\n", total,"M"}'
 TOTAL=0; for NUM in $(du *.gz | awk '{print $1}'); do ((TOTAL+=NUM)); done; echo $((TOTAL/1024))M
+```
 
-
+```shell script
 # Substitute Dragonflies with Fireflies globally and redirect to insects2.txt:
 sed 's/Dragonflies/Fireflies/g' insects.txt > insects2.txt
 
@@ -60,8 +63,9 @@ dos2unix keys.txt
 
 # Remove all whitespace from the start of lines in spcs.txt and direct output to nada.txt:
 sed 's/^[ \t]*//' spcs.txt > nada.txt
+```
 
-
+```shell script
 # Remove all whitespace from the start of all lines in vi:
 %s/^\s\+
 %le
@@ -88,8 +92,9 @@ norm I    # note the four spaces after the 'I'
 set shiftwidth=4
 # select lines
 >
+```
 
-
+```shell script
 grep ^apple fruitlist.txt   # matches words starting with apple
 grep fruit$ fruitlist.txt   # matches words ending with fruit
 grep ap.le fruitlist.txt    # matches any one char
@@ -136,11 +141,13 @@ cat flora.txt | grep maple
 
 # Print lines in newentries.txt that are not in completelist.txt:
 for i in `cat newentries.txt`; do grep -q -x $i completelist.txt || echo $i; done
+```
 
-
+```shell script
 sort -r list.txt      # sort in reverse order - reverse alphabetically in this example
 sort -u list.txt      # output list.txt sorted alphabetically and uniquely
 sort list.txt | uniq  # output list.txt sorted alphabetically and uniquely
 
 # Sort output from the host command by IP address:
 cat hostlist.txt | awk '{print $4,$1,$2,$3}' | sort -n -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4 | awk '{print $2,$3,$4,$1}' > sorted_by_ip.txt
+```

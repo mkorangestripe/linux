@@ -1,5 +1,6 @@
-#!/bin/bash
+# Networking configuration
 
+```shell script
 # Enable/disable networking:
 /etc/sysconfig/network:
 NETWORKING=yes
@@ -15,14 +16,15 @@ nmcli connection show
 ifconfig -a              # list all network adapters active and inactive
 ifconfig eth0 <up down>  # enable/disable eth0
 
-# Assign IP addresss
+# Assign an IP address:
 ifconfig eth0 192.168.1.102 netmask 255.255.255.0 broadcast 192.168.1.255
 
-# Add routes
+# Add routes:
 route add default gw XXX.XXX.XXX.XXX eth0
 route add -net 10.0.3.0 netmask 255.255.255.0 gw 192.168.1.112
 
-# Set a persistent route to 10.0.3.0.  With the NetworkManager daemon running the changes will take effect immediately.
+# Set a persistent route to 10.0.3.0.  With the NetworkManager
+# daemon running the changes will take effect immediately.
 /etc/sysconfig/network-scripts/route-eth0:
 ADDRESS0=10.0.3.0
 NETMASK0=255.255.255.0
@@ -34,7 +36,7 @@ ifup eth0          # enable eth0
 ifdown eth0        # disable eth0
 ifdown ifcfg-eth0  # disable eth0
 
-# Assigns or requests dhcp configuration
+# Assign or request dhcp configuration:
 dhclient eth0
 
 # Set a static IP address, several other options exist and might be necessary.
@@ -49,8 +51,9 @@ DNS1=192.168.122.1
 # If removed, this file is regenerated upon reboot.
 # Keep this file in mind when cloning machines.
 /etc/udev/rules.d/70-persistent-net.rules
+```
 
-
+```shell script
 # Name Service Switch, sources for common configuration databases.
 /etc/nsswitch.conf:
 hosts: files dns  # this line means /etc/hosts is searched first, dns second
@@ -60,12 +63,13 @@ service nscd status             # status of Name Service Cache Daemon
 
 /etc/hosts:
 127.0.0.1		localhost
-74.125.47.100		google.com
+74.125.47.100	google.com
 
 /etc/resolv.conf:
 nameserver		8.8.8.8
+```
 
-
+```shell script
 # Check if a service uses TCP Wrappers:
 for FILE in /sbin/*; do strings $FILE | grep -q hosts_access && echo $FILE; done
 for FILE in /usr/sbin/*; do strings $FILE | grep -q hosts_access && echo $FILE; done
@@ -79,7 +83,7 @@ ldd /usr/sbin/sshd | grep libwrap
 # 3) If a match isn’t found in either file, access is automatically granted.
 
 /etc/hosts.allow:
-vsftpd, sshd : 192.168.1.111  # allow services vsftp and ssh to 192.168.1.111
+vsftpd, sshd : 192.168.1.111     # allow services vsftp and ssh to 192.168.1.111
 
 /etc/hosts.deny:
 ALL : 192.168.                   # deny all services to the 192.168 subnet
@@ -91,7 +95,7 @@ PermitRootLogin no
 AllowUsers mike@192.168.0.11
 /etc/init.d/sshd reload
 
-
 # Disable X11 forwarding over ssh:
 /etc/ssh/sshd_config:
 #X11Forwarding yes
+```

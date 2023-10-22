@@ -1,8 +1,8 @@
-#!/bin/bash
+# Network storage
 
+#### NFS, SMB
 
-# NFS, SMB
-
+```shell script
 # /etc/exports:
 /exports *(rw,sync)  # share the /exports directory with any host
 
@@ -26,7 +26,9 @@ mount -t nfs 192.168.0.111:/exports /mnt/nfs
 sudo mount -t cifs -o user=USAC/a2spyzz -o uid=$UID //winsnas04a/US-LEX-Common /mnt/lexfp01/departments
 
 umount -l  # try if umount -f fails, might need both -lf
+```
 
+```shell script
 /etc/sysconfig/autofs  # main autofs configuration
 
 # /etc/auto.master:
@@ -51,10 +53,11 @@ ls /net/192.168.0.112/exports/nfs  # temporarily mount the nfs share
 * -rw,soft,intr 192.168.1.112:/home/&
 # LDAP or NIS authentication is required for shared home directories.
 # See /etc/auto.misc for similar examples.
+```
 
+#### iSCSI
 
-# iSCSI
-
+```shell script
 # Connect to an iSCSI storage:
 yum install iscsi-initiator-utils                  # install iscsi utilities
 iscsiadm -m discoverydb -t st -p 192.168.1.111 -D  # discovery available iSCSI targets
@@ -62,3 +65,4 @@ iscsiadm -m discoverydb -t st -p 192.168.1.111 -D  # discovery available iSCSI t
 /var/log/messages         # look for new hard drive device file
 chkconfig iscsi --list    # verify start on runlevel
 /etc/fstab                # setup persistent mount, UUID might be required
+```
