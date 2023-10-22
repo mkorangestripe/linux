@@ -13,13 +13,13 @@ semanage login -a -s user_u mike  # optional, add mike as an selinux user
 usermod -aG training mike         # append mike to the training group
 userdel -r mike                   # deletes mike and his home dir
 
-groupadd -g 500700 project  # create a group named ‘project’ with GID 500700
-groupmod -g 123456 project  # change the GID of project to 123456
-groupdel project            # deletes the group named ‘project’
+groupadd -g 500700 project        # create a group named ‘project’ with GID 500700
+groupmod -g 123456 project        # change the GID of project to 123456
+groupdel project                  # deletes the group named ‘project’
 
-chage -l mike             # list account aging information for mike
-chage -E 2013-02-06 mike  # expire mike's user account on 2013-02-06
-chage -m 2 -M 30 temp1    # set mike’s password life to: min 2 days, max 30 days
+chage -l mike                     # list account aging information for mike
+chage -E 2013-02-06 mike          # expire mike's user account on 2013-02-06
+chage -m 2 -M 30 temp1            # set mike’s password life to: min 2 days, max 30 days
 
 # Default min and max password life:
 /etc/login.defs  # PASS_MAX_DAYS, PASS_MIN_DAYS

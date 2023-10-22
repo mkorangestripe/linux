@@ -3,16 +3,16 @@
 #### Bash history, args
 
 ```shell script
-!!       # executes last command in history
-!58      # executes 58th command in history
-!ssh     # executes last command starting with ssh
-!?ssh    # executes last command containing the string ssh
-echo !$  # echos last argument of last command
-echo !*  # echos all but first word of last command
+!!          # executes last command in history
+!58         # executes 58th command in history
+!ssh        # executes last command starting with ssh
+!?ssh       # executes last command containing the string ssh
+echo !$     # echos last argument of last command
+echo !*     # echos all but first word of last command
 
-echo $?  # echos exit status of last command
-echo $@  # echos all arguments given to the script
-echo $#  # echos the number of arguments given to the script
+echo $?     # echos exit status of last command
+echo $@     # echos all arguments given to the script
+echo $#     # echos the number of arguments given to the script
 
 ^echo       # executes last command without echo
 ^eth0^lo^   # executes last command substituting eth0 with lo
@@ -36,8 +36,8 @@ export PS1="\[\033[1;32m\][\u@\h \w]$ \[\033[0m\]"  # light green user prompt
 .bashrc  # user specific aliases and functions, also sources /etc/bashrc
 
 alias grep='grep --color'  # color greps
-alias       # prints aliases
-alias grep  # prints the alias for grep
+alias         # prints aliases
+alias grep    # prints the alias for grep
 
 env           # prints environment variables
 export -p     # prints environment variables

@@ -54,17 +54,13 @@ vagrant reload  # reload configuration in Vagrantfile
 ```shell script
 # Provision the vagrant machines based on the config.vm.provision section in the Vagrantfile:
 vagrant provision
-```
 
-```shell script
 # Run the ansible playbook manually:
 ansible-playbook -i ~/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory playbook.yml
 
 # Same as above:
 ansible-playbook -u vagrant -i hosts.yml --private-key ~/.vagrant/machines/default/virtualbox/private_key playbook.yml
-```
 
-```shell script
 # Check connection to the VM (port 22 is being forwarded to 2222):
 ansible -u vagrant -i hosts.yml --private-key ~/.vagrant/machines/default/virtualbox/private_key 127.0.0.1 -m ping
 ```

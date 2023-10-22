@@ -32,9 +32,9 @@ run_chef
 #### Kitchen
 
 ```shell script
-kitchen list  # lists instances
+kitchen list      # lists instances
 
-chef exec rspec  # runs unit tests, fast
+chef exec rspec   # runs unit tests, fast
 
 kitchen create node1-centos-7  # start the instance
 kitchen verify    # just runs the integration tests
