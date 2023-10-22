@@ -3,16 +3,16 @@
 #### Bash history, args
 
 ```shell script
-!!          # executes last command in history
-!58         # executes 58th command in history
-!ssh        # executes last command starting with ssh
-!?ssh       # executes last command containing the string ssh
-echo !$     # echos last argument of last command
-echo !*     # echos all but first word of last command
+!!       # executes last command in history
+!58      # executes 58th command in history
+!ssh     # executes last command starting with ssh
+!?ssh    # executes last command containing the string ssh
+echo !$  # echos last argument of last command
+echo !*  # echos all but first word of last command
 
-echo $?     # echos exit status of last command
-echo $@     # echos all arguments given to the script
-echo $#     # echos the number of arguments given to the script
+echo $?  # echos exit status of last command
+echo $@  # echos all arguments given to the script
+echo $#  # echos the number of arguments given to the script
 
 ^echo       # executes last command without echo
 ^eth0^lo^   # executes last command substituting eth0 with lo
@@ -27,25 +27,25 @@ PASSWD=$(cat)
 #### Environment and Shell Options
 
 ```shell script
-exec bash      # replaces bash shell with new bash shell
+exec bash  # replaces bash shell with new bash shell
 
-grep -l PATH ~/.[^.]*      # finds file in ~ that sets PATH
-.bash_profile  # User specific environment and startup programs, also sources .bashrc
+grep -l PATH ~/.[^.]*  # finds file in ~ that sets PATH
+.bash_profile          # User specific environment and startup programs, also sources .bashrc
 export PS1="\[\033[1;31m\][\u@\h \w]# \[\033[0m\]"  # light red root prompt
 export PS1="\[\033[1;32m\][\u@\h \w]$ \[\033[0m\]"  # light green user prompt
-.bashrc        # User specific aliases and functions, also sources /etc/bashrc
+.bashrc  # user specific aliases and functions, also sources /etc/bashrc
 
 alias grep='grep --color'  # color greps
-alias          # prints aliases
-alias grep     # prints the alias for grep
+alias       # prints aliases
+alias grep  # prints the alias for grep
 
-env            # prints environment variables
-export -p      # prints environment variables
+env           # prints environment variables
+export -p     # prints environment variables
 # press $ Tab Tab (prints environment variables)
-set            # prints names and values of all current shell variables
-set -o emacs   # emacs style line editing
-set -x         # turn on execution tracing, use in scripts to print commands during execution
-set +x         # turn off execution tracing
+set           # prints names and values of all current shell variables
+set -o emacs  # emacs style line editing
+set -x        # turn on execution tracing, use in scripts to print commands during execution
+set +x        # turn off execution tracing
 ```
 
 #### Redirection
@@ -98,8 +98,8 @@ test $? == 0 && echo success || echo fail
 if [ $? == 0 ]; then echo success; else echo fail; fi
 
 c=17; f=15
-[ $f < $c ] && echo true || echo false          # results in error when $f and $c are interpreted as filenames
-[[ $f < $c ]] && echo true || echo false        # true
+[ $f < $c ] && echo true || echo false    # results in error when $f and $c are interpreted as filenames
+[[ $f < $c ]] && echo true || echo false  # true
 
 [ -z $FIRST_AVAIL_IP ] && echo "zero length"
 [ ! $FIRST_AVAIL_IP ] && echo "zero length"
@@ -193,15 +193,15 @@ arr[2]=black
 
 colors=([91]=red [92]=yellow [93]=yellow)
  
-echo ${arr[@]}     # This prints all elements in the array
+echo ${arr[@]}      # This prints all elements in the array
 asdf1234 777 black
-echo ${#arr[@]}    # prints the number of elements in the array (length of the array)
+echo ${#arr[@]}     # prints the number of elements in the array (length of the array)
 # 3
-echo ${#string[0]} # prints the length of the first element
+echo ${#string[0]}  # prints the length of the first element
 # 8
-echo ${#string[1]} # prints the length of the second element
+echo ${#string[1]}  # prints the length of the second element
 # 3
-echo ${#string[2]} # prints the length of the third element
+echo ${#string[2]}  # prints the length of the third element
 # 5
 ```
 
@@ -262,7 +262,7 @@ echo '$VAR1'      # $VAR1
 echo cart$VAR1    # cartapple
 echo $VAR1cart    # (no output)
 echo ${VAR1}cart  # applecart
-VAR1=${VAR1}cart; echo $VAR1 # applecart
+VAR1=${VAR1}cart; echo $VAR1  # applecart
 echo a{pp,,is}le  # apple ale aisle
 VAR3=ORANGEapple
 echo ${VAR3,,}    # orangeapple

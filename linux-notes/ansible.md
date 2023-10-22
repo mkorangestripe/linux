@@ -46,8 +46,8 @@ ansible -i server1, all -m setup
 ansible -i server1, all -m ping -u user1 -k  # test connection to Linux host
 
 # Test the connection to Windows hosts:
-nc -vz server1 5986                                               # check the https port used by winrm
-kinit user1@somedomain.com                                        # authenticate with Kerberos
+nc -vz server1 5986         # check the https port used by winrm
+kinit user1@somedomain.com  # authenticate with Kerberos
 ansible -i inventory.yml all -m win_ping -u user1@somedomain.com  # login using Kerberos authentication
 ansible -i visualcron.ini dev -m win_ping -u user1 -k             # login with username and password
 
@@ -73,7 +73,7 @@ ansible -i server1, all -m service -a "name=httpd state=started" -b
 
 ```shell script
 ansible-playbook update_visualcron.yml --syntax-check
-ansible-lint update_visualcron.yml                                                 # checks and recommendations
+ansible-lint update_visualcron.yml  # checks and recommendations
 ansible-playbook update_visualcron.yml -i visualcron.ini -l dev --list-hosts       # just list targeted hosts
 ansible-playbook update_visualcron.yml -i visualcron.ini -l dev -k --diff --check  # show diff, dry run
 ansible-playbook update_visualcron.yml -i visualcron.ini -l dev -k --check         # dry run
@@ -90,7 +90,7 @@ ansible-playbook deploy_custom_linux_monitor.yml -t pip -i datadog.ini -k
 
 ansible-playbook -l web.retry  # rerun only on failed hosts
 
-ansible-vault create secrets.yml                        # encrypt file
+ansible-vault create secrets.yml  # encrypt file
 ansible-playbook update_inventory.yml --ask-vault-pass  # prompt for vault password
 
 # Run a playbook using variables:

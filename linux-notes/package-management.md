@@ -28,11 +28,19 @@ rpm -Va              # verify all packages, beware of changes in binaries
 #### Yum
 
 ```shell script
+yum repolist   # list configured repositories
 yum list       # all, installed, available, updates, extras
 yum list nmap  # shows packages for nmap
 yum info nmap  # shows more detailed info of packages for nmap
 yum provides /usr/bin/nmap                    # show which package provides nmap
 yum --showduplicates list java-1.8.0-openjdk  # show other available versions of java
+
+yum clean all       # removes old packages, also can resolve update failures
+yum clean metadata  # clean metadata
+
+yum check-update                  # check for updates
+yum update -y                     # yes to all updates
+yum update --disableexclude=main  # disable excludes in the main section of /etc/yum.conf
 
 yum grouplist             # lists package groups
 yum groupinfo <group>     # lists packages in the group
@@ -40,12 +48,6 @@ yum groupinstall <group>  # does not install optional packages, use -x to exclud
 yum groupremove <group>   # removes all packages in group
 
 yum install --nogpgcheck httpd       # install httpd without the gpg check
-yum repolist                         # list configured repositories
-yum clean all                        # removes old packages, also can resolve update failures
-yum check-update                     # check for updates
-yum update -y                        # yes to all updates
-yum update --disableexclude=main     # disable excludes in the main section of /etc/yum.conf
-yum clean metadata                   # clean metadata
 yum -y install yum-plugin-security   # security plugin for updating errata only
 yum -y --security update -x kernel*  # update errata excluding kernel packages
 yum reinstall kernel                 # reinstall the kernel package
@@ -53,9 +55,10 @@ yum reinstall kernel                 # reinstall the kernel package
 yumdownloader kernel           # downloads the latest kernel package to the local directory
 yumdownloader kernel-firmware  # downloads the latest kernel firmware to the local directory
 
-yum history list {all}                   # list last transactions, 20 is default
-yum history redo last                    # redo last transaction
-yum history undo last                    # undo last transaction
+yum history list {all}  # list last transactions, 20 is default
+yum history redo last   # redo last transaction
+yum history undo last   # undo last transaction
+
 yum-complete-transaction --cleanup-only  # attempt to complete failed transactions, journal files only
 
 gpk-prefs  # GNOME PackageKit Update Preferences

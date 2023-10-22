@@ -308,9 +308,9 @@ yum install cryptsetup-luks  # install cryptsetup-luks
 lsmod | grep dm_crypt        # check whether dm_crypt and dm_mod are loaded
 modprobe dm_crypt            # load dm_crypt and dm_mod modules
 
-cryptsetup luksFormat /dev/sdb1           # create a LUKS-based filesystem, /dev/dm-? (*1)
-cryptsetup luksDump /dev/sdb1             # display the header
-cryptsetup luksUUID /dev/sdb1             # display the uuid
+cryptsetup luksFormat /dev/sdb1  # create a LUKS-based filesystem, /dev/dm-? (*1)
+cryptsetup luksDump /dev/sdb1    # display the header
+cryptsetup luksUUID /dev/sdb1    # display the uuid
 
 # Open the luks partition, create a symlink from /dev/mapper/sdb1-crypt to /dev/dm-? (*2)
 cryptsetup luksOpen /dev/sdb1 sdb1-crypt
@@ -343,8 +343,8 @@ star -xattr -H=exustar -c -f=homebackup.star /home/
 
 star -x -f=homebackup.star  # extract homebackup.star
 
-zip -r backup.zip dir1      # create a zip file from directory dir1
-unzip -l backup.zip         # list the contents of backup.zip, -v for verbose list
+zip -r backup.zip dir1  # create a zip file from directory dir1
+unzip -l backup.zip     # list the contents of backup.zip, -v for verbose list
 ```
 
 #### Named pipe

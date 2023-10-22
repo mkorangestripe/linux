@@ -15,7 +15,7 @@ emergency
 only /, /proc, and /sys are mounted
 init is running
 
-single, s, S
+single, s, or S
 / is mounted (rw)
 local filesystems mounted
 init is running
