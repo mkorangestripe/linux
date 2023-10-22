@@ -14,11 +14,11 @@ systemctl enable docker  # enable the docker service
 systemctl start docker   # start the docker service
 systemctl show docker    # environment variables used by docker
 
-docker version  #  show version info
-docker info     # display system-wide information
+docker version           #  show version info
+docker info              # display system-wide information
 
-docker system df     # show docker disk usage
-docker system prune  # remove various docker items
+docker system df         # show docker disk usage
+docker system prune      # remove various docker items
 ```
 
 ### Docker networks

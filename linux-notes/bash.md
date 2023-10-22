@@ -27,13 +27,13 @@ PASSWD=$(cat)
 #### Environment and Shell Options
 
 ```shell script
-exec bash  # replaces bash shell with new bash shell
+exec bash    # replaces bash shell with new bash shell
 
 grep -l PATH ~/.[^.]*  # finds file in ~ that sets PATH
 .bash_profile          # User specific environment and startup programs, also sources .bashrc
 export PS1="\[\033[1;31m\][\u@\h \w]# \[\033[0m\]"  # light red root prompt
 export PS1="\[\033[1;32m\][\u@\h \w]$ \[\033[0m\]"  # light green user prompt
-.bashrc  # user specific aliases and functions, also sources /etc/bashrc
+.bashrc       # user specific aliases and functions, also sources /etc/bashrc
 
 alias grep='grep --color'  # color greps
 alias         # prints aliases
