@@ -13,8 +13,10 @@ Seven-Layer OSI Model
 ```
 7. Application
 6. Presentation: adds data conversion, encryption, & compression
-5. Session: reply and request streams are viewed as a single session of communication between client and server.
-4. Transport (TCP, UDP): TCP uses segments for correct order, adds error checking and ports allowing different streams of communication.
+5. Session: reply and request streams are viewed as a single session
+   of communication between client and server.
+4. Transport (TCP, UDP): TCP uses segments for correct order, adds error checking
+   and ports allowing different streams of communication.
 3. Network (IP, ICMP)
 2. Data Link (ARP): hosts on the same network can communicate by MAC address.
 1. Physical

@@ -1,6 +1,6 @@
 # Curl
 
-#### Headers, Response status codes
+#### Headers, Response Status Codes
 
 ```shell script
 # Fetch the headers only:
@@ -28,8 +28,6 @@ nc redhat.com 80 | egrep 'HTTP|Location'
 #### Credentials
 
 ```shell script
-# Get a URL that requires a username and password.
-
 curl -u 'admin:p@55W0rd' server1:8080/solr/admin/health
 
 curl -H ‘Authorization: Basic YWRtaW46cEA1NVcwcmQ=’ server1:8080/solr/admin/health
