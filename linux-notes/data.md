@@ -15,7 +15,7 @@ echo ABC | od -a -b    # A   B   C  nl  (ASCII named characters of ABC, octal va
 echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
 
 echo "green, yellow, bright orange" | base64 > encoded.txt
-base64 -d encoded.txt → green, yellow, bright orange
+base64 -d encoded.txt  # green, yellow, bright orange
 
 # Encrypt/decrypt a password with a key:
 echo "p@sswd123" > passwd.txt
@@ -59,7 +59,7 @@ badblocks -c 10240 -s -w -t random -v /dev/sdb1  # write random data to /dev/sdb
 shred -u nothing.log  # overwrite and remove nothing.log
 ```
 
-#### cp, rsync
+#### File copy
 
 ```shell script
 cp -d  # same as --no-dereference --preserve=links

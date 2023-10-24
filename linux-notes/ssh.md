@@ -29,7 +29,8 @@ ssh -p 30000 gp@localhost
 
 ```shell script
 # Setup passwordless ssh, scp, sftp connections.
-# If a password is entered, the same password will be required when logging in the first time (each first time).
+# If a password is entered, the same password will be required
+# when logging in the first time (each first time).
 
 # Create a public/private key pair:
 ssh-keygen
@@ -41,7 +42,8 @@ ssh-keygen -y -f id_rsa > id_rsa.pub
 chmod 600 .ssh/authorized_keys  # run on the remote machine
 # The local user might need to logout and login again.
 
-# Additional step when connecting from one remote machine to another when the key was created using a password:
+# Additional step when connecting from one remote machine
+# to another when the key was created using a password:
 exec /usr/bin/ssh-agent $SHELL
 ssh-add
 

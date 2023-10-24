@@ -30,25 +30,37 @@ umount -l  # try if umount -f fails, might need both -lf
 
 ```shell script
 /etc/sysconfig/autofs  # main autofs configuration
+```
 
+```shell script
 # /etc/auto.master:
 /misc   /etc/auto.misc  # auto.misc configuration for /misc
 /net	-hosts          # allow a host to be specified as in the auto.net script
-## Mount nfs home directories listed in /etc/auto.home, in /nfshome:
+
+# Mount nfs home directories listed in /etc/auto.home, in /nfshome:
 +auto.master
 /nfshome	/etc/auto.home	--timeout=60
 
 man auto.master  # see config examples
+```
 
+```shell script
 # /etc/auto.misc:
 nfstest     	-rw,soft,intr       	192.168.0.112:/exports/nfs
-systemctl restart autofs
-ls /misc/nfstest     # temporarily mounts the nfs share
-ln -s /misc/nfstest  # create a symlink, but if the nfs directory is no longer accessible the ls command will hang on the symlink
 
+systemctl restart autofs
+ls /misc/nfstest  # temporarily mounts the nfs share
+
+# Create a symlink, but if the nfs directory is no longer accessible the ls command will hang on the symlink:
+ln -s /misc/nfstest
+```
+
+```shell script
 /etc/auto.net server1              # show server1’s nfs export list using the showmount command
 ls /net/192.168.0.112/exports/nfs  # temporarily mount the nfs share
+```
 
+```shell script
 # /etc/auto.home:
 * -rw,soft,intr 192.168.1.112:/home/&
 # LDAP or NIS authentication is required for shared home directories.
