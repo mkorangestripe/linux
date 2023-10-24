@@ -28,6 +28,8 @@ sudo mount -t cifs -o user=USAC/a2spyzz -o uid=$UID //winsnas04a/US-LEX-Common /
 umount -l  # try if umount -f fails, might need both -lf
 ```
 
+#### Autofs
+
 ```shell script
 /etc/sysconfig/autofs  # main autofs configuration
 ```

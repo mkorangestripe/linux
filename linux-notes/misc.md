@@ -6,7 +6,8 @@ screen -r 10514.nothing1   # reattach to screen nothing1
 screen -dr 10514.nothing1  # detach the screen and reattach here
 screen -x 10514.nothing1   # attach to currently attached screen
 
-# If you cannot attach to a screen session because of permissions, execute the following then reattempt attaching:
+# If you cannot attach to a screen session because of permissions,
+# execute the following then reattempt attaching:
 script /dev/null
 
 irssi -c <irc-server> -n <name>

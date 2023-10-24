@@ -53,6 +53,8 @@ DNS1=192.168.122.1
 /etc/udev/rules.d/70-persistent-net.rules
 ```
 
+#### NSS
+
 ```shell script
 # Name Service Switch, sources for common configuration databases.
 /etc/nsswitch.conf:
@@ -68,6 +70,8 @@ service nscd status             # status of Name Service Cache Daemon
 /etc/resolv.conf:
 nameserver		8.8.8.8
 ```
+
+#### TCP Wrappers
 
 ```shell script
 # Check if a service uses TCP Wrappers:
