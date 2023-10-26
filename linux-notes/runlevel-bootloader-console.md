@@ -63,7 +63,15 @@ startx                 # starts the GUI
 ### Services
 
 ```shell script
-# Chkconfig on RHEL 6:
+# Service on systems using SysV init (using httpd for example):
+service --status-all
+service httpd start
+service httpd stop
+service httpd restart
+service httpd reload
+service sshd status
+
+# Enable/disable services per runlevel on systems using SysV init:
 chkconfig --list postfix
 chkconfig postfix on
 chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfix
@@ -71,16 +79,24 @@ chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfi
 # Links beginning with "S" are started when the system enters the given runlevel.
 
 ntsysv --level 345  # config services for runlevels 3,4,and 5
+```
 
-# Service on RHEL 6:
-service --status-all  # shows status of all services
-service httpd start   # start httpd
-service sshd restart  # restart sshd
-service sshd reload   # reload sshd config
-service httpd stop    # stop httpd
+```shell script
+# Services on systems using systemd (using sshd for examples)
+systemctl --all
+systemctl start sshd
+systemctl stop sshd
+systemctl restart sshd
+systemctl reload sshd
+systemctl reload-or-restart sshd
+systemctl status sshd
+systemctl enable sshd
+systemctl disable sshd
 
-/etc/systemd/  # system info
+/etc/systemd/  # systemd info
+```
 
+```shell script
 # Services on Solaris:
 svcs -a                 # show status of all services on Solaris
 svcs -v ssh             # show verbose status of ssh, -l for all available info
@@ -91,8 +107,11 @@ svcadm refresh ssh      # reload ssh config
 svcadm disable -t http  # disable and stop http
 svcadm clear http       # clear http from maintenance state
 /var/svc/log/           # service logs
+```
 
-sudo launchctl list  # list services on macOS
+```shell script
+# List services on macOS:
+sudo launchctl list
 ```
 
 ### Shutdown, Reboot

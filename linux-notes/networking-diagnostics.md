@@ -1,15 +1,6 @@
 # Networking diagnostics
 
 ```shell script
-# Arp displays a table of IP addresses or hostnames with HW addresses.
-# This can be helpful in identifying duplicate HW addresses.
-cat /proc/net/arp  # print IP addresses and HW addresses
-arp -n             # display IP addresses instead of hostnames
-arp -s testbox 00:00:00:00:00:00  # sets HWaddress of testbox respectively
-arp -d testbox     # deletes HWaddress of testbox from table
-```
-
-```shell script
 netstat -r     # display routing table with gateway and interface
 netstat -t     # list only established tcp connections
 netstat -atpn  # list established and listening tcp connections with PID, numeric

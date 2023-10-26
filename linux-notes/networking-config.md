@@ -12,12 +12,33 @@ HOSTNAME=server1
 # Networkmanager info:
 nmcli device show
 nmcli connection show
+```
 
-ifconfig -a              # list all network adapters active and inactive
+```shell script
+# Arp displays a table of IP addresses or hostnames with HW addresses.
+# This can be helpful in identifying duplicate HW addresses.
+
+cat /proc/net/arp  # print IP addresses and HW addresses
+
+arp -n          # show IP addresses instead of hostnames
+arp -s testbox 00:00:00:00:00:00  # set HWaddress of testbox
+arp -d testbox  # delete HWaddress of testbox from table
+```
+
+```shell script
+ifconfig -a              # show all network interfaces active and inactive
+ip addr                  # show ip addresses assigned to all network interfaces
+
 ifconfig eth0 <up down>  # enable/disable eth0
 
 # Assign an IP address:
 ifconfig eth0 192.168.1.102 netmask 255.255.255.0 broadcast 192.168.1.255
+```
+
+```shell script
+route     # show ip routing table
+route -n  # show ip routing table, do not resolve dns
+ip route  # show ip routing table
 
 # Add routes:
 route add default gw XXX.XXX.XXX.XXX eth0
@@ -29,7 +50,9 @@ route add -net 10.0.3.0 netmask 255.255.255.0 gw 192.168.1.112
 ADDRESS0=10.0.3.0
 NETMASK0=255.255.255.0
 GATEWAY0=192.168.1.112
+```
 
+```shell script
 # Calls scripts and config files in /etc/sysconfig/network-scripts:
 ifup ifcfg-eth0    # enable eth0
 ifup eth0          # enable eth0
