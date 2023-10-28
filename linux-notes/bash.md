@@ -293,10 +293,17 @@ eval $ffpid
 alias insert='printf "|%s|\n"'
 insert "camera operator"
 # |camera operator|
+```
 
+#### Misc
+
+```shell script
 basename $0     # filename of the script being run
 dirname $0      # relative path of the script being executed
 readlink -f $0  # full path and filename of the script being run
+
+command -v grep  # show full path or alias for grep if either exist
+which -a python  # list all matching executables in PATH for python
 ```
 
 

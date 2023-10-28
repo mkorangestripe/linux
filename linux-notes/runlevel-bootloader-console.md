@@ -93,6 +93,8 @@ systemctl status sshd
 systemctl enable sshd
 systemctl disable sshd
 
+systemctl daemon-reload  # reload changed unit file
+
 /etc/systemd/  # systemd info
 ```
 
