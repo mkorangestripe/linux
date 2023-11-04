@@ -30,9 +30,11 @@ PASSWD=$(cat)
 exec bash    # replaces bash shell with new bash shell
 
 grep -l PATH ~/.[^.]*  # finds file in ~ that sets PATH
-.bash_profile          # User specific environment and startup programs, also sources .bashrc
+
+.bash_profile  # User specific environment and startup programs, also sources .bashrc
 export PS1="\[\033[1;31m\][\u@\h \w]# \[\033[0m\]"  # light red root prompt
 export PS1="\[\033[1;32m\][\u@\h \w]$ \[\033[0m\]"  # light green user prompt
+
 .bashrc       # user specific aliases and functions, also sources /etc/bashrc
 
 alias grep='grep --color'  # color greps
@@ -267,6 +269,10 @@ echo a{pp,,is}le  # apple ale aisle
 VAR3=ORANGEapple
 echo ${VAR3,,}    # orangeapple
 echo ${VAR3^^}    # ORANGEAPPLE
+
+PERSHING_RECORD='f220_a'
+echo ${PERSHING_RECORD%_*}  # f220
+echo ${PERSHING_RECORD#*_}  # a
 
 REGEXs_EGREP_ARGS=" -e 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50"
 echo $REGEXs_EGREP_ARGS    # 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50
