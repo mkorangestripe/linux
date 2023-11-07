@@ -37,17 +37,18 @@ export PS1="\[\033[1;32m\][\u@\h \w]$ \[\033[0m\]"  # light green user prompt
 
 .bashrc       # user specific aliases and functions, also sources /etc/bashrc
 
-alias grep='grep --color'  # color greps
-alias         # prints aliases
-alias grep    # prints the alias for grep
-
 env           # prints environment variables
 export -p     # prints environment variables
 # press $ Tab Tab (prints environment variables)
+
 set           # prints names and values of all current shell variables
 set -o emacs  # emacs style line editing
 set -x        # turn on execution tracing, use in scripts to print commands during execution
 set +x        # turn off execution tracing
+
+alias grep='grep --color'  # color greps
+alias         # prints aliases
+alias grep    # prints the alias for grep
 ```
 
 #### Redirection
@@ -228,8 +229,10 @@ tail -f words.log | tee >(grep leaf > leaves.txt) >(grep apple > apples.txt)
 
 # Run script on remote host over ssh:
 ssh USER@$HOSTNAME /bin/bash < drhloggzip-ssh.sh
+```
 
-# The script below uses subshells and background execution to run commands in parallel.
+```shell script
+# The following script uses subshells and background execution to run commands in parallel.
 # The "wait" ensures the terminal will not display a prompt until execution is complete
 # and also that the terminal will in fact display a prompt when processing is complete.
 # Invoking subshells isn’t absolutely necessary in this example.
@@ -255,8 +258,10 @@ wait
 
 ```shell script
 VAR1=apple
+
 VAR2="orange
 grape"
+
 echo $VAR1        # apple
 echo "$VAR1"      # apple
 echo "$VAR2"      # line1: orange; line 2: grape
@@ -264,13 +269,14 @@ echo '$VAR1'      # $VAR1
 echo cart$VAR1    # cartapple
 echo $VAR1cart    # (no output)
 echo ${VAR1}cart  # applecart
-VAR1=${VAR1}cart; echo $VAR1  # applecart
-echo a{pp,,is}le  # apple ale aisle
-VAR3=ORANGEapple
-echo ${VAR3,,}    # orangeapple
-echo ${VAR3^^}    # ORANGEAPPLE
 
-PERSHING_RECORD='f220_a'
+echo a{pp,,is}le  # apple ale aisle
+
+VAR3=PINEapple
+echo ${VAR3,,}  # pineapple
+echo ${VAR3^^}  # PINEAPPLE
+
+PERSHING_RECORD=f220_a
 echo ${PERSHING_RECORD%_*}  # f220
 echo ${PERSHING_RECORD#*_}  # a
 
@@ -278,20 +284,24 @@ REGEXs_EGREP_ARGS=" -e 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50"
 echo $REGEXs_EGREP_ARGS    # 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50
 echo "$REGEXs_EGREP_ARGS"  # -e 208.79.249 -e 208.79.253 -e 207.67.0 -e 207.67.50
 
+COLOR=yellow ./fruit.sh
+# yellow pear (COLOR is only set for the following ./fruit.sh)
+```
+
+```shell script
 touch img.{00..23}  # creates img.00 through img.23
 ls img.{00..09}     # matches the first 10
 
-touch apple
-ls ap?le  # apple (matches any one char)
-ls a*le   # apple (matches patterns beginning with a, ending with le)
-
-VAR2=yellow ./fruit.sh; echo $VAR2
-# yellow pear (VAR2 is only set for the 1st command)
+touch apple  # create a file named apple
+ls ap?le     # apple (matches any one char)
+ls a*le      # apple (matches patterns beginning with a, ending with le)
 
 # Useful if the ls command is hanging on a broken symlink
 # Also good practice before using rm on multiple files
 echo *
+```
 
+```shell script
 ffpid="ps -e | grep firefox"
 eval $ffpid
 # 8393 ?        01:01:43 firefox
@@ -304,13 +314,12 @@ insert "camera operator"
 #### Misc
 
 ```shell script
-basename $0     # filename of the script being run
-dirname $0      # relative path of the script being executed
-readlink -f $0  # full path and filename of the script being run
+basename $0       # filename of the script being run
+dirname $0        # relative path of the script being executed
+readlink -f $0    # full path and filename of the script being run
 
-command -v grep  # show full path or alias for grep if either exist
-which -a python  # list all matching executables in PATH for python
-```
-
+command -v grep   # show full path or alias for grep if either exist
+which -a python   # list all matching executables in PATH for python
 
 chsh -s /bin/zsh  # set zsh as default shell on OSX
+```
