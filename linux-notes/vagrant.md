@@ -1,4 +1,4 @@
-# Vagrant Notes
+# Vagrant
 
 #### VirtualBox
 

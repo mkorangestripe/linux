@@ -1,4 +1,4 @@
-# Networking Notes
+# Networking
 
 Five Layer Network Model
 ```

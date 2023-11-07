@@ -1,4 +1,4 @@
-# Bash Notes
+# Bash
 
 #### Bash history, args
 

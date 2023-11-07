@@ -1,4 +1,4 @@
-# Ansible notes
+# Ansible
 
 #### Ansible config files, modules
 

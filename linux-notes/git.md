@@ -1,4 +1,4 @@
-# Git Notes
+# Git
 
 ```shell script
 git clone git@github.com:mkorangestripe/linux.git  # clone a git repo

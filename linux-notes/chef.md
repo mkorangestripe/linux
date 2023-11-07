@@ -1,4 +1,4 @@
-# Chef Notes
+# Chef
 
 #### Chef
 

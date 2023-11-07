@@ -1,4 +1,4 @@
-# Kubernetes Notes
+# Kubernetes
 
 Control Plane / Master
 * Container orchestration layer that exposes the API and interfaces.

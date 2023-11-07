@@ -1,4 +1,4 @@
-# Docker Notes
+# Docker
 
 ##### Install Docker CE (Comunity Edition) on Redhat/Centos
 ```shell script
