@@ -1,5 +1,7 @@
 # SSH
 
+#### Port forwarding
+
 ```shell script
 # In the examples below 10.0.0.1 is a firewall that is forwarding port 22 to a host in the network.
 
@@ -12,6 +14,8 @@ ssh -p 30000 gp@localhost
 # Setup port forwarding to 192.168.1.112 through 10.0.0.1, and connect to 192.168.1.112:
 ssh -L 30000:192.168.1.112:22 gp@10.0.0.1 -t 'ssh gp@192.168.1.112'
 ```
+
+#### Reverse tunnels
 
 ```shell script
 # Open a reverse tunnel, prompt for password, don't execute a remote command:
@@ -27,6 +31,8 @@ ssh -p 5222 gp@tunnel.server.com -L 30000:127.0.0.1:30000 -t 'ssh -p 30000 -o Ho
 ssh -p 30000 gp@localhost
 ```
 
+#### Public key authentication
+
 ```shell script
 # Setup passwordless ssh, scp, sftp connections.
 # If a password is entered, the same password will be required
@@ -41,7 +47,9 @@ ssh-keygen -y -f id_rsa > id_rsa.pub
 # Copy and append the id_rsa.pub to .ssh/authorized_keys on the remote machine.
 chmod 600 .ssh/authorized_keys  # run on the remote machine
 # The local user might need to logout and login again.
+```
 
+```shell script
 # Additional step when connecting from one remote machine
 # to another when the key was created using a password:
 exec /usr/bin/ssh-agent $SHELL
@@ -52,6 +60,8 @@ ssh-add
 # /etc/ssh/ssh_config --> PasswordAuthentication no
 # /etc/ssh/sshd_config --> PasswordAuthentication no
 ```
+
+#### Misc
 
 ```shell script
 # Disable pseudo tty allocation, commands can still be executed:
