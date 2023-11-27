@@ -307,10 +307,12 @@ date --date='2 days ago' '+%Y%m%d'  # two days ago in YYYYMMDD
 ```shell script
 cat /etc/zone_parent  # show global zone on Solaris
 ls /etc/zones/        # list zones on global
-zoneadm list -cv      # list configured zones on Solaris with status
+
+zoneadm list -cv  # list configured zones on Solaris with status
 zoneadm -z <zone> boot
 zoneadm -z <zone> reboot
 zoneadm -z <zone> shutdown
 zoneadm -z <zone> halt
-zlogin <zone>         # login to zone
+
+zlogin <zone>  # login to zone
 ```
