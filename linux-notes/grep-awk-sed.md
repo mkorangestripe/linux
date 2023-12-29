@@ -3,10 +3,12 @@
 ```shell script
 ps -e | awk '/firefox/ {print $1}'  # print the PID of firefox
 awk -F: '{print $1}' /etc/passwd    # print 1st column in /etc/passwd
-cut -d: -f 1-4 /etc/passwd  # prints 1st - 4th columns in /etc/passwd
-sed -n 1,8p /etc/passwd     # prints 1st - 8th lines in /etc/passwd
-sed '1d' /etc/passwd  # print all by the first line in /etc/passwd
-sed '$d' /etc/passwd  # print all but the last line in /etc/passwd
+cut -d: -f 1-4 /etc/passwd          # prints 1st - 4th columns in /etc/passwd
+cut -c 1-750 pershing.txt           # print first 750 characters in each line
+
+sed -n 1,8p /etc/passwd  # prints 1st - 8th lines in /etc/passwd
+sed '1d' /etc/passwd     # print all by the first line in /etc/passwd
+sed '$d' /etc/passwd     # print all but the last line in /etc/passwd
 ```
 
 ```shell script
@@ -27,6 +29,8 @@ echo $PROC | awk '{print $0}' RS=";"
 du *.gz | awk '{total+=$1} {total/=1024} END {printf "%d%s\n", total,"M"}'
 TOTAL=0; for NUM in $(du *.gz | awk '{print $1}'); do ((TOTAL+=NUM)); done; echo $((TOTAL/1024))M
 ```
+
+#### Sed, tr
 
 ```shell script
 # Substitute Dragonflies with Fireflies globally and redirect to insects2.txt:
@@ -65,6 +69,8 @@ dos2unix keys.txt
 sed 's/^[ \t]*//' spcs.txt > nada.txt
 ```
 
+#### Vi, Vim
+
 ```shell script
 # Remove all whitespace from the start of all lines in vi:
 %s/^\s\+
@@ -94,12 +100,15 @@ set shiftwidth=4
 >
 ```
 
+#### Grep, Regex
+
 ```shell script
 grep ^apple fruitlist.txt   # matches words starting with apple
 grep fruit$ fruitlist.txt   # matches words ending with fruit
 grep ap.le fruitlist.txt    # matches any one char
 grep -wo ... fruitlist.txt  # matches 3 letter words
 grep a.*le fruitlist.txt    # matches patterns beginning with 'a', ending with 'le'
+grep -a mixeddata.txt       # treat binary data as text
 
 # Here is an example of Bash evaluating an expression thereby preventing grep from doing so:
 # fruit.txt has three lines: aples, apples, and appples
@@ -142,6 +151,8 @@ cat flora.txt | grep maple
 # Print lines in newentries.txt that are not in completelist.txt:
 for i in `cat newentries.txt`; do grep -q -x $i completelist.txt || echo $i; done
 ```
+
+#### Sorting
 
 ```shell script
 sort -r list.txt      # sort in reverse order - reverse alphabetically in this example
