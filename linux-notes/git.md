@@ -122,13 +122,17 @@ git merge feature/PBPRB-1651  # merge the branch into the current branch
 ```
 
 ```shell script
-# Rebase the local branch on the current master branch.
-# Incorporate all the commits to master since the branch was created.
-git fetch
-git rebase origin/master
+# Incorporate all the commits to main since the branch was created.
+git fetch  # download branches, commits, tags
 
-git rebase --continue  # run after conflict has been resolved
-git rebase --abort     # abort a rebase if paused
+git rebase origin/main  # rebase the local branch on the current main branch
+git rebase main         # rebase the current branch on main
+
+git rebase --continue   # run after conflict has been resolved
+git rebase --abort      # abort a rebase if paused
+
+git pull
+git push
 ```
 
 ### Tags
