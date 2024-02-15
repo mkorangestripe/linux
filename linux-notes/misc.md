@@ -14,14 +14,4 @@ irssi -c <irc-server> -n <name>
 
 mail -s 'Testing Mail' < file.txt user@domain
 mail user@domain  # follow prompts, press ctrl D at end of message
-
-sqlite3 test1.db
-select * from sqlite_master;
-.databases
-.tables
-.show
-.help
-.quit
-.mode column
-.headers on
 ```
