@@ -1,33 +1,46 @@
--- SQL Databases
+# SQL
 
--- Basic installation of MySQL server on RHEL:
--- dnf install mysql-server
--- systemctl start mysqld.service
--- systemctl enable mysqld.service
--- mysql_secure_installation
+Basic installation of MySQL server on RHEL
+```shell script
+dnf install mysql-server
+systemctl start mysqld.service
+systemctl enable mysqld.service
+mysql_secure_installation
+```
 
--- Connect to MySQL database:
--- mysql -u root -p
--- mysql -u root -p -e 'use animalia; select * from animalia;'
+Connect to MySQL database, run query
+```shell script
+mysql -u root -p
+mysql -u root -p -e 'use animalia; select * from animalia;'
+```
 
--- MySQL database info
-
+Databases, tables, info
+```sql
 CREATE USER 'user1'@'localhost' IDENTIFIED BY '1234asdf';
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('bad_password');
-CREATE DATABASE animalia;
-DROP DATABASE test1;
-DROP TABLE testtable;
-USE animalia;
+
 SHOW DATABASES;
 SHOW tables;
-SELECT table_name FROM all_tables;  -- oracle
-DESCRIBE animalia;
+SELECT table_name FROM all_tables;  -- Oracle
+
+CREATE DATABASE animals;
+DROP DATABASE animals;
+
+CREATE TABLE animalia;
+DROP TABLE animalia;
+
+DESCRIBE animals;
+USE animals;
+
 QUIT
+```
 
--- SQLite database info
-
+SQLite
+```
 sqlite3 test1.db
+
 select * from sqlite_master;
+
 .databases
 .tables
 .show
@@ -35,8 +48,10 @@ select * from sqlite_master;
 .mode column
 .headers on
 .quit
+```
 
-
+Queries
+```sql
 -- Create a table
 CREATE TABLE animalia (Kingdom VARCHAR(100), Phylum VARCHAR(100), Class VARCHAR(100), `Order` VARCHAR(100), Family VARCHAR(100), Genus VARCHAR(100), Species VARCHAR(100));
 
@@ -78,10 +93,10 @@ FROM p_tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd 
 -- and, order by
 SELECT record_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
 FROM p_tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY record_id_sea_nbr;
+```
 
-
--- Cassandra
-
+Cassandra
+```sql
 -- Find peers and version of Cassandra
 SELECT peer, release_version FROM system.peers;
 
@@ -107,3 +122,4 @@ SELECT count(*) FROM system_schema.tables WHERE table_name='storage_account_delt
 
 -- Drop the table if it exists
 DROP TABLE IF EXISTS Metrics.test_table;
+```
