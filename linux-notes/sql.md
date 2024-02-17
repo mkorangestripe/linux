@@ -11,7 +11,7 @@ mysql_secure_installation
 Connect to MySQL database, run query
 ```shell script
 mysql -u root -p
-mysql -u root -p -e 'use animalia; select * from animalia;'
+mysql -u root -p -e 'use animals; select * from animalia;'
 ```
 
 Databases, tables, info
