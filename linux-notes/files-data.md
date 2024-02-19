@@ -14,6 +14,8 @@ echo ABC | hexdump -C  # 41 42 43 0a  |ABC.|  (hex+ASCII of characters ABC)
 echo ABC | od -a -b    # A   B   C  nl  (ASCII named characters of ABC, octal values on next line)
 echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
 
+# encoding='ISO-8859-1' -- Latin 1, single byte encodeing, used for several nonprinting characters
+
 echo "green, yellow, bright orange" | base64 > encoded.txt
 base64 -d encoded.txt  # green, yellow, bright orange
 
