@@ -14,7 +14,7 @@ mysql -u root -p
 mysql -u root -p -e 'use animals; select * from animalia;'
 ```
 
-#### Databases, tables, info
+### Databases, tables, info
 
 ```sql
 CREATE USER 'user1'@'localhost' IDENTIFIED BY '1234asdf';
@@ -36,7 +36,7 @@ USE animals;
 QUIT
 ```
 
-#### SQLite
+### SQLite
 
 ```
 sqlite3 test1.db
@@ -52,7 +52,7 @@ select * from sqlite_master;
 .quit
 ```
 
-#### Queries
+### Queries
 
 ```sql
 -- Create a table
@@ -100,7 +100,7 @@ SELECT rec_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip,
 FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY rec_id_sea_nbr;
 ```
 
-#### Transforms
+### Transforms
 
 * Select REC_ID_SEQ_NBR column form TPS.TABLE1
 * If null when trimmed (empty), replace values with 0
@@ -134,7 +134,7 @@ Similar to the line above but prepend number sign (concatenate QTY_SIGN and QTY)
 WHEN TRIM(TRANSLATE(QTY, '0123456789-,.', ' ')) IS NULL THEN TO_NUMBER((TRIM(QTY_SIGN)) || (QTY / 100000))
 ```
 
-#### Cassandra
+### Cassandra
 
 ```sql
 -- Find peers and version of Cassandra
