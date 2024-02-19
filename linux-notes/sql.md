@@ -14,7 +14,8 @@ mysql -u root -p
 mysql -u root -p -e 'use animals; select * from animalia;'
 ```
 
-Databases, tables, info
+#### Databases, tables, info
+
 ```sql
 CREATE USER 'user1'@'localhost' IDENTIFIED BY '1234asdf';
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('bad_password');
@@ -35,7 +36,8 @@ USE animals;
 QUIT
 ```
 
-SQLite
+#### SQLite
+
 ```
 sqlite3 test1.db
 
@@ -50,7 +52,8 @@ select * from sqlite_master;
 .quit
 ```
 
-Queries
+#### Queries
+
 ```sql
 -- Create a table
 CREATE TABLE animalia (Kingdom VARCHAR(100), Phylum VARCHAR(100), Class VARCHAR(100), `Order` VARCHAR(100), Family VARCHAR(100), Genus VARCHAR(100), Species VARCHAR(100));
@@ -82,20 +85,57 @@ UPDATE animalia SET Common = 'lion' WHERE Species = 'leo';
 SELECT COUNT(*) FROM animalia;
 SELECT * FROM animalia WHERE Common is NULL;
 select Genus,Species,Common,Status from animalia where Genus = "puma"
-
--- to_date
-SELECT * from p_tps_hist.table_b WHERE record_id_seq_nbr = 1 AND etl_eff_dt = to_date('01/11/2024', 'MM/DD/YVYY')
-
--- and, or, order by
-SELECT record_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
-FROM p_tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 'CA') ORDER BY record_id_seq_nbr;
-
--- and, order by
-SELECT record_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
-FROM p_tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY record_id_sea_nbr;
 ```
 
-Cassandra
+```sql
+-- to_date
+SELECT * from tps_hist.table_b WHERE rec_id_seq_nbr = 1 AND etl_eff_dt = to_date('01/11/2024', 'MM/DD/YVYY')
+
+-- and, or, order by
+SELECT rec_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
+FROM tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 'CA') ORDER BY rec_id_seq_nbr;
+
+-- and, order by
+SELECT rec_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
+FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY rec_id_sea_nbr;
+```
+
+#### Transforms
+
+* Select REC_ID_SEQ_NBR column form TPS.TABLE1
+* If null when trimmed (empty), replace values with 0
+* Check for non-numeric related characters by replacing all numeric related characters (0123456789-,.) with a space.
+* If null when trimmed (empty) then the value is valid and convert the string to a number.
+* If not null when trimmed (characters remain) then set the value to 0.
+* T_CD and REC_IND are just trimmed of whitespace.
+* Insert updated columns into TPS_CUSTOM.TABLE1
+
+```sql
+INSERT /*+ append */ INTO TPS_CUSTOM.TABLE1
+(
+    T_CD,
+    REC_IND,
+    REC_ID_SEQ_NBR,
+)
+
+SELECT
+    TRIM(T_CD),
+    TRIM(REC_IND),
+    CASE
+        WHEN TRIM(REC_ID_SEQ_NBR) IS NULL THEN 0
+        WHEN TRIM(TRANSLATE(REC_ID_SEQ_NBR, '0123456789-,.', ' ')) IS NULL THEN TO_NUMBER(REC_ID_SEQ_NBR)
+        ELSE 0
+    END AS REC_ID_SEQ_NBR
+FROM TPS.TABLE1
+```
+
+Similar to the line above but prepend number sign (concatenate QTY_SIGN and QTY) and divide by 100000.
+```sql
+WHEN TRIM(TRANSLATE(QTY, '0123456789-,.', ' ')) IS NULL THEN TO_NUMBER((TRIM(QTY_SIGN)) || (QTY / 100000))
+```
+
+#### Cassandra
+
 ```sql
 -- Find peers and version of Cassandra
 SELECT peer, release_version FROM system.peers;
