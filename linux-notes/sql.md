@@ -94,11 +94,11 @@ select Genus,Species,Common,Status from animalia where Genus = "puma"
 SELECT * from tps_hist.table_b WHERE rec_id_seq_nbr = 1 AND etl_eff_dt = to_date('01/11/2024', 'MM/DD/YVYY')
 
 -- and, or, order by
-SELECT rec_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
+SELECT rec_id_seq_nbr, country_cd, city, state, zip, delivery_id
 FROM tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 'CA') ORDER BY rec_id_seq_nbr;
 
 -- and, order by
-SELECT rec_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
+SELECT rec_id_seq_nbr, country_cd, city, state, zip, delivery_id
 FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY rec_id_sea_nbr;
 ```
 
