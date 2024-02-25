@@ -14,11 +14,11 @@ mysql -u root -p
 mysql -u root -p -e 'use animals; select * from animalia;'
 ```
 
-### Databases, tables, info
+### Databases
 
 ```sql
 CREATE USER 'user1'@'localhost' IDENTIFIED BY '1234asdf';
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('bad_password');
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('password123');
 
 SHOW DATABASES;
 SHOW tables;
@@ -52,7 +52,7 @@ select * from sqlite_master;
 .quit
 ```
 
-### Queries
+### Tables
 
 ```sql
 -- Create a table
@@ -87,6 +87,8 @@ SELECT * FROM animalia WHERE Common is NULL;
 select Genus,Species,Common,Status from animalia where Genus = "puma"
 ```
 
+### Queries
+
 ```sql
 -- to_date
 SELECT * from tps_hist.table_b WHERE rec_id_seq_nbr = 1 AND etl_eff_dt = to_date('01/11/2024', 'MM/DD/YVYY')
@@ -98,6 +100,21 @@ FROM tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 
 -- and, order by
 SELECT rec_id_seq_nbr, country_cd, country_cd2, city, city2, state, state2, zip, zip2, delivery_id, delivery_id2
 FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY rec_id_sea_nbr;
+```
+
+### Bind Variables
+
+PL/SQL
+```sql
+VARIABLE acct_nbr1 VARCHAR2(10);
+BEGIN
+    :acct_nbr1 := 'A123456789';
+    -- DBMS_OUTPUT.PUT_LINE(:acct_nbr1);
+END;
+/
+    -- PRINT :acct_nbr1;
+
+SELECT * FROM tps.table_g WHERE ACCT_NER = :acct_nbr1;
 ```
 
 ### Transforms
