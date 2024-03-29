@@ -100,6 +100,9 @@ FROM tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 
 -- and, order by
 SELECT rec_id_seq_nbr, country_cd, city, state, zip, delivery_id
 FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY rec_id_sea_nbr;
+
+-- length
+SELECT ACCT_REG_LINE_2 FROM tps.table_a WHERE LENGTH(ACCT_REG_LINE_2) > 32;
 ```
 
 ### Bind Variables
