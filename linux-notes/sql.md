@@ -91,18 +91,23 @@ select Genus,Species,Common,Status from animalia where Genus = "puma"
 
 ```sql
 -- to_date
-SELECT * from tps_hist.table_b WHERE rec_id_seq_nbr = 1 AND etl_eff_dt = to_date('01/11/2024', 'MM/DD/YVYY')
+SELECT * from tps_hist.table_b WHERE seq_number = 1 AND eff_date = to_date('01/11/2024', 'MM/DD/YVYY')
 
 -- and, or, order by
-SELECT rec_id_seq_nbr, country_cd, city, state, zip, delivery_id
-FROM tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 'CA') ORDER BY rec_id_seq_nbr;
+SELECT seq_number, country_cd, city, state, zip, delivery_id
+FROM tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 'CA') ORDER BY seq_number;
 
 -- and, order by
-SELECT rec_id_seq_nbr, country_cd, city, state, zip, delivery_id
-FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY rec_id_sea_nbr;
+SELECT seq_number, country_cd, city, state, zip, delivery_id
+FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY seq_number;
 
 -- length
-SELECT ACCT_REG_LINE_2 FROM tps.table_a WHERE LENGTH(ACCT_REG_LINE_2) > 32;
+SELECT acct_reg_line_2 FROM tps.table_a WHERE LENGTH(acct_reg_line_2) > 32;
+
+-- like, descending order
+select * FROM tps_custom.table_a where ACCT_REGISTRATION_LINE_1 LIKE "LIZARD%" order by eff_date DESC;
+
+-- DML (data manipulation language) command, DDL (data definition language) command. A truncate statement does not require a commit whereas a delete statement does.
 ```
 
 ### Bind Variables

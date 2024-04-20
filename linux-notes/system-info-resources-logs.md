@@ -244,6 +244,9 @@ logrotate -fv
   rotate 35
   compress
 }
+
+# delaycompress delays compression until the next rotation leaving the latest rotated log file uncompressed.
+# The application should also continue writing to the same file descriptor when the current log is rotated (renamed) but left uncompressed.
 ```
 
 #### Rsyslog
