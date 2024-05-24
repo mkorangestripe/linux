@@ -20,13 +20,15 @@ ssh -L 30000:192.168.1.112:22 gp@10.0.0.1 -t 'ssh gp@192.168.1.112'
 ```shell script
 # Open a reverse tunnel, prompt for password, don't execute a remote command:
 ssh -N -R 30000:localhost:22 gp@10.0.0.1
-# The $RANDOM variable can be used for keeping tunnels open.
 
 # Setup port forwarding to the remote host through a tunnel server, and connect to the remote host.
 # This saves the HostKeyAlias as something other than 127.0.0.1 which would cause conflicts
 # if reverse tunnels from multiple hosts were being opened simultaneously.
 ssh -p 5222 gp@tunnel.server.com -L 30000:127.0.0.1:30000 -t 'ssh -p 30000 -o HostKeyAlias=prt30000 -l gp 127.0.0.1'
 
+# The $RANDOM env variable can be used for keeping tunnels open.
+```
+```shell script
 # Connect to the reverse tunnel from 10.0.0.1:
 ssh -p 30000 gp@localhost
 ```
