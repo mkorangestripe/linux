@@ -11,7 +11,7 @@ mysql_secure_installation
 Connect to MySQL database, run query
 ```shell script
 mysql -u root -p
-mysql -u root -p -e 'use animals; select * from animalia;'
+mysql -u root -p -e 'use animals; SELECT * FROM animalia;'
 ```
 
 ### Databases
@@ -41,7 +41,7 @@ QUIT
 ```
 sqlite3 test1.db
 
-select * from sqlite_master;
+SELECT * FROM sqlite_master;
 
 .databases
 .tables
@@ -84,14 +84,14 @@ UPDATE animalia SET Common = 'lion' WHERE Species = 'leo';
 -- Basic select statements
 SELECT COUNT(*) FROM animalia;
 SELECT * FROM animalia WHERE Common is NULL;
-select Genus,Species,Common,Status from animalia where Genus = "puma"
+SELECT Genus,Species,Common,Status FROM animalia WHERE Genus = "puma"
 ```
 
 ### Queries
 
 ```sql
 -- date equals, can also use >, <, >=, >=
-SELECT * from tps_hist.table_b WHERE seq_number = 1 AND eff_date = to_date('01/11/2024', 'MM/DD/YVYY')
+SELECT * FROM tps_hist.table_b WHERE seq_number = 1 AND eff_date = TO_DATE('01/11/2024', 'MM/DD/YVYY')
 
 -- and either equal
 SELECT seq_number, country_cd, city, state, zip, delivery_id
@@ -105,7 +105,7 @@ FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd !
 SELECT acct_reg_line_2 FROM tps.table_a WHERE LENGTH(acct_reg_line_2) > 32;
 
 -- like LIZARD*, ignore case, order by eff_date column, descending order, can also 'order by 2', the second column
-select * FROM tps_custom.table_a where upper(ACCT_REGISTRATION_LINE_1) LIKE upper('LIZARD%') order by eff_date DESC;
+SELECT * FROM tps_custom.table_a WHERE UPPER(ACCT_REGISTRATION_LINE_1) LIKE UPPER('LIZARD%') ORDER BY eff_date DESC;
 
 -- DML (data manipulation language) requires a commit.
 -- DDL (data definition language) does not require a commit.
@@ -176,7 +176,7 @@ DESCRIBE TABLES
 SELECT table_name FROM system_schema.tables;
 
 -- Find number of tables
-SELECT count(*) FROM system_schema.tables;
+SELECT COUNT(*) FROM system_schema.tables;
 
 -- Show table info
 DESCRIBE TABLE storage_account_usage
@@ -185,7 +185,7 @@ DESCRIBE TABLE storage_account_usage
 USE Metrics;
 
 -- Find count of the item in each column
-SELECT count(*) FROM system_schema.tables WHERE table_name='storage_account_delta_usage_201805' ALLOW FILTERING;
+SELECT COUNT(*) FROM system_schema.tables WHERE table_name='storage_account_delta_usage_201805' ALLOW FILTERING;
 
 -- Drop the table if it exists
 DROP TABLE IF EXISTS Metrics.test_table;
