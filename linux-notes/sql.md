@@ -90,24 +90,26 @@ select Genus,Species,Common,Status from animalia where Genus = "puma"
 ### Queries
 
 ```sql
--- to_date
+-- date equals, can also use >, <, >=, >=
 SELECT * from tps_hist.table_b WHERE seq_number = 1 AND eff_date = to_date('01/11/2024', 'MM/DD/YVYY')
 
--- and, or, order by
+-- and either equal
 SELECT seq_number, country_cd, city, state, zip, delivery_id
 FROM tps.table_c WHERE delivery_id = 'D' AND (country_cd = 'US' OR country_cd = 'CA') ORDER BY seq_number;
 
--- and, order by
+-- and neither equal
 SELECT seq_number, country_cd, city, state, zip, delivery_id
 FROM tps.table_c WHERE delivery_id = 'D' AND country_cd != 'US' AND country_cd != 'CA' ORDER BY seq_number;
 
--- length
+-- length is greater than
 SELECT acct_reg_line_2 FROM tps.table_a WHERE LENGTH(acct_reg_line_2) > 32;
 
--- like, descending order
-select * FROM tps_custom.table_a where ACCT_REGISTRATION_LINE_1 LIKE "LIZARD%" order by eff_date DESC;
+-- like LIZARD*, ignore case, order by eff_date column, descending order, can also 'order by 2', the second column
+select * FROM tps_custom.table_a where upper(ACCT_REGISTRATION_LINE_1) LIKE upper('LIZARD%') order by eff_date DESC;
 
--- DML (data manipulation language) command, DDL (data definition language) command. A truncate statement does not require a commit whereas a delete statement does.
+-- DML (data manipulation language) requires a commit.
+-- DDL (data definition language) does not require a commit.
+-- A truncate statement does not require a commit whereas a delete statement does.
 ```
 
 ### Bind Variables

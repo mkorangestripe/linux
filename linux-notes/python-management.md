@@ -83,9 +83,11 @@ pyenv which python       # show actual path
 #### Anaconda
 
 ```shell script
+conda info           # conda version info, etc
 conda search python  # list available versions of Python
 
 conda env list                                       # list installed envs
+conda list --revisions                               # list changes to the current env
 conda create -n env3.10.12 python=3.10.12            # create the env in default location
 conda env create -p envs/py3.10.12 -f py3.10.12.yml  # create the env in envs/ and using the yml config
 conda env remove -n env3.10.12                       # remove the env
