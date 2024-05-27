@@ -86,6 +86,18 @@ lsb_release -d
 EOF
 ```
 
+#### fg, bg, jobs
+```shell script
+while True; do sleep 5; echo Yes; done   # run command in foreground
+# Ctrl+z                                 # suspend execution
+while True; do sleep 5; echo No; done &  # run command in background
+
+jobs     # list jobs with state
+fg %1    # continue execution of job 1 in the foreground
+bg %1    # continue execution of job 1 in the background
+kill %1  # kill job 1 if suspended or running in background
+```
+
 #### Loops and Tests
 
 ```shell script
