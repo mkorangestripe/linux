@@ -1,6 +1,6 @@
 Screen
 ```shell script
-screen -S green1  # start screen session named green1
+screen -S green1  # start screen session green1
 screen -ls        # list screen sessions
 screen -d         # detach from current screen
 screen -r         # reattach to the screen
@@ -16,19 +16,21 @@ script /dev/null
 
 Tmux
 ```shell script
-tmux new -s orange1     # start a new session
-tmux ls                 # list sessions
+tmux new -s orange1            # start a new session orange1
+tmux new -s orange3 -n colors  # start a new session orange3 and window colors
+
+tmux ls  # list sessions
+
 tmux a                  # attach to last session
-tmux a -t orange1       # attach to orange1
-tmux new -A -s orange2  # attach to session, create if doesn't exist
-tmux new -s orange4 -n colors  
+tmux a -t orange1       # attach to session orange1
+tmux new -A -s orange2  # attach to session orange2, create if doesn't exist
 
 # Ctrl+b, d  # detach from session
 # Ctrl+b, s  # show all sessions
 # Ctrl+b, (  # move to previous session
 # Ctrl+b, )  # move to next session
 
-# Ctrl+b, new -s orange3  # create a new session from within a session
+# Ctrl+b, new -s orange3  # create a new session orange3 from within a session
 ```
 
 Irssi
