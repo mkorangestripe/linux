@@ -8,10 +8,27 @@ screen -r 10514.yellow1   # reattach to yellow1 screen
 screen -dr 10514.yellow1  # detach yellow1 screen and reattach here
 screen -x 10514.yellow1   # attach to currently attached yellow1 screen
 
-# Ctrl+a, d  # detach from screen session
+# Ctrl+a, d  # detach from current screen
 
 # If you cannot attach to a screen session because of permissions, execute the following then reattempt:
 script /dev/null
+```
+
+Tmux
+```shell script
+tmux new -s orange1     # start a new session
+tmux ls                 # list sessions
+tmux a                  # attach to last session
+tmux a -t orange1       # attach to orange1
+tmux new -A -s orange2  # attach to session, create if doesn't exist
+tmux new -s orange4 -n colors  
+
+# Ctrl+b, d  # detach from session
+# Ctrl+b, s  # show all sessions
+# Ctrl+b, (  # move to previous session
+# Ctrl+b, )  # move to next session
+
+# Ctrl+b, new -s orange3  # create a new session from within a session
 ```
 
 Irssi
