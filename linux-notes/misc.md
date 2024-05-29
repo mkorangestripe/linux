@@ -1,12 +1,14 @@
 Screen
 ```shell script
-screen -S green1  # start screen session green1
-screen -ls        # list screen sessions
-screen -d         # detach from current screen
-screen -r         # reattach to the screen
-screen -r 10514.yellow1   # reattach to yellow1 screen
-screen -dr 10514.yellow1  # detach yellow1 screen and reattach here
-screen -x 10514.yellow1   # attach to currently attached yellow1 screen
+screen -S green1   # start new screen session green1
+
+screen -ls         # list screen sessions
+
+screen -d          # detach from current screen
+screen -r          # reattach to the screen
+screen -r green1   # reattach to green1 screen, include pid e.g. 84010.green1 if multiples
+screen -dr green1  # detach green1 screen and reattach here
+screen -x green1   # attach to currently attached green1 screen
 
 # Ctrl+a, d  # detach from current screen
 
@@ -16,8 +18,8 @@ script /dev/null
 
 Tmux
 ```shell script
-tmux new -s orange1            # start a new session orange1
-tmux new -s orange3 -n colors  # start a new session orange3 and window colors
+tmux new -s orange1            # start new session orange1
+tmux new -s orange3 -n colors  # start new session orange3 and window colors
 
 tmux ls  # list sessions
 
