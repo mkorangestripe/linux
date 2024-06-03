@@ -2,8 +2,8 @@
 
 Find and exec
 ```shell script
-# The exec option uses the semicolon as a delimiter. Because the semicolon is also
-# a Bash token, the backslash is used to prevent Bash from interpreting it.
+# The semicolon is both a delimiter for the exec option and a Bash token.
+# Without the backslash it would be interpreted by Bash not exec.
 find . -type f -exec ls {} \;
 
 # The plus sign and xargs append arguments to the command and then executes.
@@ -13,13 +13,16 @@ find . -type f | xargs ls
 
 Find and grep
 ```shell script
-# Call grep for each file found:
+# Run grep for each file found.
+# The -H option or including /dev/null in the file list will force print the filename.
 find . -maxdepth 1 -type f -name 'colors*.txt' -exec grep orange {} \;
+find . -maxdepth 1 -type f -name 'colors*.txt' -exec grep -H orange {} \;
+find . -maxdepth 1 -type f -name 'colors*.txt' -exec grep orange /dev/null {} \;
 
-# Call grep once with all files found:
+# Run grep once with all files found:
 find . -maxdepth 1 -type f -name 'colors*.txt' -exec grep orange {} + 
 
-# Call grep once with all files found using xargs.
+# Run grep once with all files found using xargs.
 # The -print0 and -0 are necessary for xargs to handle filenames containing spaces.
 find . -maxdepth 1 -type f -name 'colors*.txt' -print0 | xargs -0 grep orange
 ```
