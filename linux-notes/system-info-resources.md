@@ -1,4 +1,4 @@
-# System info, resources, logs
+# System info, resources
 
 ### System info
 
