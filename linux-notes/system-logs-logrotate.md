@@ -1,47 +1,5 @@
 # System logs, Logrotate
 
-
-#### SAR
-
-```shell script
-/etc/cron.d/sysstat    # runs the following scripts which output to /var/log/sa/
-/usr/lib64/sa/sa1 1 1  # writes every 10 minutes to the daily saDD file
-/usr/lib64/sa/sa2 -A   # writes daily reports by processing the binary saDD files into text sarDD files at 23:53
-
-# Create report of all stats from the current daily data file.
-# Note, if the machine’s date is not set to local time .e.g. UTC, this might not produce as much data as expected.
-sar -A > sar.txt
-mpstat  # like sar -A, but with processor statistics from the current minute
-
-sar -q -f /var/log/sa/sa10 > sar.10-ldavg.txt  # create report with load averages from the 10th
-
-# Create report with mem, swap, and net stats from the 21st:
-sar -r -n DEV -f /var/log/sa/sa21 > sysstat.txt
-
-sar -B  # report paging statistics
-
-# Report unused memory pages and swap-file disk blocks and page-out and page-in activities on Solaris:
-sar -r -g -p
-
-# Create report with mem, swap, and net stats from the 21st, formated for databases:
-sadf -d /var/log/sa/sa21 -- -r -n DEV > sysstat.txt
-
-# Create report with all CPU usage from the 21st formatted for databases:
-sadf -d /var/log/sa/sa21 -- -u ALL > cpu_report_sadf.txt
-
-# Create report with stats from the 10th between 2am and 3am:
-sadf -s 02:00:00 -e 03:00:00 /var/log/sa/sa10 > activity10.txt
-
-# Uses the following config files to manage sa logs, etc:
-/etc/init.d/sysstat
-/etc/sysconfig/sysstat
-/etc/sysconfig/sysstat.ioconf
-
-# Set the daily system activity report to run at 2am:
-/etc/cron.d/sysstat
-0 2 * * * root /usr/lib64/sa/sa2 -A
-```
-
 #### System logs
 
 ```shell script
@@ -90,7 +48,49 @@ logrotate -fv
 }
 
 # delaycompress delays compression until the next rotation leaving the latest rotated log file uncompressed.
-# The application should also continue writing to the same file descriptor when the current log is rotated (renamed) but left uncompressed.
+# The application should also continue writing to the same file descriptor
+# when the current log is rotated (renamed) but left uncompressed.
+```
+
+#### SAR
+
+```shell script
+/etc/cron.d/sysstat    # runs the following scripts which output to /var/log/sa/
+/usr/lib64/sa/sa1 1 1  # writes every 10 minutes to the daily saDD file
+/usr/lib64/sa/sa2 -A   # writes daily reports by processing the binary saDD files into text sarDD files at 23:53
+
+# Create report of all stats from the current daily data file.
+# Note, if the machine’s date is not set to local time .e.g. UTC, this might not produce as much data as expected.
+sar -A > sar.txt
+mpstat  # like sar -A, but with processor statistics from the current minute
+
+sar -q -f /var/log/sa/sa10 > sar.10-ldavg.txt  # create report with load averages from the 10th
+
+# Create report with mem, swap, and net stats from the 21st:
+sar -r -n DEV -f /var/log/sa/sa21 > sysstat.txt
+
+sar -B  # report paging statistics
+
+# Report unused memory pages and swap-file disk blocks and page-out and page-in activities on Solaris:
+sar -r -g -p
+
+# Create report with mem, swap, and net stats from the 21st, formated for databases:
+sadf -d /var/log/sa/sa21 -- -r -n DEV > sysstat.txt
+
+# Create report with all CPU usage from the 21st formatted for databases:
+sadf -d /var/log/sa/sa21 -- -u ALL > cpu_report_sadf.txt
+
+# Create report with stats from the 10th between 2am and 3am:
+sadf -s 02:00:00 -e 03:00:00 /var/log/sa/sa10 > activity10.txt
+
+# Uses the following config files to manage sa logs, etc:
+/etc/init.d/sysstat
+/etc/sysconfig/sysstat
+/etc/sysconfig/sysstat.ioconf
+
+# Set the daily system activity report to run at 2am:
+/etc/cron.d/sysstat
+0 2 * * * root /usr/lib64/sa/sa2 -A
 ```
 
 #### Rsyslog
