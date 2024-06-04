@@ -40,10 +40,10 @@ find / -mount -name '*.log' -size +10000 -type f -mtime -1 -exec du -sh {} \;
 find . -maxdepth 1 -name '*.log' -type f -mtime +14 -exec gzip {} \;
 ```
 
-#### Find and delete files not named *.conf and modified between 5 and 30 minutes ago
+#### Find and delete
 ```shell script
+# Find and delete files not named *.conf and modified between 5 and 30 minutes ago:
 find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -print -delete  # print option prints the filenames
-
 find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -print0 | xargs -0 rm
 ```
 
