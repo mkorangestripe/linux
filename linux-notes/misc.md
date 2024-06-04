@@ -1,4 +1,4 @@
-Screen
+#### Screen
 ```shell script
 screen -S green1   # start new screen session green1
 
@@ -16,7 +16,7 @@ screen -x green1   # attach to currently attached green1 screen
 script /dev/null
 ```
 
-Tmux
+#### Tmux
 ```shell script
 tmux new -s orange1            # start new session orange1
 tmux new -s orange3 -n colors  # start new session orange3 and window colors
@@ -35,12 +35,12 @@ tmux new -A -s orange2  # attach to session orange2, create if doesn't exist
 # Ctrl+b, new -s orange3  # create a new session orange3 from within a session
 ```
 
-Irssi
+#### Irssi
 ```shell script
 irssi -c ircserver.example.com -n user1  # connect to irc server
 ```
 
-Mail
+#### Mail
 ```shell script
 # Create & send email. Follow prompts, press Ctrl+D at end of message.
 mail user1@example.com
