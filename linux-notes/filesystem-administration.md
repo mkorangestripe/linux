@@ -40,7 +40,7 @@ ln -s ../.. ...  # creates a symlink to the parent’s parent directory
 
 ### Filesystem
 
-Filesystem, device info
+#### Filesystem, device info
 ```shell script
 lsblk -f                  # list block device including fstype, label, uuid, and mountpoint
 ls -l /dev/disk/by-path/  # list block devices by path
@@ -71,7 +71,7 @@ mknod /dev/sda1 b 8 1  # 1st HD, 1st partition, b=block, 8=major, 1=minor
 /etc/fstab  # dump = 1 or 0; pass: root dir = 2, others = 1 or 0
 ```
 
-Filesystem usage
+#### Filesystem usage
 ```shell script
 df -h         # disk usage, human-readable
 df -hi        # disk inode usage, human-readable
@@ -98,7 +98,7 @@ lsblk  # compare the sum of the partition sizes with the size of the hard drive
 fdisk -uc /dev/sdb  # dos mode off, display units in sectors
 ```
 
-Partprobe, Kpartx
+#### Partprobe, Kpartx
 ```shell script
 partprobe  # inform the OS of partition table changes; if fails, remount the filesystem and run again
 
@@ -107,7 +107,7 @@ partprobe  # inform the OS of partition table changes; if fails, remount the fil
 kpartx -a /dev/mapper/mpathbp1
 ```
 
-Multipath
+#### Multipath
 ```shell script
 service multipathd restart  # restart multipathd
 
@@ -122,7 +122,7 @@ systool -vc fc_host | grep name      # WWNs of various parts
 /usr/bin/rescan-scsi-bus.sh  # rescan scsi bus
 ```
 
-Udevadm, Udisks
+#### Udevadm, Udisks
 ```shell script
 # Reload udev rules and make changes:
 udevadm control --reload-rules && udevadm trigger --type=devices --action=change
@@ -132,7 +132,7 @@ udisks --mount /dev/sdb2
 udisks --unmount /dev/sdb2
 ```
 
-Swap
+#### Swap
 ```shell script
 mkswap /dev/sdb2   # make swap
 swapon /dev/sdb2   # enable swap using sdb2
@@ -140,7 +140,7 @@ swapoff /dev/sdb2  # disable swap using sdb2
 cat /proc/swaps    # view swaps, also see 'free' and 'top'
 ```
 
-Repair filesystems, block devices
+#### Repair filesystems, block devices
 ```shell script
 smartctl --all /dev/sda | grep Errors  # check harddrive for errors
 
@@ -168,7 +168,7 @@ mdadm --detail /dev/md[0,1] | grep sync  # Raid sync status
 
 ### LVM
 
-Logical Volume info
+#### Logical Volume info
 ```shell script
 lvm          # opens lmv prompt, type help
 lvmconf      # lvm configuration
@@ -187,7 +187,7 @@ pvdisplay -m /dev/mapper/mpathc
 lvdisplay -m /dev/mapper/vgoracle-lvoracle
 ```
 
-Physical Volumes
+#### Physical Volumes
 ```shell script
 pvcreate /dev/sdb   # create a physical volume
 pvcreate /dev/sdc1  # create a physical volume from a partition
@@ -195,7 +195,7 @@ pvcreate /dev/sdc1  # create a physical volume from a partition
 pvremove /dev/sdc2  # remove the PV, wipe label
 ```
 
-Volume Groups
+#### Volume Groups
 ```shell script
 vgcreate vg_test /dev/sdb2 /dev/sdc1        # create a volume group from sdb2 and sdc1
 vgcreate -s 8m vg_test /dev/sdb1 /dev/sdc1  # ...physical extent size of 8 MB
@@ -209,7 +209,7 @@ vgremove vg_test            # remove the VG
 vgchange -a y vg_test       # activate a volume group
 ```
 
-Logical Volumes
+#### Logical Volumes
 ```shell script
 lvcreate -L 7G vg_test -n lv_test           # create a 7GB LV
 lvcreate -l 100%Free vg_test -n lv_test     # create a LV using all free space
@@ -225,7 +225,7 @@ lvreduce -L 2G /dev/vg_test/lv_test         # reduce the LV to 2G
 lvremove /dev/vg_test/lv_test               # remove the LV
 ```
 
-Make/Resize a File System on a Logical Volume
+#### Make/Resize a File System on a Logical Volume
 ```shell script
 mkfs -t ext4 /dev/vg_test/lv_test
 mkfs -t ext4 /dev/mapper/vg_test-lv_test
