@@ -40,7 +40,7 @@ ln -s ../.. ...  # creates a symlink to the parent’s parent directory
 
 ### Filesystem
 
-###### Filesystem, device info
+##### Filesystem, device info
 ```shell script
 lsblk -f                  # list block device including fstype, label, uuid, and mountpoint
 ls -l /dev/disk/by-path/  # list block devices by path
