@@ -62,8 +62,9 @@ startx                 # starts the GUI
 
 ### Services
 
+##### SysV init
 ```shell script
-# Service on systems using SysV init (using httpd for example):
+# Using httpd for example:
 service --status-all
 service httpd start
 service httpd stop
@@ -71,7 +72,7 @@ service httpd restart
 service httpd reload
 service sshd status
 
-# Enable/disable services per runlevel on systems using SysV init:
+# Enable/disable services:
 chkconfig --list postfix
 chkconfig postfix on
 chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfix
@@ -81,6 +82,7 @@ chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfi
 ntsysv --level 345  # config services for runlevels 3,4,and 5
 ```
 
+##### Systemd
 ```shell script
 # Services on systems using systemd (using sshd for examples)
 systemctl --all
@@ -98,8 +100,8 @@ systemctl daemon-reload  # reload changed unit file
 /etc/systemd/  # systemd info
 ```
 
+##### Solaris
 ```shell script
-# Services on Solaris:
 svcs -a                 # show status of all services on Solaris
 svcs -v ssh             # show verbose status of ssh, -l for all available info
 svcs -x http            # show explanations for service state
@@ -111,9 +113,9 @@ svcadm clear http       # clear http from maintenance state
 /var/svc/log/           # service logs
 ```
 
+##### MacOS
 ```shell script
-# List services on macOS:
-sudo launchctl list
+sudo launchctl list  # list services
 ```
 
 ### Shutdown, Reboot
@@ -126,8 +128,10 @@ shutdown -H now           # halts the system after being brought down
 shutdown -P now           # powers off the system after being brought down
 shutdown -c               # cancel a running shutdown
 shutdown -k now           # send warning msg, disable logins, do not shutdown
+```
 
-# Symlinks for various commands:
+##### Symlinks
+```
 /usr/sbin/reboot   -> /bin/systemctl
 /usr/sbin/halt     -> /bin/systemctl
 /usr/sbin/poweroff -> /bin/systemctl
