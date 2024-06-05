@@ -2,10 +2,10 @@
 
 ### Symlinks, Hardlinks, Inodes
 
-Inode - index node, stores all the information about a regular file, directory, or
-other file system object, except its data and name.  
-Hardlink - a directory entry that associates a name with a file on a file system.  
-Symlink - symbolic link, a file that contains a reference to another file or directory.
+* Inode - index node, stores all the information about a regular file, directory, or
+other file system object, except its data and name.
+* Hardlink - a directory entry that associates a name with a file on a file system.
+* Symlink - symbolic link, a file that contains a reference to another file or directory.
 
 ```shell script
 # Create a symlink:
@@ -20,9 +20,7 @@ ls -di Desktop/Documents
 # 523454 Desktop/Documents
 ```
 
-The hidden . and .. in directories are hard links to the current directory and the parent directory.  
-Creation of hard links to directories is not permitted by users because the links could  
-cause infinite loops for programs like find and du that traverse the filesystem.
+The hidden . and .. in directories are hard links to the current directory and the parent directory. Creation of hard links to directories is not permitted by users because the links could cause infinite loops for commands like find and du that traverse the filesystem.
 
 ```shell script
 # Directories have at least two hardlinks. The 2 after the file permissions in the output below
