@@ -18,10 +18,25 @@ echo $#     # echos the number of arguments given to the script
 ^eth0^lo^   # executes last command substituting eth0 with lo
 
 history -a  # appends current session history to history file
-pushd +n, popd, dirs -v
+```
 
-# This keeps the password out of the bash history; type the password and press Ctrl+d:
+```shell script
+# This can be used to keep a password out of the bash history:
 PASSWD=$(cat)
+# Type the password
+# Ctrl+d
+
+# Get user input from a script:
+echo -n "Enter password: "
+read PASSWD
+```
+
+```shell script
+pushd src   # cd to src and add to queue
+pushd +1    # cd to #1 directory in queue
+pushd       # cd to last directory
+popd        # cd to last directory and remove from queue
+dirs -v     # show directories in queue with number
 ```
 
 #### Environment and Shell Options
@@ -66,20 +81,26 @@ grep calc < err.log         # redirects stdin to grep, same as ‘grep cacl err.
 nohup ./ps1b.py &           # run ps1b.py in the background, ignore hangup signal
 nohup mydaemonscript 0<&- 1>/dev/null 2>& &
 nohup mydaemonscript >>/var/log/myadmin.log 2>&1 <&- &
->&-  (closes stdout)
+>&-                         # closes stdout
+```
 
+```shell script
 # Create file test1.txt with the lines below; the single quotes prevent command evaluation:
 cat <<'EOF' > test1.txt
 apple
 `ls -l`
 EOF
+```
 
+```shell script
 # Set the second listed version of java as the system default:
 alternatives --config java << EOF
 2
 EOF
+```
 
-# Get system info:
+```shell script
+# Get system info on tester1:
 ssh gp@tester1 << EOF
 uname -a
 lsb_release -d
@@ -124,11 +145,9 @@ c=17; f=15
 if [ $VAR1 ]; then
     echo $VAR1
 fi
+```
 
-# Get user input from a script:
-echo -n "Enter CVS username: "
-read user
-
+```shell script
 # Run commands from a file using a while-loop:
 cat commands.txt | while read CMD; do echo $CMD; eval $CMD; done
 while read CMD; do echo $CMD; eval $CMD; done < commands.txt
@@ -137,25 +156,35 @@ while read CMD; do echo $CMD; eval $CMD; done < commands.txt
 IFS=$'\n'
 for CMD in `cat commands.txt`; do echo $CMD; eval $CMD; done
 unset IFS
+```
 
+```shell script
 # Returns the total count of files/dirs unless a file has spaces in the name:
 COUNT=0; for FILE in `ls`; do COUNT=$((COUNT + 1)); done; echo $COUNT
+```
 
-# A simple prime number generator finding prime numbers 2 through 100: 
-for i in $(seq 2 100); do for j in $(seq 2 $((i / 2))); do [ $((i % j)) == 0 ] && i="" && break; done; [ -n "$i" ] && echo $i; done
-
+```shell script
 # Monitor disk usage on the root filesystem:
 i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; [ $i == $(($(tput lines) - 2)) ] && i=0 && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
 
 # Similar to above, but without using tput.  Eventually though “i“’ would become out of range.
 i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; ((i % 20 == 0)) && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
+```
 
+```shell script
 # “While loop” file-test with a red/green spinner:
 while [ -d /etc ]; do printf "\r \e[31m[/]\e[00m"; sleep 0.5; printf "\r \e[32m[-]\e[00m"; sleep 0.5; printf "\r \e[31m[\\]\e[00m"; sleep 0.5; printf "\r \e[32m[|]\e[00m"; sleep 0.5; done; echo
 
 # “Do while loop” that checks if a file exists:
 while true; do [ -f nothing3.txt ] && echo "file present" || { echo "file not present"; break; }; sleep 2; done
+```
 
+```shell script
+# A simple prime number generator finding prime numbers 2 through 100: 
+for i in $(seq 2 100); do for j in $(seq 2 $((i / 2))); do [ $((i % j)) == 0 ] && i="" && break; done; [ -n "$i" ] && echo $i; done
+```
+
+```shell script
 # Status bar:
 for i in `seq 1 10`; do printf "\e[31m#\e[00m"; sleep 0.5; done; printf "\rDone      "; echo
 ```
