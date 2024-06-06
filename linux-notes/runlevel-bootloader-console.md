@@ -2,7 +2,7 @@
 
 ### Runlevels
 
-**Nonstandard runlevels on RHEL 6**  
+**Nonstandard runlevels**  
 From the kernel line in the grub menu delete rhgb quiet (if desired), and append one of the following.  
 
 ```
@@ -22,17 +22,17 @@ init is running
 runs everything but scripts in /etc/rc1.d ???
 ```
 
-**Standard runlevels on RHEL 6**  
+**Standard runlevels on RHEL**  
 See /etc/inittab
 
 ```
-0 - halt (Do NOT set initdefault to this)
+0 - Off
 1 - Single user mode
-2 - Multiuser, without NFS
-3 - Full multiuser mode
-4 - unused
-5 - X11
-6 - reboot (Do NOT set initdefault to this)
+2 - Multi-user mode, maybe networking, no NFS or SMB
+3 - Multi-user mode with networking
+4 - Not used/user-definable
+5 - Full mode
+6 - Reboot
 ```
 
 ```shell script
