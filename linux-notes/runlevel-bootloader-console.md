@@ -127,11 +127,14 @@ shutdown -y -i5 -g0       # yes, init 5, grace period 0s - halt or poweroff on S
 shutdown -H now           # halts the system after being brought down
 shutdown -P now           # powers off the system after being brought down
 shutdown -c               # cancel a running shutdown
-shutdown -k now           # send warning msg, disable logins, do not shutdown
-```
 
-##### Symlinks
-```
+init 0  # shutdown
+init 1  # runlevel 1
+init 3  # runlevel 3
+init 5  # runlevel 5
+init 6  # reboot
+
+# Symlinks for shutdown/reboot commands:
 /usr/sbin/reboot   -> /bin/systemctl
 /usr/sbin/halt     -> /bin/systemctl
 /usr/sbin/poweroff -> /bin/systemctl
@@ -145,7 +148,9 @@ shutdown -k now           # send warning msg, disable logins, do not shutdown
 ```shell script
 grub-md5-crypt                     # create an md5 password
 password --md5 <password-hash>     # place after ‘timeout’ or a title line in  grub.conf
+```
 
+```shell script
 # From the grub prompt at system start:
 grub> root                         # identify partition with boot directory
 grub> find /grub/grub.conf         # identify partition with boot directory
@@ -159,9 +164,11 @@ grub> root (hd0,0)  # necessary if MBR was modified
 grub> kernel /vmlinuz-2.6.32-71.el6.x86_64 ro root=/dev/dm-0
 grub> initrd /initramfs-2.6.32-71.el6.x86_64.img
 grub> boot
+```
 
+```shell script
 # Reinstalling the Boot Loader:
-# Choose Rescue installed system from the menu or try the following:
+# Choose Rescue installed system from the menu or try the following.
 # Type linux rescue at the installation boot prompt to enter the rescue environment.
 chroot /mnt/sysimage         # mount the root partition
 /sbin/grub-install /dev/sda  # reinstall the GRUB boot loader
@@ -205,16 +212,19 @@ reset
 
 ### Automated installation using a kickstart file
 
+##### Kickstart setup on FTP Server
 ```shell script
-# Kickstart from an FTP Server:
 cp anaconda-ks.cfg ks.cfg
 system-config-kickstart ks.cfg  # or edit ks.cfg with vi
 # Hostname is set in the network directive with --hostname=tester1
 cp ks.cfg /var/ftp/pub/ks.cfg
 chmod -c +r /var/ftp/pub/ks.cfg
 iptables -F  # or verify that port 21 is open
-# Boot from CD, highlight Install or upgrade..., press tab, use the ftp line below:
+```
 
+##### Install from FTP
+```shell script
+# Boot from CD, highlight Install or upgrade..., press tab, use the ftp line:
 vmlinuz initrd=initrd.img ks=hd:sdb1:/ks.cfg
 vmlinuz initrd=initrd.img ks=cdrom:/ks.cfg
 vmlinuz initrd=initrd.img ks=hd:fd0:/ks.cfg
