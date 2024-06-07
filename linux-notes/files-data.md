@@ -62,7 +62,6 @@ cat /dev/null > /proc/PID/fd/FD
 
 # When using rm -rf type rm, then the directory, then -rf.  This is to avoid removing parent directories 
 # by accidentally pressing enter before the full path has been typed.
-# For example, to remove /var/logs/nada/ type the following.
 rm /var/logs/nada/ -rf
 
 strings /dev/sdb | less  # search for strings in raw disk space
