@@ -15,7 +15,10 @@ echo ABC | od -a -b    # A   B   C  nl  (ASCII named characters of ABC, octal va
 echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
 
 # encoding='ISO-8859-1' -- Latin 1, single byte encodeing, used for several nonprinting characters
+```
 
+```shell script
+# Base64 encode/decode:
 echo "green, yellow, bright orange" | base64 > encoded.txt
 base64 -d encoded.txt  # green, yellow, bright orange
 
@@ -25,15 +28,23 @@ echo "redgreenblue" | base64 > key.txt
 openssl enc -base64 -aes256 -in passwd.txt -out passwd_encrypted.txt -kfile key.txt
 openssl enc -base64 -aes256 -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
 
-fold -w76  # wrap each line to be 76 characters
+fold -w76 colors3.txt  # wrap each line to be no more than 76 characters
+```
 
+```shell script
 diff -rq misc/ test/misc/  # compare directory contents
 
-md5sum company-mskr-ora.zip  # compute md5 checksum
-sha256sum newrelic-infra*    # compute SHA256 checksum
+# Compute MD5 (Message Digest 5) checksum on colors*.txt:
+md5sum colors*.txt
+md5 colors*.txt
 
-# Compute md5 checksum on a directory:
+# Compute SHA-256 (Secure Hash Algorithm) checksum on colors*.txt:
+sha256sum colors*.txt
+shasum -a 256 colors*.txt
+
+# Compute MD5 checksum on directory contents:
 find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
+find src/ -type f -exec md5 {} + | awk '{print $4}' | sort | md5
 ```
 
 #### Removing files and data
