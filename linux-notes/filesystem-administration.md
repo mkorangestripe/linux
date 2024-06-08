@@ -36,7 +36,7 @@ ls -ldi Desktop/.
 ln -s ../.. ...  # creates a symlink to the parent’s parent directory
 ```
 
-### Filesystem
+### Filesystems, Storage devices
 
 ##### Filesystem, device info
 ```shell script
@@ -81,6 +81,15 @@ du -ch *.gz   # total size of gzip’ed files
 # Inode usage summary of current directory, top three:
 find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr | head -3
 
+# Find growing files:
+# check1.txt and check2.txt may need to be on a filesystem other than the one filling up.
+find . -type f -exec du {} \; > /tmp/check1.txt
+sleep 2m
+find . -type f -exec du {} \; > /tmp/check2.txt
+diff /tmp/check1.txt /tmp/check2.txt
+```
+
+```shell script
 # Hard disks can have at most 4 primary partitions or 3 primary with 1 extended
 # partition which can point to several logical partitions.
 

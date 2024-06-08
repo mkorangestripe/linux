@@ -46,19 +46,3 @@ find . -maxdepth 1 -name '*.log' -type f -mtime +14 -exec gzip {} \;
 find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -print -delete  # print option prints the filenames
 find . -type f ! -name '*.conf' -mmin +5 -mmin -30 -print0 | xargs -0 rm
 ```
-
-#### Remove files with nonstandard filenames
-```shell script
-find . -inum 782263 -exec rm -i {} \;  # remove the file with inode number 782263
-
-rm \\  # remove a file named \
-```
-
-#### Find growing files
-```shell script
-# check1.txt and check2.txt may need to be on a filesystem other than the one filling up.
-find . -type f -exec du {} \; > /tmp/check1.txt
-sleep 2m
-find . -type f -exec du {} \; > /tmp/check2.txt
-diff /tmp/check1.txt /tmp/check2.txt
-```

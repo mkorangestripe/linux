@@ -1,6 +1,6 @@
 # Files, Data
 
-#### Encryption, Encoding, Hashes
+#### Character encoding
 
 ```shell script
 # Convert between hexadecimal and decimal:
@@ -17,6 +17,7 @@ echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
 # encoding='ISO-8859-1' -- Latin 1, single byte encodeing, used for several nonprinting characters
 ```
 
+#### Base64 encoding, Encryption
 ```shell script
 # Base64 encode/decode:
 echo "green, yellow, bright orange" | base64 > encoded.txt
@@ -31,9 +32,9 @@ openssl enc -base64 -aes256 -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd
 fold -w76 colors3.txt  # wrap each line to be no more than 76 characters
 ```
 
-```shell script
-diff -rq misc/ test/misc/  # compare directory contents
+#### Checksums, Directory compare
 
+```shell script
 # Compute MD5 (Message Digest 5) checksum on colors*.txt:
 md5sum colors*.txt
 md5 colors*.txt
@@ -42,9 +43,13 @@ md5 colors*.txt
 sha256sum colors*.txt
 shasum -a 256 colors*.txt
 
-# Compute MD5 checksum on directory contents:
+# Compute MD5 checksum for all files in the directory.
+# Because the individual checksums are sorted, filenames and paths do not affect the final checksum.
 find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
 find src/ -type f -exec md5 {} + | awk '{print $4}' | sort | md5
+
+# Compare directory contents, file and directory names and file contents:
+diff -rq colorsA colorsB
 ```
 
 #### Removing files and data
@@ -60,15 +65,19 @@ cat /dev/null > file.log
 lsof | grep FILE  # 2nd column is PID, 4th column has FD followed by r,w,u, - read, write, both
 cat /dev/null > /proc/PID/fd/FD
 
-# When using rm -rf type rm, then the directory, then -rf.  This is to avoid removing parent directories 
+# When using rm -rf, try to add the -rf last.  This is to avoid removing parent directories 
 # by accidentally pressing enter before the full path has been typed.
 rm /var/logs/nada/ -rf
 
-strings /dev/sdb | less  # search for strings in raw disk space
+# Remove files with nonstandard filenames:
+find . -inum 782263 -print -delete  # remove the file with inode number 782263
+rm \\  # remove a file named \
 
 dd if=/dev/zero of=localhost_access_log.txt bs=1024 count=33000  # create a 33M file
 badblocks -c 10240 -s -w -t random -v /dev/sdb1  # write random data to /dev/sdb1
 shred -u nothing.log  # overwrite and remove nothing.log
+
+strings /dev/sdb1 | less  # search for strings in raw disk space
 ```
 
 #### File copy
@@ -78,6 +87,7 @@ cp -d  # same as --no-dereference --preserve=links
 cp -r  # --recursive, copy directories recursively
 cp -p  # same as --preserve=mode,ownership,timestamps
 cp -a  # --archive, same as -dr --preserve=all
+
 cp -n  # --no-clobber, do not overwrite an existing file
 cp -i  # --interactive, prompt before overwrite
 cp -f  # --force, if dest file cannot be read, remove it, and try again
@@ -96,6 +106,7 @@ cp -RPp@ /nfs/pub/ .
 rsync -av /nfs/pub/ .  # archive options and verbose, copy the contents of 'pub'
 rsync -av /nfs/pub .   # archive options and verbose, copy the whole 'pub' directory
 rsync -avn /nfs/pub .  # archive options and verbose, dry-run
+
 rsync -v DSC_0002.MOV -e 'ssh -p 2222' --progress gp@tester1:  # use port 2222 and show progress
 ```
 
