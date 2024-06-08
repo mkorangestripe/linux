@@ -70,8 +70,9 @@ cat /dev/null > /proc/PID/fd/FD
 rm /var/logs/nada/ -rf
 
 # Remove files with nonstandard filenames:
-find . -inum 782263 -print -delete  # remove the file with inode number 782263
-rm \\  # remove a file named \
+find . -inum 782263 -exec rm -i {} \;  # remove the file with inode number 782263, prompt before
+find . -inum 782263 -print -delete     # remove the file with inode number 782263
+rm \\                                  # remove a file named \
 
 dd if=/dev/zero of=localhost_access_log.txt bs=1024 count=33000  # create a 33M file
 badblocks -c 10240 -s -w -t random -v /dev/sdb1  # write random data to /dev/sdb1
