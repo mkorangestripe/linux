@@ -32,10 +32,13 @@ read PASSWD
 ```
 
 ```shell script
-pushd src   # cd to src and add to queue
+pushd src   # cd to src/ and add to queue
 pushd +1    # cd to #1 directory in queue
-pushd       # cd to last directory
+pushd       # cd to previous directory in queue
+
 popd        # cd to last directory and remove from queue
+popd +1     # remove #1 directory from queue
+
 dirs -v     # show directories in queue with number
 ```
 
