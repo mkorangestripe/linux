@@ -21,7 +21,8 @@ history -a  # appends current session history to history file
 ```
 
 ```shell script
-# This can be used to keep a password out of the bash history:
+# Prevent a variable value from appearing in the shell history.
+# It still may be visible in the process table.
 PASSWD=$(cat)
 # Type the password
 # Ctrl+d
@@ -32,12 +33,14 @@ read PASSWD
 ```
 
 ```shell script
-pushd src   # cd to src/ and add to queue
-pushd +1    # cd to #1 directory in queue
-pushd       # cd to previous directory in queue
+pushd /tmp  # add /tmp to dirs queue; cd to /tmp
+pushd +1    # cycle dirs queue to move second to first; cd to first
+pushd -0    # cycle dirs queue to move last to first; cd to first
+pushd       # swap first and second in dirs queue; cd to first
 
-popd        # cd to last directory and remove from queue
-popd +1     # remove #1 directory from queue
+popd        # remove first dir from dirs queue; cd to new first
+popd +1     # remove second dir from dirs queue
+popd -0     # remove last dir from dirs queue
 
 dirs -v     # show directories in queue with number
 ```
@@ -170,7 +173,7 @@ COUNT=0; for FILE in `ls`; do COUNT=$((COUNT + 1)); done; echo $COUNT
 # Monitor disk usage on the root filesystem:
 i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; [ $i == $(($(tput lines) - 2)) ] && i=0 && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
 
-# Similar to above, but without using tput.  Eventually though “i“’ would become out of range.
+# Similar to above, but without using tput. Eventually though 'i’ would become out of range.
 i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; ((i % 20 == 0)) && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
 ```
 
