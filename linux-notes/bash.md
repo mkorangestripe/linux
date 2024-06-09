@@ -165,19 +165,6 @@ unset IFS
 ```
 
 ```shell script
-# Returns the total count of files/dirs unless a file has spaces in the name:
-COUNT=0; for FILE in `ls`; do COUNT=$((COUNT + 1)); done; echo $COUNT
-```
-
-```shell script
-# Monitor disk usage on the root filesystem:
-i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; [ $i == $(($(tput lines) - 2)) ] && i=0 && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
-
-# Similar to above, but without using tput. Eventually though 'i’ would become out of range.
-i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; ((i % 20 == 0)) && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
-```
-
-```shell script
 # “While loop” file-test with a red/green spinner:
 while [ -d /etc ]; do printf "\r \e[31m[/]\e[00m"; sleep 0.5; printf "\r \e[32m[-]\e[00m"; sleep 0.5; printf "\r \e[31m[\\]\e[00m"; sleep 0.5; printf "\r \e[32m[|]\e[00m"; sleep 0.5; done; echo
 

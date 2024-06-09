@@ -77,16 +77,32 @@ df -h -F nfs  # nfs disk usage if any exist
 
 du -sh /etc   # total of file sizes in /etc
 du -ch *.gz   # total size of gzip’ed files
+```
 
-# Inode usage summary of current directory, top three:
-find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr | head -3
+```shell script
+# Monitor disk usage on the root filesystem:
+i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; [ $i == $(($(tput lines) - 2)) ] && i=0 && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
 
+# Similar to above, but without using tput. Eventually though 'i’ would become out of range.
+i=0; while i=$((i + 1)); do df -h / | grep "..[0-9]%"; sleep 15; ((i % 20 == 0)) && echo -e "\e[1;31m`hostname`\e[00m `date +%T`"; done
+```
+
+```shell script
 # Find growing files:
 # check1.txt and check2.txt may need to be on a filesystem other than the one filling up.
 find . -type f -exec du {} \; > /tmp/check1.txt
 sleep 2m
 find . -type f -exec du {} \; > /tmp/check2.txt
 diff /tmp/check1.txt /tmp/check2.txt
+```
+
+```shell script
+# Returns the total count of items in current dir.
+# Spaces in filenames will through off the count.
+COUNT=0; for FILE in $(ls); do COUNT=$((COUNT + 1)); done; echo $COUNT
+
+# Inode usage summary of current directory, top three:
+find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr | head -3
 ```
 
 ```shell script
