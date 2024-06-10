@@ -1,6 +1,6 @@
-# Filesystem Administration
+# Filesystems, Storage devices
 
-### Symlinks, Hardlinks, Inodes
+#### Symlinks, Hardlinks, Inodes
 
 * Inode - index node, stores all the information about a regular file, directory, or
 other file system object, except its data and name.
@@ -35,8 +35,6 @@ ls -ldi Desktop/.
 # is not the same as the actually directory.
 ln -s ../.. ...  # creates a symlink to the parent’s parent directory
 ```
-
-### Filesystems, Storage devices
 
 ##### Filesystem, device info
 ```shell script
