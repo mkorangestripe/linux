@@ -23,7 +23,7 @@ rpcinfo server1            # show rpc info for server1
 mount -t nfs 192.168.0.111:/exports /mnt/nfs
 
 # Mount a cifs directory requiring a domain password:
-sudo mount -t cifs -o user=USAC/a2spyzz -o uid=$UID //winsnas04a/US-LEX-Common /mnt/lexfp01/departments
+sudo mount -t cifs -o user=USDOMAIN/user1 -o uid=$UID //winsnas04a/US-LEX-Common /mnt/lexfp01/departments
 
 umount -l  # try if umount -f fails, might need both -lf
 ```

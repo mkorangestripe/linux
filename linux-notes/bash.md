@@ -211,13 +211,11 @@ echo $((12>>2))
 ```shell script
 # Pass shell variables to a python command; in this example, -c is sys.argv[0] and $COLOR is sys.argv[1].
 COLOR=green
-python -c "import sys; print sys.argv[1].lower()" $COLOR
-# green
+python -c "import sys; print(sys.argv[1].lower())" $COLOR  # green
 
 # The above in a Bash function:
-lower() { python -c "import sys; print sys.argv[1].lower()" $1; }
-lower BLUE
-# blue
+lower() { python -c "import sys; print(sys.argv[1].lower())" $1; }
+lower BLUE  # blue
 ```
 
 

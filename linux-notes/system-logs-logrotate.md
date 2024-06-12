@@ -3,17 +3,19 @@
 ### System logs
 
 ```shell script
-/var/log/messages  # system diagnostic messages from current date
-/var/adm/messages  # system diagnostic messages from current date on Solaris
-dmesg              # system diagnostic messages on Solaris
+# System messages:
+/var/log/messages  # from current date
+/var/adm/messages  # from current date on Solaris
+dmesg              # recent lines from /var/adm/messages
 
-dmesg           # kernel ring buffer info, includes lines not yet written to /var/log/dmesg
-/var/log/dmesg  # kernel ring buffer info
+# Kernel ring buffer messages:
+/var/log/dmesg
+dmesg -wT  # follow output, human readable timestamps, may have more recent lines than file
 
-less +F /var/log/system.log  # follow mode, like tail -f
-# Shift + F, Ctrl + C  (Use to enter and exit follow mode)
+# Follow mode, like tail -f
+less +F /var/log/system.log  # Shift+f, Ctrl+c to enter and exit follow mode
 
-# Log to the syslog (/var/log/messages) with tag "catalina-logrotate":
+# Log to the syslog with tag "catalina-logrotate":
 logger -t catalina-logrotate "ALERT exited abnormally with [$EXITVALUE]"
 ```
 
