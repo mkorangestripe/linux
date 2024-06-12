@@ -10,7 +10,7 @@ dmesg              # recent lines from /var/adm/messages
 
 # Kernel ring buffer messages:
 /var/log/dmesg
-dmesg -wT  # follow output, human readable timestamps, may have more recent lines than file
+dmesg -wT  # more recent lines than /var/log/dmesg, follow output, human readable timestamps
 
 # Follow mode, like tail -f
 less +F /var/log/system.log  # Shift+f, Ctrl+c to enter and exit follow mode
