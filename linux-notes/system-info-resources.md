@@ -36,12 +36,13 @@ isainfo             # instruction set architectures on Solaris
 cat /proc/meminfo   # memory info
 prtconf | grep Mem  # installed memory on Solaris
 free  -m            # memory info in MB
-vmstat              # Report virtual memory statistics
+vmstat              # virtual memory statistics
 
-top          # realtime display of load, cpu, mem, and swap usage
+mpstat  # processor statistics
+
+top          # realtime display of load, cpu, mem, and swap usage, press z for color output
 top -n 1 -b  # 1 iteration, batch mode, useful for outputting to other programs
-prstat -Z    # realtime display of process statistics including zones - Solaris
-# press z for color output
+prstat -Z    # realtime display of process statistics including zones on Solaris
 
 ps aux  # all processes, %CPU, %MEM
 ps eux  # all processes, %CPU, %MEM, environment variables

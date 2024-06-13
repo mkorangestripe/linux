@@ -64,12 +64,10 @@ logrotate -fv
 # Create report of all stats from the current daily data file.
 # If the machine’s date is not set to local time .e.g. UTC, this might not produce as much data as expected.
 sar -A > sar.txt
-mpstat  # like sar -A, but with processor statistics from the current minute
 
-sar -q -f /var/log/sa/sa10 > sar.10-ldavg.txt  # create report with load averages from the 10th
+sar -q -f /var/log/sa/sa10 > sar.10-ldavg.txt    # create report with load averages from the 10th
 
-# Create report with mem, swap, and net stats from the 21st:
-sar -r -n DEV -f /var/log/sa/sa21 > sysstat.txt
+sar -r -n DEV -f /var/log/sa/sa21 > sysstat.txt  # create report with mem, swap, and net stats from the 21st
 
 sar -B  # report paging statistics
 
