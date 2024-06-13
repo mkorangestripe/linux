@@ -4,13 +4,15 @@
 
 ```shell script
 # System messages:
-/var/log/messages  # from current date
-/var/adm/messages  # from current date on Solaris
-dmesg              # recent lines from /var/adm/messages
+/var/log/system.log  # macOS
+/var/log/syslog      # Ubuntu
+/var/log/messages    # Red Hat
+/var/adm/messages    # Solaris
+dmesg                # Solaris, latest lines in /var/adm/messages*
 
 # Kernel ring buffer messages:
-/var/log/dmesg
-dmesg -wT  # more recent lines than /var/log/dmesg, follow output, human readable timestamps
+/var/log/dmesg  # messages fom system boot
+dmesg -wT       # latest messages, follow output, human readable timestamps
 
 # Follow mode, like tail -f
 less +F /var/log/system.log  # Shift+f, Ctrl+c to enter and exit follow mode
