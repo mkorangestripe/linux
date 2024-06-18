@@ -14,6 +14,7 @@ cat /proc/version  # Linux kernel version
 uname -r; ls -lt /boot/config*  # compare running kernel to installed kernels
 dkms status        # show installed kernels
 
+dmidecode -t system
 dmidecode --string system-manufacturer
 
 hostnamectl status                           # get hostname and system info
