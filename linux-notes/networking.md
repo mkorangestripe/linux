@@ -22,7 +22,6 @@
 1. Physical
 ```
 
-
 ##### OSI Protocol Data Units (PDU)
 | Layer        |                    Unit of data |
 | ------------ | ------------------------------- |
@@ -32,7 +31,6 @@
 | 2. Data Link | frames                          |
 | 1. Physical  | bits                            |
 
-
 ##### Reserved IP addresses
 |                               |                                                  |
 | ----------------------------- | ------------------------------------------------ |
@@ -40,14 +38,12 @@
 | 255.255.255.255               | IP address used to broadcast to all IP addresses |
 | 169.254.0.1 - 169.254.255.254 | IP address range reserved for when DHCP fails    |
 
-
 ##### Reserved private IPv4 network ranges, cannot be used on the Internet
 | Class | Start       | End             |
 | ----- | ----------- | --------------- |
 | A     | 10.0.0.0    | 10.255.255.255  |
 | B     | 172.16.0.0  | 172.31.255.255  |
 | C     | 192.168.0.0 | 192.168.255.255 |
-
 
 ##### Subnetting
 
