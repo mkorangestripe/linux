@@ -22,18 +22,24 @@
 1. Physical
 ```
 
-##### OSI Protocol Data Units (PDU)
-* Data: layers 5 - 7
-* Segments(TCP) / Datagrams(UDP): units of data in layer 4 (Transport)
-* Packets: units of data in layer 3 (Network)
-* Frames: units of data in layer 2 (Data Link)
-* Bits: units of data in layer 1 (Physical)
 
-```
-0.0.0.0 - represents all IP addresses
-255.255.255.255 - IP address used to broadcast to all IP addresses
-169.254.0.1 - 169.254.255.254 - A range of IP addresses which a device can auto configure if DHCP fails
-```
+##### OSI Protocol Data Units (PDU)
+| Layer        |                    Unit of data |
+| ------------ | ------------------------------- |
+| 5 - 7        | data                            |
+| 4. Transport | segments (TCP), datagrams (UDP) |
+| 3. Network   | packets                         |
+| 2. Data Link | frames                          |
+| 1. Physical  | bits                            |
+
+
+##### Reserved IP addresses
+|                               |                                                  |
+| ----------------------------- | ------------------------------------------------ |
+| 0.0.0.0                       | Can represent all IP addresses                   |
+| 255.255.255.255               | IP address used to broadcast to all IP addresses |
+| 169.254.0.1 - 169.254.255.254 | IP address range reserved for when DHCP fails    |
+
 
 ##### Reserved private IPv4 network ranges, cannot be used on the Internet
 | Class | Start       | End             |
@@ -41,6 +47,7 @@
 | A     | 10.0.0.0    | 10.255.255.255  |
 | B     | 172.16.0.0  | 172.31.255.255  |
 | C     | 192.168.0.0 | 192.168.255.255 |
+
 
 ##### Subnetting
 
