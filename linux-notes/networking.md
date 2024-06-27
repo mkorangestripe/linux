@@ -5,7 +5,7 @@
 5. Application
 4. Transport (TCP, UDP)
 3. Network (IP, ICMP)
-2. Link (ARP)
+2. Data Link (ARP)
 1. Physical
 ```
 
@@ -23,7 +23,7 @@
 ```
 
 ##### OSI Protocol Data Units (PDU)
-| Layer        |                    Unit of data |
+| Layer        | Data units                      |
 | ------------ | ------------------------------- |
 | 5 - 7        | data                            |
 | 4. Transport | segments (TCP), datagrams (UDP) |
@@ -80,11 +80,11 @@ $ tcpdump "icmp or arp"
 
 ##### TCP 3-Way Handshake
 
-| Packet flag & seq     | Direction        |
-| --------------------- | ---------------- |
-| SYN 4321              | client -> server |
-| SYN 5501, ACK 4322    | client <- server |
-| ACK 5502              | client -> server |
+|   | Packet flag & seq     | Direction        |
+| - | --------------------- | ---------------- |
+| 1 | SYN 4321              | client -> server |
+| 2 | SYN 5501, ACK 4322    | client <- server |
+| 3 | ACK 5502              | client -> server |
 
 ```shell script
 # TCP 3-way handshake and termination, the output is trimmed to what's relevant:
