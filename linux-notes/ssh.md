@@ -1,6 +1,6 @@
 # SSH
 
-#### Port forwarding
+### Port forwarding
 
 ```shell script
 # In the examples below 10.0.0.1 is a firewall that is forwarding port 22 to a host in the network.
@@ -15,7 +15,7 @@ ssh -p 30000 gp@localhost
 ssh -L 30000:192.168.1.112:22 gp@10.0.0.1 -t 'ssh gp@192.168.1.112'
 ```
 
-#### Reverse tunnels
+### Reverse tunnels
 
 ```shell script
 # Open a reverse tunnel, prompt for password, don't execute a remote command:
@@ -33,7 +33,17 @@ ssh -p 5222 gp@tunnel.server.com -L 30000:127.0.0.1:30000 -t 'ssh -p 30000 -o Ho
 ssh -p 30000 gp@localhost
 ```
 
-#### Public key authentication
+### Public key authentication
+
+1. Client sends an ID for the key pair to server.
+2. Server checks the corresponding authorized_keys file for a public key with a matching ID.
+3. Server generates and encrypts a random number with the public key.
+4. Encrypted number/message is sent to client.
+5. Client combines the decrypted number with the shared session key being used to encrypt communication and calculates the MD5 hash of this value.
+6. Client sends the hash to server.
+7. The server uses the same shared session key and the original number to calculate an MD5 hash and compares the two hashes. If they match, this proves the client has the corresponding private key.
+
+This is asymmetric encryption and used for authentication only. Symmetric encryption is used to encrypt the data and is session-based.
 
 ```shell script
 # Setup passwordless ssh, scp, sftp connections.
@@ -63,7 +73,7 @@ ssh-add
 # /etc/ssh/sshd_config --> PasswordAuthentication no
 ```
 
-#### Misc
+### Misc
 
 ```shell script
 # Disable pseudo tty allocation, commands can still be executed:
