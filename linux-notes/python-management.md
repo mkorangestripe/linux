@@ -72,8 +72,8 @@ pyenv versions           # list installed versions
 pyenv install 3.10.12    # install version 3.10.12
 pyenv uninstall 3.10.12  # uninstall version 3.10.12
 
-pyenv global 3.10.12     # set 3.10.12 as default version
-pyenv local 3.11.4       # set the version to 3.11.4
+pyenv global 3.10.12     # set global version to 3.10.12 in ~/.python-version, used when no local version
+pyenv local 3.11.4       # set the local version to 3.11.4 in .python-version
 pyenv shell 3.11.4       # set the version for the shell using the PYENV_VERSION env var
 
 which python             # show path 
