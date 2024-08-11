@@ -90,6 +90,12 @@ SELECT Genus,Species,Common,Status FROM animalia WHERE Genus = "puma"
 ### Queries
 
 ```sql
+-- last three rows by CustomerID
+SELECT * FROM Customers ORDER BY CustomerID DESC LIMIT 3;
+
+-- average from Price column
+SELECT AVG(Price) FROM Products;
+
 -- date equals, can also use >, <, >=, >=
 SELECT * FROM tps_hist.table_b WHERE seq_number = 1 AND eff_date = TO_DATE('01/11/2024', 'MM/DD/YVYY')
 
