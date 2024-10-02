@@ -120,8 +120,13 @@ while True; do sleep 5; echo Yes; done   # run command in foreground
 while True; do sleep 5; echo No; done &  # run command in background
 
 jobs     # list jobs with state
-fg %1    # continue execution of job 1 in the foreground
-bg %1    # continue execution of job 1 in the background
+jobs -l  # list jobs with state and process IDs
+
+fg       # continue execution of job with + in foreground
+bg       # continue execution of job with + in background
+
+fg %1    # continue execution of job 1 in foreground
+bg %1    # continue execution of job 1 in background
 kill %1  # kill job 1 if suspended or running in background
 ```
 
