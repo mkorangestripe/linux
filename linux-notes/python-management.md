@@ -88,8 +88,13 @@ conda search python  # list available versions of Python
 
 conda env list                                       # list installed envs
 conda list --revisions                               # list changes to the current env
+
 conda create -n env3.10.12 python=3.10.12            # create the env in default location
 conda env create -p envs/py3.10.12 -f py3.10.12.yml  # create the env in envs/ and using the yml config
+conda create -p envs/mntproj_py3.12.7 python=3.12.7  # create the env in envs/ with the version of Python
+
+conda env update --file mntproj_py3.12.7.yaml        # install packages in yaml file
+
 conda env remove -n env3.10.12                       # remove the env
 
 conda init bash      # configure the shell for anaconda
