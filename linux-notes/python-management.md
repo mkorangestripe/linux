@@ -31,23 +31,29 @@ pip install -e .  # install packages using ./setup.py
 pip install -e git+https://git.repo/some_pkg.git#egg=SomeProject
 ```
 
-#### Virtualenv
-
+#### Venv, Virtualenv
 ```shell script
-mkdir virt-cos-sdk
-virtualenv virt-cos-sdk      # creates a virtual environment in the directory
-. virt-cos-sdk/bin/activate  # activate the virtual environment
-# Do the package installs with the virtualenv active
-deactivate                   # deactivate the virtual environment
-# Note, a leftover .Python file from virtualenv can cause problems when recreating the env.
+# Create a virtual environment using venv:
+python -m venv venv
+
+# Create a virtual environment using virtualenv and specify Python 3.9:
+# Python 3.9 must be installed prior.
+virtualenv venv -p 3.9           
+
+source venv/bin/activate         # activate the virtual environment
+pip install -r requirements.txt  # install packages from requirements.txt
+deactivate                       # deactivate the virtual environment
 ```
 
 #### Pipenv
 
 ```shell script
-pipenv --python 3.8          # create a project using Python 3.8
-pipenv --python 3.8 install  # create project and Pipfile and Pipfile.lock
-pipenv --rm                  # remove virtualenv used by local directory
+pipenv --python 3.9  # create a virtual environment and specify Python 3.9
+
+# Create a virtual environment, Pipfile, Pipfile.lock, add/install packages from requirements.txt if present, and specify Python 3.9
+pipenv --python 3.9 install
+
+pipenv --rm    # remove the virtual environment used by the local directory
 
 pipenv lock    # generate a Pipfile.lock from the Pipfile or requirements.txt
 pipenv sync    # installs all packages in Pipfile.lock
@@ -61,7 +67,9 @@ pipenv graph   # display currently–installed dependency graph
 pipenv check   # check installed dependencies for security vulnerabilities
 
 pipenv run python linux_monitoring_datadog.py  # run a command within the virtualenv
-pipenv shell                                   # start a shell within the virtualenv
+
+pipenv shell   # start a shell within the virtualenv (activate)
+# Ctrl+d to deactivate
 ```
 
 #### Pyenv
