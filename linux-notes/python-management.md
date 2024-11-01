@@ -50,7 +50,8 @@ deactivate                       # deactivate the virtual environment
 ```shell script
 pipenv --python 3.9  # create a virtual environment and specify Python 3.9
 
-# Create a virtual environment, Pipfile, Pipfile.lock, add/install packages from requirements.txt if present, and specify Python 3.9
+# Create a virtual environment, Pipfile, Pipfile.lock, add/install packages from
+# requirements.txt if present, and specify Python 3.9:
 pipenv --python 3.9 install
 
 pipenv --rm    # remove the virtual environment used by the local directory
