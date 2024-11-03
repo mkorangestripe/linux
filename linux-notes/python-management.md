@@ -42,7 +42,15 @@ virtualenv venv -p 3.9
 
 source venv/bin/activate         # activate the virtual environment
 pip install -r requirements.txt  # install packages from requirements.txt
-deactivate                       # deactivate the virtual environment
+
+# Upgrade all packages in the virtual environment:
+pip install --upgrade pip
+pip freeze > requirements.txt
+sed -i '' 's/==/>=/g' requirements.txt  # use on macOS
+sed -i 's/==/>=/g' requirements.txt     # use on Linux
+pip install -r requirements.txt --upgrade
+
+deactivate  # deactivate the virtual environment
 ```
 
 #### Pipenv
@@ -62,6 +70,7 @@ pipenv update  # runs lock then sync, with no version constraints in Pipfile thi
 
 pipenv install psutil  # add psutil to Pipfile and Pipfile.lock and install
 pipenv install         # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
+pipenv install --dev   # install all dependencies including dev
 pipenv install -e .    # install from local setup.py into virtualenv/Pipfile
 
 pipenv graph   # display currently–installed dependency graph
@@ -110,12 +119,13 @@ conda init bash      # configure the shell for anaconda
 conda init bash -d   # dry-run, not change to files
 
 conda activate evn.3.10.12  # activate the env
-conda deactivate            # deactivate the env
 
 conda list           # list installed packages in an env
 conda install pandas # install pandas into the currently-active env
 conda remove pandas  # remove pandas from the currently-active env
 conda update --all   # update all installed packages in the env
+
+conda deactivate  # deactivate the env
 ```
 
 #### Packaging (Python 2)
