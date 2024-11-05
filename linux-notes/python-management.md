@@ -128,24 +128,13 @@ conda update --all   # update all installed packages in the env
 conda deactivate  # deactivate the env
 ```
 
-#### Packaging (Python 2)
+#### Packaging
 
 ```shell script
-setup.py               # defines packages to install, can reference requirements.txt for requirements
-ping_scan/__init__.py  # required for directories to be seen as packages
-ping_scan/ping_scan.py
-LICENSE
-README.md
-tests/  # for unit tests, if any
-```
+# Create dist directory with whl and tar.gz files:
+python setup.py sdist bdist_wheel
 
-#### Packaging (Python 3)
-
-```shell script
-# This creates a dist directory with a .whl and a tar.gz file:
-python3 setup.py sdist bdist_wheel
-
-# Install a wheel package, either of the following:
-pip3 install ping_scan_mkorangestripe-0.0.1-py3-none-any.whl
-python3 -m pip install ping_scan_mkorangestripe-0.0.1-py3-none-any.whl
+# Install the wheel package, either of the following:
+pip install ping_scan_mkorangestripe-0.0.1-py3-none-any.whl
+python -m pip install ping_scan_mkorangestripe-0.0.1-py3-none-any.whl
 ```
