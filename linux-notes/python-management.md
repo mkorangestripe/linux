@@ -33,6 +33,8 @@ pip install -e git+https://git.repo/some_pkg.git#egg=SomeProject
 
 #### Venv, Virtualenv
 ```shell script
+pip install virtualenv
+
 # Create a virtual environment using venv:
 python -m venv venv
 
@@ -56,6 +58,8 @@ deactivate  # deactivate the virtual environment
 #### Pipenv
 
 ```shell script
+pip install pipenv
+
 pipenv --python 3.9  # create a virtual environment and specify Python 3.9
 
 # Create a virtual environment, Pipfile, Pipfile.lock, add/install packages from
@@ -68,10 +72,12 @@ pipenv lock    # generate a Pipfile.lock from the Pipfile or requirements.txt
 pipenv sync    # installs all packages in Pipfile.lock
 pipenv update  # runs lock then sync, with no version constraints in Pipfile this updates all packages
 
-pipenv install psutil  # add psutil to Pipfile and Pipfile.lock and install
-pipenv install         # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
-pipenv install --dev   # install all dependencies including dev
-pipenv install -e .    # install from local setup.py into virtualenv/Pipfile
+pipenv install psutil     # add psutil to Pipfile and Pipfile.lock and install
+pipenv install -d pylint  # add pylint to dev-packages and install
+
+pipenv install       # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
+pipenv install -d    # install all dependencies including dev-packages
+pipenv install -e .  # install from local setup.py into virtualenv/Pipfile
 
 pipenv graph   # display currently–installed dependency graph
 pipenv check   # check installed dependencies for security vulnerabilities
