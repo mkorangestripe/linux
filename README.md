@@ -1,14 +1,11 @@
 # Linux Notes and Examples
 ![house2](readme_images/house2_cropped.png)
 
-### Linux command examples
-
-Browse the Markdown files in [linux-notes](linux-notes) or use 'git grep' to quickly find examples or which files contain examples.
+Browse the Markdown files in [linux-notes](linux-notes) or use 'git grep' to quickly find examples in multiple files.
 ```shell script
-cd linux-notes  # to limit search to the linux-notes directory
+cd linux-notes  # limit search to the linux-notes directory
 
 git grep -w df  # show examples of the df command
-
 git grep awk    # show examples of the awk command
 ```
 
