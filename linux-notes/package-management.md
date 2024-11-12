@@ -1,5 +1,7 @@
 # Package Management
 
+To schedule package updates with cron, see [package-updates](../package-updates)
+
 #### RPM
 
 ```shell script
