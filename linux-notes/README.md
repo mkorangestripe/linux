@@ -1,6 +1,6 @@
-### Find examples
+### Find command examples
 
-Browse the Markdown files here or use 'git grep' to quickly find examples, finds examples in multiple contexts, or find which files contain the command examples.
+Browse the Markdown files here or use 'git grep' to quickly find examples, find examples in multiple contexts, or find which files contain the command.
 ```shell script
 git grep -w df  # show examples of the df command
 
