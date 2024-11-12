@@ -1,15 +1,17 @@
-### Find examples in multiple contexts
+### Find examples
 
+Browse the Markdown files here or use 'git grep' to quickly find examples, finds examples in multiple contexts, and find which files contain the command.
 ```shell script
 git grep -w df  # show examples of the df command
 
 git grep awk    # show examples of the awk command
 ```
 
--B1 : include the previous line. Some examples have the explanation there.  
--i : ignore case (Aa, Bb, Cc)  
--n : include line number as show below  
--w : exclude matches that are part of a word (include **df** not min**df**ul)
+Useful options:
+* -B1 : include the previous line, some examples have the explanation there  
+* -i : ignore case (Aa, Bb, Cc)  
+* -n : include line number as show below  
+* -w : exclude matches that are part of a word (include **df** not min**df**ul)
 
 ![git_grep](../readme_images/git_grep.png)
 
