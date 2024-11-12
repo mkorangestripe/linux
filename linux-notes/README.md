@@ -1,4 +1,4 @@
-### Find command examples
+### Linux command examples
 
 Browse the Markdown files here or use 'git grep' to quickly find examples or which files contain examples.
 ```shell script
@@ -24,11 +24,11 @@ tldr awk
 
 ### Other commands worth checking out
 ```shell script
-lsd        # ls deluxe, more colors and icons. also see eza
+lsd        # ls deluxe, more colors and icons. Also see eza
 
 bat        # cat clone with syntax highlighting and Git integration
 
-fastfetch  # system information, displayed pretty. also see neofetch
+fastfetch  # system information, displayed pretty. Also see neofetch
 
 htop       # interactive process viewer
 ```
