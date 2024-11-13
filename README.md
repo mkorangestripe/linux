@@ -15,6 +15,8 @@ Useful options:
 * -n : include line number  
 * -w : exclude matches that are part of a word (include **df**, exclude min**df**ul)
 
+The -m option shown here is only used to limit results.
+
 ![git_grep](readme_images/git_grep.png)
 
 ### tldr pages
@@ -41,7 +43,5 @@ The linux-notes directory also has notes and examples on the following:
 * [Ansible](linux-notes/ansible.md)
 * [Docker](linux-notes/docker.md)
 * [Git](linux-notes/git.md)
-* [Networking](linux-notes/networking.md)
-* [Package management](linux-notes/package-management.md)
-* [Python versions, virtual envs, & dependencies](linux-notes/python-management.md)
+* [Python versions, virtual envs, & packages](linux-notes/python-management.md)
 * [Vagrant](linux-notes/vagrant.md)
