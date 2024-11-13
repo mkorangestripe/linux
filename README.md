@@ -12,7 +12,7 @@ git grep awk    # show examples of the awk command
 Useful options:
 * -B1 : include the previous line, some examples have an explanation above
 * -i : ignore case (include **n**etwork and **N**etwork)  
-* -n : include line number as show below  
+* -n : include line number  
 * -w : exclude matches that are part of a word (include **df**, exclude min**df**ul)
 
 ![git_grep](readme_images/git_grep.png)
@@ -34,3 +34,14 @@ fastfetch  # system information, displayed pretty. Also see neofetch
 
 htop       # interactive process viewer
 ```
+
+### Other Topics
+
+The linux-notes directory also has notes and examples on the following:
+* [Ansible](linux-notes/ansible.md)
+* [Docker](linux-notes/docker.md)
+* [Git](linux-notes/git.md)
+* [Networking](linux-notes/networking.md)
+* [Package management](linux-notes/package-management.md)
+* [Python versions, virtual envs, & dependencies](linux-notes/python-management.md)
+* [Vagrant](linux-notes/vagrant.md)
