@@ -6,7 +6,9 @@
 Run the following to get the upgrade script ready.
 ```shell script
 cp crontabs/brew-upgrade.sh ~/.local/bin/              # copy the package upgrade script to your .local/bin/
+
 sed -i '' "s/user1/$USER/" .local/bin/brew-upgrade.sh  # replace user1 in the script with your user
+
 ls -l ~/.local/bin/brew-upgrade.sh                     # verify that the script is executable
 ```
 
@@ -26,6 +28,7 @@ alias chkupd='chklog ~/cron/cron.brew.out'
 Run the following to get the upgrade script ready.
 ```shell script
 cp crontabs/apt-upgrade.sh ~/.local/bin/  # copy the package upgrade script to your .local/bin/
+
 ls -l ~/.local/bin/apt-upgrade.sh         # verify that the script is executable
 ```
 
@@ -39,7 +42,8 @@ If you're using WSL, start cron manually, or add this service command to your **
 { service cron status || sudo service cron start; } > /dev/null
 ```
 
-Add these aliases to your **.bash_aliases** file. The **chkupd** alias requires the **chklog** function below. The upd alias runs updates manually but does not write to the cron.apt.out file.
+Add these aliases to your **.bash_aliases** file. The **chkupd** alias requires the **chklog** function below.  
+The upd alias runs updates manually but does not write to the cron.apt.out file.
 ```shell script
 UPD_CMD='"apt update && apt -y dist-upgrade && apt -y autoremove"'
 alias upd="echo $UPD_CMD; sudo sh -c $UPD_CMD"
