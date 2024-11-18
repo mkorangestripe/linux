@@ -3,11 +3,11 @@
 
 ## macOS
 
-Copy the package upgrade script in place, replace 'user1' with your user, and verify that the script is executable.
+Run the following to get the upgrade script ready.
 ```shell script
-cp crontabs/brew-upgrade.sh ~/.local/bin/
-sed -i '' "s/user1/$USER/" .local/bin/brew-upgrade.sh
-ls -l ~/.local/bin/brew-upgrade.sh
+cp crontabs/brew-upgrade.sh ~/.local/bin/              # copy the package upgrade script to your .local/bin/
+sed -i '' "s/user1/$USER/" .local/bin/brew-upgrade.sh  # replace user1 in the script with your user
+ls -l ~/.local/bin/brew-upgrade.sh                     # verify that the script is executable
 ```
 
 Add a crontab entry to schedule the [brew-upgrade.sh](crontabs/brew-upgrade.sh) script. See [brew-upgrade.cron](crontabs/brew-upgrade.cron) for example.
@@ -23,10 +23,10 @@ alias chkupd='chklog ~/cron/cron.brew.out'
 
 ## Ubuntu
 
-Copy the package upgrade script in place and verify that it is executable.
+Run the following to get the upgrade script ready.
 ```shell script
-cp crontabs/apt-upgrade.sh ~/.local/bin/
-ls -l ~/.local/bin/apt-upgrade.sh
+cp crontabs/apt-upgrade.sh ~/.local/bin/  # copy the package upgrade script to your .local/bin/
+ls -l ~/.local/bin/apt-upgrade.sh         # verify that the script is executable
 ```
 
 Add an entry to root's crontab to schedule the [apt-upgrade.sh](crontabs/apt-upgrade.sh) script. See [apt-upgrade.cron](crontabs/apt-upgrade.cron) for example.

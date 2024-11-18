@@ -23,16 +23,16 @@ The -m option shown here is only used to limit results.
 For more Linux command examples, check out [tldr](https://github.com/tldr-pages/tldr), a collection of simplified man pages.
 
 ```shell script
-tldr awk
+tldr awk  # show examples of the awk command
 ```
 
-### Other commands worth checking out
+### Other new commands worth checking out
 ```shell script
-lsd        # ls deluxe, more colors and icons. Also see eza
+lsd        # ls deluxe, more colors and icons, similar to eza
 
-bat        # cat clone with syntax highlighting and Git integration
+bat        # cat with syntax highlighting and Git integration
 
-fastfetch  # system information, displayed pretty. Also see neofetch
+fastfetch  # system information, displayed pretty, similar to neofetch
 
 htop       # interactive process viewer
 ```
@@ -45,3 +45,7 @@ The linux-notes directory also has notes and examples on the following:
 * [Git](linux-notes/git.md)
 * [Python versions, virtual envs, & packages](linux-notes/python-management.md)
 * [Vagrant](linux-notes/vagrant.md)
+
+### Package Updates
+
+To schedule package updates on a laptop or desktop, see [package-updates](package-updates)
