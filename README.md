@@ -1,7 +1,8 @@
 # Linux Notes and Examples
+
 ![house2](readme_images/house2_cropped.png)
 
-Browse the Markdown files in [linux-notes](linux-notes) or use 'git grep' to quickly find examples in multiple files.
+Browse topics in [linux-notes](linux-notes) or clone this repo and use 'git grep' to quickly find examples in multiple contexts.
 ```shell script
 cd linux-notes  # limit search to the linux-notes directory
 
@@ -20,6 +21,7 @@ The -m option shown here is only used to limit results.
 ![git_grep](readme_images/git_grep.png)
 
 ### tldr pages
+
 For more Linux command examples, check out [tldr](https://github.com/tldr-pages/tldr), a collection of simplified man pages.
 
 ```shell script
@@ -27,6 +29,7 @@ tldr awk  # show examples of the awk command
 ```
 
 ### Other new commands worth checking out
+
 ```shell script
 lsd        # ls deluxe, more colors and icons, similar to eza
 
