@@ -1,13 +1,15 @@
-# Linux Notes and Examples
+# Little Linux Library
 
 ![house2](readme_images/house2_cropped.png)
 
+### Linux Notes and Examples
+
 Browse topics in [linux-notes](linux-notes) or clone this repo and use 'git grep' to quickly find examples in multiple contexts.
 ```shell script
-cd linux-notes  # limit search to the linux-notes directory
+cd linux/linux-notes
 
-git grep -w df  # show examples of the df command
 git grep awk    # show examples of the awk command
+git grep -w df  # show examples of the df command
 ```
 
 Useful options:
@@ -18,7 +20,7 @@ Useful options:
 
 The -m option shown here is only used to limit results.
 
-![git_grep](readme_images/git_grep.png)
+![git_grep](readme_images/git_grep.jpg)
 
 ### tldr pages
 

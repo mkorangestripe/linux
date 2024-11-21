@@ -78,4 +78,4 @@ chklog() {
 }
 ```
 
-![chkupd_output_800](../readme_images/chkupd_output_800.png)
+![chkupd_output](../readme_images/chkupd_output.png)
