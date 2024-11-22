@@ -88,15 +88,22 @@ git mv file1.txt bin/file2.txt  # move/rename file1.txt
 ```
 
 ```shell script
-# Add more changes to the previous commit, or change the commit message:
+# Reset to the state to before last commit:
+# Useful when adding more changes to the previous commit, or changing the commit message.
 git reset --soft HEAD~
-```
 
-```shell script
-# Disregard local changes and reset:
+# Reset to the commit, changes are still added:
+git reset --soft 921b5ea6
+
+# Reset to the commit, changes will need to be added, --mixed is default mode
+git reset --mixed 921b5ea6
+
+# Reset to the commit, discard any local changes to tracked files:
+git reset --hard 921b5ea6
+
+# Reset to the commit at origin/main, discard any local changes to tracked files:
 git fetch origin
-git reset --hard origin/master
-git pull
+git reset --hard origin/main  # origin/master with older repos
 ```
 
 ### Branches

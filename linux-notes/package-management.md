@@ -69,19 +69,21 @@ gpk-prefs  # GNOME PackageKit Update Preferences
 #### Apt, dpkg
 
 ```shell script
-apt list --installed  # list installed packages
 dpkg -l               # list installed packages
-
-apt install wget      # install wget
-dpkg -i wget.deb      # install wget
-
-apt remove wget       # remove wget
+dpkg -i wget.deb      # install the wget package
 dpkg -r wget          # remove wget
-dpkg -P wget          # purge - remove package and config files
+dpkg -P wget          # purge - remove wget package and config files
 
-apt-get clean         # remove deb files from /var/cache/apt/archives
-apt-get autoclean     # remove obsolete deb files from /var/cache/apt/archives
-apt-get autoremove    # remove unneeded deb files from /var/cache/apt/archives installed as dependencies
+apt list --installed  # list installed packages
+apt search wget       # search for wget packages
+apt install wget      # install wget
+apt remove wget       # remove wget
+
+apt clean             # remove deb files from /var/cache/apt/archives
+apt autoclean         # remove obsolete deb files from /var/cache/apt/archives
+apt autoremove        # remove unneeded deb files from /var/cache/apt/archives installed as dependencies
+
+apt-cache rdepends --installed gcc-10-base      # list installed packages with a gcc-10-base dependency
 
 sudo apt update && sudo apt -y dist-upgrade     # update and dist-upgrade the localhost
 sudo sh -c “apt update && apt -y dist-upgrade”  # same as above but useful when sudo permission may timeout
