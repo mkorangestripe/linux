@@ -8,7 +8,7 @@
 ~/.ansible.cfg
 /etc/ansible/ansible.cfg
 
-/etc/ansible/hosts  # Default Ansible hosts file, but specified in ansible.cfg
+/etc/ansible/hosts   # Default Ansible hosts file, but specified in ansible.cfg
 
 ansible-config view  # view ansible configuration file
 
@@ -69,7 +69,7 @@ ansible -i server1, all -m yum -a "name=httpd state=latest" -b
 ansible -i server1, all -m service -a "name=httpd state=started" -b 
 ```
 
-#### Ansible playbook commands
+#### Ansible-playbook
 
 ```shell script
 ansible-playbook update_visualcron.yml --syntax-check
