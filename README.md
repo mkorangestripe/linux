@@ -51,6 +51,22 @@ The linux-notes directory also has notes and examples on the following:
 * [Python versions, virtual envs, & packages](linux-notes/python-management.md)
 * [Vagrant](linux-notes/vagrant.md)
 
+### Favorites
+
+Find whether any files in a directory have changed. This is done here by computing an md5 checksum for each file in the directory and it's subdirectories. Then the filenames are stripped with awk and the checksums are sorted and a combined checksum is generated. This way, whether the files are moved or renamed, the combined checksum will be the same.
+
+```shell script
+find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
+```
+
+![combined_checksum](readme_images/combined_checksum.png)
+
+Here's the example above broken down.
+
+![separate_checksums](readme_images/separate_checksums.png)
+
+For other favorites and more verbose examples, see [favorites](linux-notes/favorites.md)
+
 ### Package Updates
 
 To schedule package updates on a laptop or desktop, see [package-updates](package-updates)
