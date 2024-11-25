@@ -96,7 +96,7 @@ diff /tmp/check1.txt /tmp/check2.txt
 
 ```shell script
 # Returns the total count of items in current dir.
-# Spaces in filenames will through off the count.
+# Spaces in filenames will throw off the count.
 COUNT=0; for FILE in $(ls); do COUNT=$((COUNT + 1)); done; echo $COUNT
 
 # Inode usage summary of current directory, top three:
