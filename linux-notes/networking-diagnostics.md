@@ -1,19 +1,23 @@
 # Networking diagnostics
 
+#### netstat
+
 ```shell script
 netstat -r     # display routing table with gateway and interface
 netstat -t     # list only established tcp connections
 netstat -atpn  # list established and listening tcp connections with PID, numeric
 ```
 
+#### ss, ethtool
+
 ```shell script
 ss  # socket statistics showing send and receive queues, useful for determining latency
 
 ethtool eth0 | egrep 'Speed|Link'  # speed and link detected of network adaptor
 ```
+#### Wireless networking info
 
 ```shell script
-# Wireless networking info.
 # Channels 1, 6, and 11 do not overlap.
 # Try to use a channel that overlaps with the least number of other channels that are in use.
 /etc/wpa_supplicant/wpa_supplicant.conf
@@ -23,6 +27,8 @@ iwlist wlan0 scan | egrep '(Channel|Quality)'  # scan for channel numbers and li
 
 wpa_cli  # WPA command line client
 ```
+
+#### dig, host, nslookup
 
 ```shell script
 dig @192.168.0.1 google.com  # lookup google.com through 192.168.0.1
@@ -37,6 +43,8 @@ host 8.8.8.8       # reverse dns lookup for 8.8.8.8
 nslookup 8.8.8.8   # reverse dns lookup for 8.8.8.8
 ```
 
+#### traceroute
+
 ```shell script
 # Trace the route to the given host, wait 2 second for a reply, send 1 probe packet (query)
 # per hop, limit max number of hops to 15, use interface eth0:
@@ -48,6 +56,8 @@ traceroute -T accounts.l.google.com
 # Traces path to a network host discovering MTU (Maximum Transmission Unit) along this path:
 tracepath google.com
 ```
+
+#### tcpdump
 
 ```shell script
 # Find CDP (Cisco Discovery Protocol) information with tcpdump.
@@ -82,6 +92,8 @@ tcpdump -nni eth0 host 10.48.116.28 and port 80
 tcpdump "tcp[tcpflags] & (tcp-syn|tcp-ack) != 0"
 ```
 
+#### Test TCP connections
+
 ```shell script
 nmap -sS -p 53 8.8.8.8  # scan SYN port 53, after the syn-ack is received, a rst packet is sent
 nmap -sA -p 53 8.8.8.8  # scan ACK port 53, useful for finding filtered ports
@@ -111,6 +123,8 @@ done 2>&1 | tee port80.txt | grep succeeded
 # In a second terminal, check the progress:
 tail -f port80.txt
 ```
+
+#### Netcat
 
 ```shell script
 # Transfer a file with netcat:

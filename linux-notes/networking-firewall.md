@@ -1,5 +1,7 @@
 # Networking firewall
 
+#### iptables
+
 ```shell script
 iptables -L  # list rules
 iptables -S  # print rules
@@ -38,16 +40,17 @@ iptables -A FORWARD -j DROP
 iptables -A IN_public_allow -p tcp -m tcp --dport 1270 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT
 ```
 
+#### Open port 80 using firewall-cmd
+
 ```shell script
-# Open port 80 using firewall-cmd:
 firewall-cmd --zone=public --add-port=80/tcp --permanent
 firewall-cmd --reload
 iptables-save | grep 80
 ```
 
-```shell script
-# Forward port 80 to another host.
+#### Forward port 80 to another host
 
+```shell script
 # Enable IP forwarding:
 echo 1 > /proc/sys/net/ipv4/ip_forward
 /etc/sysctl.conf  (net.ipv4.ip_forward = 1)
@@ -62,9 +65,9 @@ iptables -A FORWARD -o eth0 -j ACCEPT
 iptables -A FORWARD -i eth0 -m state --state NEW -m tcp -p tcp -d 192.168.0.12 --dport 80 -j ACCEPT
 ```
 
-```shell script
-# Enable port forwarding from port 22 to 13579.
+#### Enable port forwarding from port 22 to 13579
 
+```shell script
 # system-config-firewall > Port Forwarding
 # The following rules will be added:
 -A PREROUTING -i eth0 -p tcp --dport 22 -j MARK --set-mark 0x64
