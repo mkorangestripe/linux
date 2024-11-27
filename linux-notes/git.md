@@ -1,12 +1,14 @@
 # Git
 
-```shell script
-git clone git@github.com:mkorangestripe/linux.git  # clone a git repo
-```
+#### clone, init
 
 ```shell script
+git clone git@github.com:mkorangestripe/linux.git  # clone the git repo
+
 git init  # initialize a git repo
 ```
+
+#### Repo config
 
 ```shell script
 git remote -v  # show remote URL of the repo
@@ -18,8 +20,10 @@ git config branch.master.remote origin  # set remote origin for master branch
 git config branch.master.merge refs/heads/master
 ```
 
+#### Global config
+
 ```shell script
-# Add username and email to git config
+# Add username and email to git config:
 git config --global user.name "Your Name"
 git config --global user.email "username@example.com"
 
@@ -27,10 +31,14 @@ git config --global http.sslBackend schannel  # use Windows certificate store
 git config --global core.autocrlf false       # do not convert newline characters
 ```
 
+#### add
+
 ```shell script
 git add msfile2.map  # add file to tracking, add changes to file
 git add -u           # add changes for all tracked files
 ```
+
+#### commit
 
 ```shell script
 git commit msfile2.map -m "Some comment here"  # commit changes
@@ -38,54 +46,85 @@ git commit --allow-empty -m 'trigger build'    # allow empty commit
 git commit --amend                             # amend the last commit message
 ```
 
+#### push
+
 ```shell script
 git push                            # upload commits to the remote master
 git push origin feature/PBPRB-1579  # upload commits to the remote branch
 git push -f                         # force push
 ```
 
+#### stash
+
 ```shell script
 git stash      # stash changes
 git stash pop  # remove a single stashed state from the stash list and reapply it
 ```
+
+#### ls-tree
 
 ```shell script
 git ls-tree HEAD     # list files in CWD being tracked under current branch
 git ls-tree HEAD -r  # list files recursively being tracked under current branch
 ```
 
+#### status
+
 ```shell script
 git status                            # status of changes
 git status origin feature/PBPRB-1651  # status of the branch
 ```
 
-```shell script
-git log --pretty=oneline  # one line for each change
-git log -p msfile1.map    # commits for the given file, paged format
-git log -p -2             # last two committed changes, paged format
-
-git show fc8334d9              # show changes in the commit
-git show fc8334d9 --name-only  # show commit info and files names only
-git diff 13a9608               # diff between given commit and latest commit on current branch
-git diff a1699b4 fc8334d9      # changes the 2nd commit makes to the 1st
-```
+#### clean
 
 ```shell script
 git clean -f  # remove untracked files
 ```
 
-```shell script
-git checkout nothing.txt                                # discard changes to nothing.txt
-git checkout c4ec54c7863 cleversafe_account_deleter.py  # checkout the given file version
-git checkout .                                          # discard changes to all files in the directory
-
-git revert 9cc3be0  # revert the commit
-```
+#### rm, mv
 
 ```shell script
 git rm nothing.txt              # remove the file nothing.txt from tracking
 git mv file1.txt bin/file2.txt  # move/rename file1.txt
 ```
+
+#### log
+
+```shell script
+git log --pretty=oneline  # one line for each change
+git log -p msfile1.map    # commits for the given file, paged format
+git log -p -2             # last two committed changes, paged format
+```
+
+#### show
+
+```shell script
+git show fc8334d9              # show changes in the commit
+git show fc8334d9 --name-only  # show commit info and files names only
+```
+
+#### diff
+
+```shell script
+git diff 13a9608           # diff between given commit and latest commit on current branch
+git diff a1699b4 fc8334d9  # diff between the two commits
+```
+
+#### checkout
+
+```shell script
+git checkout nothing.txt                                # discard changes to nothing.txt
+git checkout c4ec54c7863 cleversafe_account_deleter.py  # checkout the given file version
+git checkout .                                          # discard changes to all files in the directory
+```
+
+#### revert
+
+```shell script
+git revert 9cc3be0  # revert the commit
+```
+
+#### reset
 
 ```shell script
 # Reset to the state to before last commit:
@@ -106,7 +145,7 @@ git fetch origin
 git reset --hard origin/main  # origin/master with older repos
 ```
 
-### Branches
+#### Branches
 
 ```shell script
 git branch                        # lists existing branches
@@ -128,8 +167,11 @@ git pull origin feature/PBPRB-1579  # merge updates from the remote branch into 
 git merge feature/PBPRB-1651  # merge the branch into the current branch
 ```
 
+#### rebase
+
 ```shell script
-# Incorporate all the commits to main since the branch was created.
+# Rebasing incorporate all the commits to main since the branch was created.
+
 git fetch  # download branches, commits, tags
 
 git rebase origin/main  # rebase the local branch on the current main branch
@@ -142,7 +184,7 @@ git pull
 git push
 ```
 
-### Tags
+#### Tags
 
 ```shell script
 git tag          # list tags
@@ -157,17 +199,4 @@ git tag -a v1.1.0 49cfd4e -m "Loadbalancer app run with Gunicorn."
 git push --tags                # push tags
 git tag -d v1.0                # delete a local tag
 git push --delete origin v1.0  # delete a remote tag
-```
-
-### A few cvs commands
-```shell script
-mkdir -p devel/project/v4
-export CVSROOT=:pserver:<USERNAME>@cvsit.digitalriver.com:/opt/cvs/artifact
-cd devel/project
-cvs login
-cvs co -d v4 art-base/project/v4/
-
-cvs update
-cvs add data-sources.xml
-cvs commit data-sources.xml
 ```
