@@ -2,12 +2,14 @@
 
 ### Character encoding
 
-Convert between hexadecimal and decimal:
+Numeral conversions
 
 ```shell script
+# Convert between hexadecimal and decimal:
 printf "%x\n" 123   # 7b
 printf "%d\n" 0x7b  # 123
 
+# Convert between hexadecimal and decimal using Python:
 python -c 'print(hex(123))'   # 0x7b
 python -c 'print(int(0x7b))'  # 123
 ```
@@ -21,24 +23,29 @@ echo ABC | od -x       # 4241 0a43  (hexadecimal 2-byte units of characters ABC)
 echo ABC | hexdump -C  # 41 42 43 0a  |ABC.|  (hex+ASCII of characters ABC)
 echo ABC | od -a -b    # A   B   C  nl  (ASCII named characters of ABC, octal values on next line)
 echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
-```
 
-ISO-8859-1 (Latin-1): Single byte character encoding used for several non-printing characters.
+# ISO-8859-1 (Latin-1): Single byte character encoding used for several non-printing characters.
+```
 
 ### Base64 encoding, Encryption
 
-Base64 encode/decode:
+base64
+
 ```shell script
-echo "green, yellow, bright orange" | base64 > encoded.txt
-base64 -d encoded.txt  # green, yellow, bright orange
+echo "green, yellow, bright orange" | base64 > encoded.txt  # encode
+
+base64 -d encoded.txt  # green, yellow, bright orange       # decode
 ```
 
-Encrypt/decrypt a password with a key:
+Encrypt/decrypt a password with a key
 
 ```shell script
+# Encrypt:
 echo "p@sswd123" > passwd.txt
 echo "redgreenblue" | base64 > key.txt
 openssl enc -base64 -aes256 -in passwd.txt -out passwd_encrypted.txt -kfile key.txt
+
+# Decrypt:
 openssl enc -base64 -aes256 -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
 ```
 
@@ -74,24 +81,26 @@ diff -rq colorsA colorsB
 
 ### Removing files and data
 
+Empty files
+
 ```shell script
-# Instead of removing a log file that has grown to large, null it.
-# This preserves the inode data and should free disk space if the file is being used by a process (open file descriptor).
-cat /dev/null > file.log
+# Instead of removing a log file that has grown too large, null it.
+# This preserves the inode data and should still free disk space if the file is being used by a process.
+cat /dev/null > monitor.log
 ```
 
 ```shell script
-# If the file is removed while a process is using the file, the file descriptor can be nulled to release disk space.
-lsof | grep FILE  # 2nd column is PID, 4th column has FD followed by r,w,u, - read, write, both
-cat /dev/null > /proc/PID/fd/FD
+# If the file is removed while a process is using the file, null the file descriptor to free disk space.
+lsof | grep monitor.log          # 2nd column is PID, 4th column has FD followed by r,w,u, - read, write, both
+cat /dev/null > /proc/2402/fd/3  # where the PID is 2402 and file descriptor is 3
 ```
+
+Delete files
 
 ```shell script
 # When using rm -rf, add the -rf last.
 # This is to avoid removing parent directories by accidentally pressing enter before the full path has been typed.
-rm /var/logs/nada/ -rf
 
-# Or type:
 rm /var/logs/nada/
 # Then backspace and add -rf
 rm -rf /var/logs/nada/
@@ -104,15 +113,17 @@ find . -inum 782263 -print -delete     # remove the file with inode number 78226
 rm \\                                  # remove a file named \
 ```
 
+Overwrite data
+
 ```shell script
-# Overwrite data:
 dd if=/dev/zero of=localhost_access_log.txt bs=1024 count=33000  # create a 33M file
 badblocks -c 10240 -s -w -t random -v /dev/sdb1                  # write random data to /dev/sdb1
 shred -u nothing.log                                             # overwrite and remove nothing.log
 ```
 
+strings
+
 ```shell script
-# Search for strings in raw disk space:
 strings /dev/sdb1 | less  # search for strings in /dev/sdb1
 ```
 
