@@ -42,60 +42,53 @@ openssl enc -base64 -aes256 -in passwd.txt -out passwd_encrypted.txt -kfile key.
 openssl enc -base64 -aes256 -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
 ```
 
-Wrap each line to be no more than 76 characters:
+fold
 
 ```shell script
-fold -w76 colors3.txt
+fold -w76 colors3.txt  # wrap each line to be no more than 76 characters
 ```
 
 ### Checksums, Directory compare
 
-Compute MD5 (Message Digest 5) checksum on colors*.txt:
-
 ```shell script
+# Compute MD5 (Message Digest 5) checksum on colors*.txt:
 md5sum colors*.txt
 md5 colors*.txt
-```
 
-Compute SHA-256 (Secure Hash Algorithm) checksum on colors*.txt:
-
-```shell script
+# Compute SHA-256 (Secure Hash Algorithm) checksum on colors*.txt:
 sha256sum colors*.txt
 shasum -a 256 colors*.txt
 ```
 
-Compute MD5 checksum for all files in the directory:  
-Because the individual checksums are sorted, filenames and paths do not affect the final checksum.
-
 ```shell script
+# Compute MD5 checksum for all files in the directory:  
+# Because the individual checksums are sorted, filenames and paths do not affect the final checksum.
 find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
 find src/ -type f -exec md5 {} + | awk '{print $4}' | sort | md5
 ```
 
-Compare directory contents (file and directory names and file contents):
 ```shell script
+# Compare directory contents (file and directory names and file contents):
 diff -rq colorsA colorsB
 ```
 
 ### Removing files and data
 
-
-Instead of removing a log file that has grown to large, null it.  
-This preserves the inode data and should free disk space if the file is being used by a process (open file descriptor).
 ```shell script
+# Instead of removing a log file that has grown to large, null it.
+# This preserves the inode data and should free disk space if the file is being used by a process (open file descriptor).
 cat /dev/null > file.log
 ```
 
-If the file is removed while a process is using the file, the file descriptor can be nulled to release disk space.
-
 ```shell script
+# If the file is removed while a process is using the file, the file descriptor can be nulled to release disk space.
 lsof | grep FILE  # 2nd column is PID, 4th column has FD followed by r,w,u, - read, write, both
 cat /dev/null > /proc/PID/fd/FD
 ```
 
-When using rm -rf, add the -rf last. This is to avoid removing parent directories by accidentally pressing enter before the full path has been typed.
-
 ```shell script
+# When using rm -rf, add the -rf last.
+# This is to avoid removing parent directories by accidentally pressing enter before the full path has been typed.
 rm /var/logs/nada/ -rf
 
 # Or type:
@@ -104,27 +97,22 @@ rm /var/logs/nada/
 rm -rf /var/logs/nada/
 ```
 
-Remove files with nonstandard filenames:
-
 ```shell script
+# Remove files with nonstandard filenames:
 find . -inum 782263 -exec rm -i {} \;  # remove the file with inode number 782263, prompt before
 find . -inum 782263 -print -delete     # remove the file with inode number 782263
 rm \\                                  # remove a file named \
 ```
 
-Overwrite data:
-
 ```shell script
+# Overwrite data:
 dd if=/dev/zero of=localhost_access_log.txt bs=1024 count=33000  # create a 33M file
-
 badblocks -c 10240 -s -w -t random -v /dev/sdb1                  # write random data to /dev/sdb1
-
 shred -u nothing.log                                             # overwrite and remove nothing.log
 ```
 
-Search for strings in raw disk space:
-
 ```shell script
+# Search for strings in raw disk space:
 strings /dev/sdb1 | less  # search for strings in /dev/sdb1
 ```
 
