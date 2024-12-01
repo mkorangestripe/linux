@@ -1,87 +1,136 @@
 # Files, Data
 
-#### Character encoding
+### Character encoding
+
+Convert between hexadecimal and decimal:
 
 ```shell script
-# Convert between hexadecimal and decimal:
 printf "%x\n" 123   # 7b
 printf "%d\n" 0x7b  # 123
 
+python -c 'print(hex(123))'   # 0x7b
+python -c 'print(int(0x7b))'  # 123
+```
+
+hexdump, od
+
+```shell script
 echo 123 | hexdump     # 3231 0a33  (hex value of characters 123 - little-endian byte order)
 echo ABC | hexdump     # 4241 0a43  (hexadecimal 2-byte units of characters ABC)
 echo ABC | od -x       # 4241 0a43  (hexadecimal 2-byte units of characters ABC)
 echo ABC | hexdump -C  # 41 42 43 0a  |ABC.|  (hex+ASCII of characters ABC)
 echo ABC | od -a -b    # A   B   C  nl  (ASCII named characters of ABC, octal values on next line)
 echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
-
-# encoding='ISO-8859-1' -- Latin 1, single byte encodeing, used for several nonprinting characters
 ```
 
-#### Base64 encoding, Encryption
+ISO-8859-1 (Latin-1): Single byte character encoding used for several non-printing characters.
+
+### Base64 encoding, Encryption
+
+Base64 encode/decode:
 ```shell script
-# Base64 encode/decode:
 echo "green, yellow, bright orange" | base64 > encoded.txt
 base64 -d encoded.txt  # green, yellow, bright orange
+```
 
-# Encrypt/decrypt a password with a key:
+Encrypt/decrypt a password with a key:
+
+```shell script
 echo "p@sswd123" > passwd.txt
 echo "redgreenblue" | base64 > key.txt
 openssl enc -base64 -aes256 -in passwd.txt -out passwd_encrypted.txt -kfile key.txt
 openssl enc -base64 -aes256 -d -in passwd_encrypted.txt -kfile key.txt  # p@sswd123
-
-fold -w76 colors3.txt  # wrap each line to be no more than 76 characters
 ```
 
-#### Checksums, Directory compare
+Wrap each line to be no more than 76 characters:
 
 ```shell script
-# Compute MD5 (Message Digest 5) checksum on colors*.txt:
+fold -w76 colors3.txt
+```
+
+### Checksums, Directory compare
+
+Compute MD5 (Message Digest 5) checksum on colors*.txt:
+
+```shell script
 md5sum colors*.txt
 md5 colors*.txt
+```
 
-# Compute SHA-256 (Secure Hash Algorithm) checksum on colors*.txt:
+Compute SHA-256 (Secure Hash Algorithm) checksum on colors*.txt:
+
+```shell script
 sha256sum colors*.txt
 shasum -a 256 colors*.txt
+```
 
-# Compute MD5 checksum for all files in the directory.
-# Because the individual checksums are sorted, filenames and paths do not affect the final checksum.
+Compute MD5 checksum for all files in the directory:  
+Because the individual checksums are sorted, filenames and paths do not affect the final checksum.
+
+```shell script
 find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
 find src/ -type f -exec md5 {} + | awk '{print $4}' | sort | md5
+```
 
-# Compare directory contents, file and directory names and file contents:
+Compare directory contents (file and directory names and file contents):
+```shell script
 diff -rq colorsA colorsB
 ```
 
-#### Removing files and data
+### Removing files and data
+
+
+Instead of removing a log file that has grown to large, null it.  
+This preserves the inode data and should free disk space if the file is being used by a process (open file descriptor).
+```shell script
+cat /dev/null > file.log
+```
+
+If the file is removed while a process is using the file, the file descriptor can be nulled to release disk space.
 
 ```shell script
-# Instead of removing a log file that has grown to large, null it.
-# This preserves the inode data and should free disk space if the file is being
-# used by a process (open file descriptor).
-cat /dev/null > file.log
-
-# If the file is removed while a process is using the file, the file
-# descriptor can be nulled to release disk space.
 lsof | grep FILE  # 2nd column is PID, 4th column has FD followed by r,w,u, - read, write, both
 cat /dev/null > /proc/PID/fd/FD
+```
 
-# When using rm -rf, try to add the -rf last.  This is to avoid removing parent directories 
-# by accidentally pressing enter before the full path has been typed.
+When using rm -rf, add the -rf last. This is to avoid removing parent directories by accidentally pressing enter before the full path has been typed.
+
+```shell script
 rm /var/logs/nada/ -rf
 
-# Remove files with nonstandard filenames:
+# Or type:
+rm /var/logs/nada/
+# Then backspace and add -rf
+rm -rf /var/logs/nada/
+```
+
+Remove files with nonstandard filenames:
+
+```shell script
 find . -inum 782263 -exec rm -i {} \;  # remove the file with inode number 782263, prompt before
 find . -inum 782263 -print -delete     # remove the file with inode number 782263
 rm \\                                  # remove a file named \
-
-dd if=/dev/zero of=localhost_access_log.txt bs=1024 count=33000  # create a 33M file
-badblocks -c 10240 -s -w -t random -v /dev/sdb1  # write random data to /dev/sdb1
-shred -u nothing.log  # overwrite and remove nothing.log
-
-strings /dev/sdb1 | less  # search for strings in raw disk space
 ```
 
-#### File copy
+Overwrite data:
+
+```shell script
+dd if=/dev/zero of=localhost_access_log.txt bs=1024 count=33000  # create a 33M file
+
+badblocks -c 10240 -s -w -t random -v /dev/sdb1                  # write random data to /dev/sdb1
+
+shred -u nothing.log                                             # overwrite and remove nothing.log
+```
+
+Search for strings in raw disk space:
+
+```shell script
+strings /dev/sdb1 | less  # search for strings in /dev/sdb1
+```
+
+### File copy
+
+cp
 
 ```shell script
 cp -d  # same as --no-dereference --preserve=links
@@ -102,8 +151,13 @@ cp -ruv dir1 src/
 # Recursive & replicate pipes, copy symlinks, preserve file attributes,
 # preserve extended attributes - on Solaris:
 cp -RPp@ /nfs/pub/ .
+```
 
-# rsync unlike cp, copies only when the source and destination files differ.
+rsync
+
+```shell script
+# Unlike cp, rsync copies only when the source and destination files differ.
+
 rsync -av /nfs/pub/ .  # archive options and verbose, copy the contents of 'pub'
 rsync -av /nfs/pub .   # archive options and verbose, copy the whole 'pub' directory
 rsync -avn /nfs/pub .  # archive options and verbose, dry-run
@@ -111,7 +165,9 @@ rsync -avn /nfs/pub .  # archive options and verbose, dry-run
 rsync -v DSC_0002.MOV -e 'ssh -p 2222' --progress gp@tester1:  # use port 2222 and show progress
 ```
 
-#### Archiving, Compression
+### Archiving, Compression
+
+tar
 
 ```shell script
 # Create a gzipped archive of Documents and all files in Documents
@@ -120,25 +176,38 @@ tar -cvPzf nothing.tar.gz /home/gp/Documents/
 
 tar -tf nothing.tar.gz     # list the contents of nothing.tar, -v for verbose
 tar -xvPzf nothing.tar.gz  # extract nothing.tar.gz to absolute path
+```
 
+gzip, bzip2
+
+```shell script
 gzip nothing9                      # nothing9.gz
 gzip -9 -c drh.log > drh.log.1.gz  # this utilizes memory or swap
 bzip2 nothing9                     # nothing9.bz2
 gzip or bzip2 -d nothing9          # decompress nothing9
+```
 
+star
+
+```shell script
 # Create archive of /home including SELinux attributes and ACLs:
 star -xattr -H=exustar -c -f=homebackup.star /home/
 
 star -x -f=homebackup.star  # extract homebackup.star
+```
 
+zip
+
+```shell script
 zip -r backup.zip dir1  # create a zip file from directory dir1
 unzip -l backup.zip     # list the contents of backup.zip, -v for verbose list
 ```
 
-#### Named pipe
+### Named pipe
 
 ```shell script
 mkfifo testpipe              # in terminal 1
 gzip -c < testpipe > out.gz  # in terminal 1
+
 cat file > testpipe          # in terminal 2
 ```
