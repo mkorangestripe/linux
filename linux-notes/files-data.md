@@ -29,12 +29,26 @@ echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
 
 ### Base64 encoding, Encryption
 
-base64
+Base64 encode/decode text
 
 ```shell script
 echo "green, yellow, bright orange" | base64 > encoded.txt  # encode
 
 base64 -d encoded.txt  # green, yellow, bright orange       # decode
+```
+
+Base64 encode/decode text with Python
+
+```python
+import base64
+
+passwd = 'p@55word'
+encoded_pw = base64.b64encode(passwd.encode('utf-8'))  # byte encode then base64 encode passwd
+print(encoded_pw)                                      # b'cEA1NXdvcmQ='
+
+encoded_pw = b'cEA1NXdvcmQ='
+decoded_pw = base64.b64decode(encoded_pw).decode('utf-8')  # base64 decode then byte decode passwd
+print(decoded_pw)                                          # p@55word
 ```
 
 Encrypt/decrypt a password with a key
