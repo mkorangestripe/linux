@@ -2,6 +2,7 @@
 
 ### Character encoding
 
+
 Numeral conversions
 
 ```shell script
@@ -29,17 +30,21 @@ echo ABC | od -c       # A   B   C  \n  (ASCII characters or backslash escapes)
 
 ### Base64 encoding, Encryption
 
-Base64 encode/decode text
+base64
 
 ```shell script
+# Base64 encode/decode text
+
 echo "green, yellow, bright orange" | base64 > encoded.txt  # encode
 
 base64 -d encoded.txt  # green, yellow, bright orange       # decode
 ```
 
-Base64 encode/decode text with Python
+base64 (Python)
 
 ```python
+# Base64 encode/decode text using Python
+
 import base64
 
 passwd = 'p@55word'
@@ -51,9 +56,11 @@ decoded_pw = base64.b64decode(encoded_pw).decode('utf-8')  # base64 decode then 
 print(decoded_pw)                                          # p@55word
 ```
 
-Encrypt/decrypt a password with a key
+openssl
 
 ```shell script
+# Encrypt/decrypt text with a key
+
 # Encrypt:
 echo "p@sswd123" > passwd.txt
 echo "redgreenblue" | base64 > key.txt
@@ -69,7 +76,9 @@ fold
 fold -w76 colors3.txt  # wrap each line to be no more than 76 characters
 ```
 
-### Checksums, Directory compare
+### Checksums, directory diff
+
+File checksums
 
 ```shell script
 # Compute MD5 (Message Digest 5) checksum on colors*.txt:
@@ -81,12 +90,16 @@ sha256sum colors*.txt
 shasum -a 256 colors*.txt
 ```
 
+Directory checksums
+
 ```shell script
 # Compute MD5 checksum for all files in the directory:  
 # Because the individual checksums are sorted, filenames and paths do not affect the final checksum.
 find src/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
 find src/ -type f -exec md5 {} + | awk '{print $4}' | sort | md5
 ```
+
+Directory diff
 
 ```shell script
 # Compare directory contents (file and directory names and file contents):
@@ -194,10 +207,13 @@ tar -xvPzf nothing.tar.gz  # extract nothing.tar.gz to absolute path
 gzip, bzip2
 
 ```shell script
-gzip nothing9                      # nothing9.gz
-gzip -9 -c drh.log > drh.log.1.gz  # this utilizes memory or swap
-bzip2 nothing9                     # nothing9.bz2
-gzip or bzip2 -d nothing9          # decompress nothing9
+gzip monitor.log                   # compress to monitor.log.gz
+bzip2 monitor.log                  # compress to monitor.log.bz2
+
+gzip -9 -c drh.log > drh.log.1.gz  # this utilizes memory or swap space
+
+gzip -d monitor.log.gz             # decompress to monitor.log
+bzip2 -d monitor.log.bz2           # decompress to monitor.log
 ```
 
 star
@@ -219,8 +235,8 @@ unzip -l backup.zip     # list the contents of backup.zip, -v for verbose list
 ### Named pipe
 
 ```shell script
-mkfifo testpipe              # in terminal 1
-gzip -c < testpipe > out.gz  # in terminal 1
+mkfifo testpipe                      # terminal 1
+gzip -c < testpipe > monitor.log.gz  # terminal 1
 
-cat file > testpipe          # in terminal 2
+cat monitor.log > testpipe           # terminal 2
 ```
