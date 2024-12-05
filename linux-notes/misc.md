@@ -35,11 +35,6 @@ tmux new -A -s orange2  # attach to session orange2, create if doesn't exist
 # Ctrl+b, new -s orange3  # create a new session orange3 from within a session
 ```
 
-#### Irssi
-```shell script
-irssi -c ircserver.example.com -n user1  # connect to irc server
-```
-
 #### Mail
 ```shell script
 # Create & send email. Follow prompts, press Ctrl+D at end of message.
@@ -49,10 +44,19 @@ mail user1@example.com
 mail -s 'Testing Mail' < mailbody.txt user1@example.com
 ```
 
-#### Wall, Motd
+#### Irssi
+```shell script
+irssi -c ircserver.example.com -n user1  # connect to irc server
+```
+
+#### Wall
 
 ```shell script
 wall "Time for a break;  Press Enter to continue"  # send the message to all terminals
+```
 
+#### Motd
+
+```shell script
 /etc/motd  # message of the day, displayed at login
 ```

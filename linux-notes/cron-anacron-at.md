@@ -1,8 +1,6 @@
 # Job Scheduling
 
-### Cron
-
-Config files
+#### Cron
 
 ```shell script
 /etc/crontab      # just contains the format for crontab entries
@@ -12,8 +10,6 @@ Config files
 
 # If neither cron.deny nor cron.allow exist, only root can use crontab.
 ```
-
-Format
 
 ```shell script
 # minute, hour, day of month, month, day of week
@@ -28,16 +24,13 @@ Format
 0 * * * * /home/testuser1/cleanup.sh  # run cleanup.sh hourly
 ```
 
-crontab
-
 ```shell script
 crontab -eu testuer1   # edit the crontab for testuser1
 crontab -lu testuser1  # list the crontab entries for testuser1
 crontab -ru testuser1  # remove the crontab entries for testuser1
 ```
 
-
-### Anacron
+#### Anacron
 
 ```shell script
 # Runs daily, weekly, and monthly jobs if jobs haven’t been run in the last day, week, month.
@@ -47,8 +40,7 @@ anacron -s                 # runs entries in /etc/anacrontab
 /etc/anacrontab            # contains directories: /etc/cron.daily, /etc/cron.weekly, /etc/cron.monthly
 ```
 
-
-### At
+#### At
 
 ```shell script
 # Schedule a job to run once:

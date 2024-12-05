@@ -1,6 +1,6 @@
 # Docker
 
-### Docker related system info
+Docker related system info
 ```shell script
 systemctl status docker  # status of docker service
 systemctl enable docker  # enable the docker service
@@ -14,7 +14,7 @@ docker system df         # show docker disk usage
 docker system prune      # remove various docker items
 ```
 
-### Docker networks
+Docker networks
 ```shell script
 docker network ls           # list networks
 docker network inspect lb1  # show info for the network
