@@ -1,12 +1,5 @@
 # Docker
 
-##### Install Docker CE (Comunity Edition) on Redhat/Centos
-```shell script
-yum install -y yum-utils
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-```
-
 ### Docker related system info
 ```shell script
 systemctl status docker  # status of docker service
@@ -54,8 +47,8 @@ docker tag hello host.docker.internal:5000/hello
 docker rmi hello-socket host.docker.internal:5000/hello-socket2
 ```
 
-##### Dockerfile example, each line is a layer
-```
+Dockerfile example, each line is a layer
+```Dockerfile
 FROM ubuntu:16.04
 LABEL maintainer=<email_address>
 RUN sh -c 'mkdir /mnt/fakeapp'
@@ -64,7 +57,7 @@ RUN apt-get update
 RUN apt-get install -y python3
 ```
 
-##### Build Docker image, examples
+Build Docker image
 ```shell script
 docker build -t hello1 .         # build image from Dockerfile and name 'hello1'
 packer build packer/hello1.json  # build image using packer
@@ -72,7 +65,7 @@ docker build -t mkorangestripe/loadbalancer:1.1.0 .         # build image includ
 docker build -t harbor.somedomain.io/prlb-platform/test1 .  # build image including registry and repo in name
 ```
 
-##### Push to a registry
+Push to a registry
 ```shell script
 docker push localhost:5000/hello                      # push in local registry, Linux
 docker push host.docker.internal:5000/hello           # push in local registry, OSX
@@ -80,7 +73,7 @@ docker push mkorangestripe/loadbalancer:1.1.0         # push to dockerhub
 docker push harbor.somedomain.io/prlb-platform/test1  # push to harbor
 ```
 
-##### Docker image registry login
+Docker image registry login
 ```shell script
 docker login harbor.somedomain.io
 docker logout
@@ -166,8 +159,8 @@ docker container rm aec6fa285527
 
 ```shell script
 # Run from manager node:
-docker node ls | grep us08st2con98
-docker node update --availability drain us08st2con91
+docker node ls | grep us08st2c98
+docker node update --availability drain us08st2c91
 docker service ls
-docker node rm us08st2con91
+docker node rm us08st2c91
 ```

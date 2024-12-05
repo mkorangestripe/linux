@@ -98,7 +98,7 @@ sadf -s 02:00:00 -e 03:00:00 /var/log/sa/sa10 > activity10.txt
 
 ### Rsyslog
 
-##### Server setup
+Server setup
 ```shell script
 # Receive UDP data from 192.168.0.11
 
@@ -117,7 +117,7 @@ $InputTCPServerRun 514
 tail -f /var/log/messages  # watch for entries from the client
 ```
 
-##### Client Setup
+Client Setup
 ```shell script
 # Send UDP data, info level, to 192.168.0.12
 

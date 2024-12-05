@@ -60,7 +60,8 @@ ps -fu user1  # processes owned by user1
 pstree        # tree view of processes
 ```
 
-##### Zombie processes
+Zombie processes
+
 ```shell script
 # Zombie processes are processes that have completed execution, but still have an entry in the process table.
 # This entry is needed for the parent process (ppid) to read the child process’s exit status.
@@ -73,7 +74,8 @@ ps -eo s,pid,ppid | grep '^Z'
 kill -s SIGCHLD <ppid>
 ```
 
-##### Nice, kill
+Nice, Kill
+
 ```shell script
 # Nicenesses range: -20 (most favorable scheduling), 19 (least favorable), 10 (default adjustment)
 nice -n 19 python prime_gen.py
@@ -84,7 +86,8 @@ pkill -9 -f '(test1|test2)'
 killall httpd
 ```
 
-##### Files, devices, proc filesystem
+Files, devices, proc filesystem
+
 ```shell script
 dstat   # scrolling cpu usage, disk r/w, net send/recv, paging i/o, and system int/csw
 iostat  # cpu and I/O stats for devices
@@ -117,7 +120,8 @@ ls /proc/$(ps -u cassandra -o pid --no-headers | head -1 | sed 's/^[ \t]*//')/fd
 ulimit -n  # file descriptor limit
 ```
 
-##### Testing, debugging
+Testing, debugging
+
 ```shell script
 time ./ps1a.py            # times the execution of the script ps1a.py
 # The -- is necessary on some systems to prevent the timeout command
@@ -144,7 +148,11 @@ echo -17 > /proc/PID/oom_adj
 # -17 exempts the process entirely from the OOM killer but could
 # result in important operating system processes being killed.
 # Also see /proc/PID/oom_score and /proc/PID/oom_score_adj.
+```
 
+System Load
+
+```shell script
 # Load averages for the last 1, 5, and 15 minutes:
 uptime
 cat /proc/loadavg
@@ -157,14 +165,18 @@ w | head -1
 # During the last 5 minutes, the CPU was idling 40% of the time on average.
 # During the last 15 minutes, the system was overloaded 698% on average (7.98 runnable processes,
 # so that 6.98 processes had to wait for a turn for a single CPU system on average).
-
-# Memory page:
-# A fixed-length contiguous block of virtual memory, 
-# the smallest unit of data for memory allocation and 
-# the transfer between main memory and any other auxiliary store.
 ```
 
-##### SNMP, Memcached
+Memory page
+
+```
+A fixed-length contiguous block of virtual memory, 
+the smallest unit of data for memory allocation and 
+the transfer between main memory and any other auxiliary store.
+```
+
+SNMP, Memcached
+
 ```shell script
 # SNMP, get proc and mem info:
 snmpwalk -c <public> -v 2c 192.168.1.112 proc

@@ -62,7 +62,7 @@ startx                 # starts the GUI
 
 ### Services
 
-##### SysV init
+SysV init
 ```shell script
 # Using httpd for example:
 service --status-all
@@ -82,7 +82,7 @@ chkconfig --level 4 postfix off  # moves /etc/rc.d/rc4.d/S80postfix to K30postfi
 ntsysv --level 345  # config services for runlevels 3,4,and 5
 ```
 
-##### Systemd
+Systemd
 ```shell script
 # Services on systems using systemd (using sshd for examples)
 systemctl --all
@@ -100,7 +100,7 @@ systemctl daemon-reload  # reload changed unit file
 /etc/systemd/  # systemd info
 ```
 
-##### Solaris
+Solaris
 ```shell script
 svcs -a                 # show status of all services on Solaris
 svcs -v ssh             # show verbose status of ssh, -l for all available info
@@ -113,7 +113,7 @@ svcadm clear http       # clear http from maintenance state
 /var/svc/log/           # service logs
 ```
 
-##### MacOS
+MacOS
 ```shell script
 sudo launchctl list  # list services
 ```
@@ -212,7 +212,7 @@ reset
 
 ### Automated installation using a kickstart file
 
-##### Kickstart setup on FTP Server
+Kickstart setup on FTP Server
 ```shell script
 cp anaconda-ks.cfg ks.cfg
 system-config-kickstart ks.cfg  # or edit ks.cfg with vi
@@ -222,7 +222,7 @@ chmod -c +r /var/ftp/pub/ks.cfg
 iptables -F  # or verify that port 21 is open
 ```
 
-##### Install from FTP
+Install from FTP
 ```shell script
 # Boot from CD, highlight Install or upgrade..., press tab, use the ftp line:
 vmlinuz initrd=initrd.img ks=hd:sdb1:/ks.cfg

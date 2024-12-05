@@ -48,3 +48,11 @@ mail user1@example.com
 # Send text file as email:
 mail -s 'Testing Mail' < mailbody.txt user1@example.com
 ```
+
+#### Wall, Motd
+
+```shell script
+wall "Time for a break;  Press Enter to continue"  # send the message to all terminals
+
+/etc/motd  # message of the day, displayed at login
+```
