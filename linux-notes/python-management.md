@@ -60,32 +60,34 @@ deactivate  # deactivate the virtual environment
 ```shell script
 pip install pipenv
 
-pipenv --python 3.9  # create a virtual environment and specify Python 3.9
+# Create a virtual environment:
+# Install packages from Pipfile.lock or Pipfile, create both if missing.
+# A local requirements.txt will be used to populate Pipfile/Pipfile.lock if not present initially.
+pipenv install  
+pipenv install  --python 3.9  # specify Python 3.9 for virt env
 
-# Create a virtual environment, Pipfile, Pipfile.lock, add/install packages from
-# requirements.txt if present, and specify Python 3.9:
-pipenv --python 3.9 install
+pipenv --rm               # remove the virtual environment used by the local directory
 
-pipenv --rm    # remove the virtual environment used by the local directory
-
-pipenv lock    # generate a Pipfile.lock from the Pipfile or requirements.txt
-pipenv sync    # installs all packages in Pipfile.lock
-pipenv update  # runs lock then sync, with no version constraints in Pipfile this updates all packages
+pipenv lock               # generate a Pipfile.lock from the Pipfile or requirements.txt
+pipenv sync               # installs all packages in Pipfile.lock
+pipenv update             # runs lock then sync, with no version constraints in Pipfile this updates all packages
 
 pipenv install psutil     # add psutil to Pipfile and Pipfile.lock and install
 pipenv install -d pylint  # add pylint to dev-packages and install
+pipenv uninstall pylint   # uninstall pylint and remove from Pipfile
 
-pipenv install       # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
-pipenv install -d    # install all dependencies including dev-packages
-pipenv install -e .  # install from local setup.py into virtualenv/Pipfile
+pipenv install            # install packages in Pipfile.lock, create Pipfile.lock from Pipfile if missing
+pipenv install -d         # install all packages including dev-packages
+pipenv install -e .       # install from local setup.py into virtualenv/Pipfile
 
-pipenv graph   # display currently–installed dependency graph
-pipenv check   # check installed dependencies for security vulnerabilities
+pipenv graph              # display currently–installed dependency graph
+pipenv check              # check installed dependencies for security vulnerabilities
 
 pipenv run python linux_monitoring_datadog.py  # run a command within the virtualenv
 
-pipenv shell   # start a shell within the virtualenv (activate)
-# Ctrl+d to deactivate
+# Start a shell within the virtualenv (activate):
+# Ctrl+d or 'exit' to deactivate
+pipenv shell
 ```
 
 #### Pyenv
@@ -107,11 +109,11 @@ pyenv which python       # show actual path
 #### Anaconda
 
 ```shell script
-conda info           # conda version info, etc
-conda search python  # list available versions of Python
+conda info                  # conda version info, etc
+conda search python         # list available versions of Python
 
-conda env list                                       # list installed envs
-conda list --revisions                               # list changes to the current env
+conda env list              # list installed envs
+conda list --revisions      # list changes to the current env
 
 conda create -n env3.10.12 python=3.10.12            # create the env in default location
 conda env create -p envs/py3.10.12 -f py3.10.12.yml  # create the env in envs/ and using the yml config
@@ -121,17 +123,17 @@ conda env update --file mntproj_py3.12.7.yaml        # install packages in yaml 
 
 conda env remove -n env3.10.12                       # remove the env
 
-conda init bash      # configure the shell for anaconda
-conda init bash -d   # dry-run, not change to files
+conda init bash             # configure the shell for anaconda
+conda init bash -d          # dry-run, not change to files
 
 conda activate evn.3.10.12  # activate the env
 
-conda list           # list installed packages in an env
-conda install pandas # install pandas into the currently-active env
-conda remove pandas  # remove pandas from the currently-active env
-conda update --all   # update all installed packages in the env
+conda list                  # list installed packages in an env
+conda install pandas        # install pandas into the currently-active env
+conda remove pandas         # remove pandas from the currently-active env
+conda update --all          # update all installed packages in the env
 
-conda deactivate  # deactivate the env
+conda deactivate            # deactivate the env
 ```
 
 #### Packaging
