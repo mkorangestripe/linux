@@ -61,6 +61,7 @@ Addresses (10.0.0.0 - 10.0.31.255) and (10.0.32.0 - 10.0.63.255)...
 ```
 
 * Subnetting ensures that traffic between hosts within a subnet stays in that subnet which minimizes congestion.
+* Subnets operate at Layer 3 (Network) as opposed to VLANs which operate at Layer 2 (Data Link).
 
 #### Local communication on a private subnet
 

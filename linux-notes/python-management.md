@@ -70,7 +70,8 @@ pipenv --rm               # remove the virtual environment used by the local dir
 
 pipenv lock               # generate a Pipfile.lock from the Pipfile or requirements.txt
 pipenv sync               # installs all packages in Pipfile.lock
-pipenv update             # runs lock then sync, with no version constraints in Pipfile this updates all packages
+pipenv update             # runs lock then sync, with no version constraints in Pipfile this updates packages
+pipenv update -d          # same as above and update dev-packages
 
 pipenv install psutil     # add psutil to Pipfile and Pipfile.lock and install
 pipenv install -d pylint  # add pylint to dev-packages and install
