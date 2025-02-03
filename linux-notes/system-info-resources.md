@@ -12,7 +12,7 @@ python -c "import platform; print(platform.platform())"  # platform, OS, kernel
 uname -a           # platform, OS, kernel
 cat /proc/version  # Linux kernel version
 uname -r; ls -lt /boot/config*  # compare running kernel to installed kernels
-dkms status        # show installed kernels
+dkms status        # show installed kernels modules
 
 dmidecode -t system
 dmidecode --string system-manufacturer
@@ -58,6 +58,24 @@ ps -eo pid,user,lstart,args  # STARTED column shows full process start time and 
 
 ps -fu user1  # processes owned by user1
 pstree        # tree view of processes
+```
+
+Virtual memory
+
+```
+An abstraction of a contiguous block of memory that may be comprised of RAM and swap space.
+This is necessary because RAM can become fragmented or insufficient.
+```
+
+Memory page
+
+```
+A fixed-length contiguous block of virtual memory, the smallest unit of data for memory allocation and 
+the transfer between main memory and any other auxiliary store.
+
+The kernel moves data from RAM to swap space in a process known as paging, freeing up RAM for active tasks.
+
+If a process needs the data that was swapped out, it is brought back into RAM.
 ```
 
 Zombie processes
@@ -165,14 +183,6 @@ w | head -1
 # During the last 5 minutes, the CPU was idling 40% of the time on average.
 # During the last 15 minutes, the system was overloaded 698% on average (7.98 runnable processes,
 # so that 6.98 processes had to wait for a turn for a single CPU system on average).
-```
-
-Memory page
-
-```
-A fixed-length contiguous block of virtual memory, 
-the smallest unit of data for memory allocation and 
-the transfer between main memory and any other auxiliary store.
 ```
 
 SNMP, Memcached
