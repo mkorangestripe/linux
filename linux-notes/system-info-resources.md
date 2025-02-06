@@ -9,10 +9,12 @@ lsb_release -d     # Linux distro
 python -c "import platform; print(platform.dist())"      # Linux distro
 python -c "import platform; print(platform.platform())"  # platform, OS, kernel
 
-uname -a           # platform, OS, kernel
-cat /proc/version  # Linux kernel version
+uname -a                        # platform, OS, kernel
+cat /proc/version               # Linux kernel version
 uname -r; ls -lt /boot/config*  # compare running kernel to installed kernels
-dkms status        # show installed kernels modules
+dkms status                     # show installed kernels modules
+
+stat / | grep Birth  # show creation time of root filesystem
 
 dmidecode -t system
 dmidecode --string system-manufacturer
@@ -50,9 +52,10 @@ ps eux  # all processes, %CPU, %MEM, environment variables
 
 # STIME column shows time if process was started on current day and date if started on a previous day.
 # TIME column shows cumulated CPU time.
-ps -ef   # all processes, full path, STIME, etc
-ps -el   # all processes, full path, nice number, state code, etc
-ps -elf  # all processes, full path, STIME, nice number, state code, etc
+
+ps -ef                       # all processes, full path, STIME, etc
+ps -el                       # all processes, full path, nice number, state code, etc
+ps -elf                      # all processes, full path, STIME, nice number, state code, etc
 ps -el | awk '$2 != "S"'     # process state codes other than S, interruptible Sleep
 ps -eo pid,user,lstart,args  # STARTED column shows full process start time and date, -Ao also works
 
@@ -84,6 +87,7 @@ Zombie processes
 # Zombie processes are processes that have completed execution, but still have an entry in the process table.
 # This entry is needed for the parent process (ppid) to read the child process’s exit status.
 # The following commands output zombie processes (Z in process state code field).
+
 ps aux | awk '{print $8,$2}' | grep '^Z'
 ps -el | awk '$2 == "Z"'
 ps -eo s,pid,ppid | grep '^Z'
@@ -141,25 +145,27 @@ ulimit -n  # file descriptor limit
 Testing, debugging
 
 ```shell script
-time ./ps1a.py            # times the execution of the script ps1a.py
+time ./ps1a.py  # times the execution of the script ps1a.py
+
 # The -- is necessary on some systems to prevent the timeout command
 # from evaluating the arguments of the subsequent command:
 timeout -t 600 -- ls -lh  # timeout after 600 seconds
 
-strace  ls  # trace system calls and signals made by the ls command
-# Trace system calls on Solaris for a given pid, also check if zone process exists on global:
-truss -p PID
-valgrind    # a suite of tools for debugging and profiling programs
+strace  ls    # trace system calls and signals made by the ls command
+
+truss -p PID  # trace system calls on Solaris for a given pid, also check if zone process exists on global
+
+valgrind      # debugging and profiling programs
 
 grep Kill /var/log/messages  # find info about killed processes
 
 # Find processes killed by being out of memory:
 grep "Out of memory" /var/log/messages
 zgrep "Out of memory" /var/log.archive/messages*
-# Lines like the following will exist:
+# Lines like the following will be present:
 # Jul  8 04:36:47 gcutlcte004 kernel: Out of memory: Kill process 2125 (java) score 303 or sacrifice child
 
-# To exclude the process from the OOM killer:
+# Exclude the process from the OOM killer:
 echo -17 > /proc/PID/oom_adj
 
 # A range of -16 to 15 is from less likely to most likely to be killed by the OOM.
@@ -203,18 +209,18 @@ echo stats | nc server1 11211
 unlink /etc/localtime
 ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
 
-cal -3   # three month
-cal -y   # current year
-cal 2012 # 2012 calendar
+cal -3    # three month
+cal -y    # current year
+cal 2012  # 2012 calendar
 
 # Shows when the current calendar year repeats.
 # Non-leap year cycle: 6,11,11 years.
 # Leap year cycle: 28 (6+11+11) years.
 for YEAR in {1970..2070}; do diff -q <(cal -y | tail -34) <(cal $YEAR | tail -34) && echo $YEAR; done
 
-date -u              # print date in UTC
-date -d @1299287329  # converts Unix time to readable output
-date "+%F %T"        # year-month-day hour:minute:second
+date -u                             # print date in UTC
+date -d @1299287329                 # converts Unix time to readable output
+date "+%F %T"                       # year-month-day hour:minute:second
 date --date='2 days ago' '+%Y%m%d'  # two days ago in YYYYMMDD
 ```
 
