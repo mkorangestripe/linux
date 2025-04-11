@@ -8,8 +8,9 @@
 export TERM=xterm-256color
 CRON_APT_OUT=/var/log/cron.apt.out
 
-test -f $CRON_APT_OUT ||
-touch -t $(date --date="6 hours ago" "+%Y%m%d%H%M") $CRON_APT_OUT &&
+test ! -f $CRON_APT_OUT &&
+touch -t $(date --date="6 hours ago" "+%Y%m%d%H%M") $CRON_APT_OUT
+
 test $(( $(date +"%s") - $(stat -c '%Y' $CRON_APT_OUT) )) -ge 21600 &&
 { touch $CRON_APT_OUT
   /usr/bin/date
