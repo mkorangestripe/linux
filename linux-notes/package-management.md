@@ -97,12 +97,15 @@ alias upd="echo $UPD_CMD; sudo sh -c $UPD_CMD"
 
 ```shell script
 brew tap                    # list repositories
+
 brew update                 # update the formulae and Homebrew itself
 brew outdated               # show outdated with current / available versions
 brew upgrade                # upgrade all packages
-brew upgrade python@2       # upgrade python2
+brew upgrade ansible        # upgrade ansible
 
-brew list                   # list packages installed by homebrew
+brew list                   # list installed packages
+brew leaves                 # list installed packages that are not dependencies of others installed
+
 brew info ipython           # show info about the ipython package
 brew search cassandra       # search for cassandra packages
 
@@ -115,6 +118,14 @@ brew outdated --cask        # show outdated cask packages
 brew search --cask docker   # search for docker cask packages
 brew install --cask docker  # install docker desktop
 
+brew deps wget              # show dependencies for wget
+brew deps --tree wget       # show dependencies for wget as a tree
+brew deps --graph wget      # show dependency graph for wget in browser
+
+brew uses --installed --recursive openssl  # list installed packages that depend on openssl
+```
+
+```shell script
 xcode-select --install      # update Xcode CommandLineTools on OSX
 ```
 
