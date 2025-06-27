@@ -1,6 +1,7 @@
 # Networking configuration
 
-#### Network config files on SysV init:
+#### Network config files on SysV init
+
 ```shell script
 # Enable/disable networking:
 /etc/sysconfig/network:
@@ -12,24 +13,12 @@ HOSTNAME=server1
 /etc/init.d/NetworkManager  # controls eth0 if NM_CONTROLLED="yes" in ifcfg-eth0
 ```
 
-#### nmcli:
+#### nmcli
+
 ```shell script
 # NetworkManager CLI
 nmcli connection show  # show network connections with brief details
 nmcli device show      # show network interfaces with details
-```
-
-#### arp
-
-```shell script
-# Arp displays a table of IP addresses or hostnames with HW addresses.
-# This can also be helpful with identifying duplicate HW addresses.
-
-cat /proc/net/arp  # IP and HW addresses
-
-arp -n          # show IP addresses instead of hostnames
-arp -s testbox 00:00:00:00:00:00  # set HWaddress of testbox
-arp -d testbox  # delete HWaddress of testbox from table
 ```
 
 #### ip, ifconfig
@@ -45,6 +34,7 @@ ifconfig eth0 192.168.1.102 netmask 255.255.255.0 broadcast 192.168.1.255
 ```
 
 #### route
+
 ```shell script
 route     # show ip routing table
 route -n  # show ip routing table, do not resolve dns

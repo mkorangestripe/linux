@@ -1,5 +1,24 @@
 # Networking diagnostics
 
+#### Layer 2 (Link layer)
+
+```shell script
+# Arp displays a table of IP addresses or hostnames with HW addresses.
+
+cat /proc/net/arp  # show IP and HW addresses
+
+ip neigh           # show IP and HW addresses
+arp -n             # show IP and HW addresses, add -a on macOS
+
+arp -s testbox 00:00:00:00:00:00  # set HW address of testbox
+arp -d testbox                    # delete HW address of testbox from table
+
+nmap -sn 192.168.0.1/24      # ping scan the subnet, return IP and MAC (HW) addresses
+
+tcpdump "arp or icmp"        # listen for arp and icmp traffic
+tcpdump -i en0 -n broadcast  # listen for broadcast messages on interface en0
+```
+
 #### netstat
 
 ```shell script
@@ -76,9 +95,6 @@ tcpdump -nn -vvv -i eth0 -s 1500 -c 1 'ether[20:2] == 0x2000'
 # Listen for icmp traffic:
 tcpdump icmp
 
-# Listen for both icmp and arp traffic:
-tcpdump "icmp or arp"
-
 # Capture 100 packets from the host and write to file.  This does not seem to capture CDP info.
 tcpdump host 192.168.1.110 -w capture.cap -c 100
 
@@ -104,8 +120,8 @@ nc -z -w 1 centoskvm1 20-640  # scan ports 20-640
 nc -v -i 1 server1 2049       # scan port 2049 (ncat version)
 nc -zu centoskvm1 514         # scan udp port 514
 
-nc centoskvm1 22      # connect to port 22 if open on centoskvm1
-telnet centoskvm1 22  # connect to port 22 if open on centoskvm1
+nc centoskvm1 22       # connect to port 22 if open on centoskvm1
+telnet centoskvm1 22   # connect to port 22 if open on centoskvm1
 
 curl centoskvm1:22     # connect to port 22 and print message from daemon
 curl -v centoskvm1:22  # same as above but verbose
@@ -132,6 +148,6 @@ nc -l 5900 > ncfile            # listen on port 5900
 nc -w 1 tester1 5900 < ncfile  # transfer ncfile to tester1 on port 5900
 
 # Tail a remote log with netcat:
-nc -l 5900  # listen on port 5900
+nc -l 5900                                 # listen on port 5900
 tail -f /var/tmp/nclog | nc blackbox 5900  # tail nclog and send to blackbox on 5900
 ```
