@@ -67,6 +67,19 @@ tcpdump host 192.168.1.110 -w capture.cap -c 100
 tcpdump -r capture.cap | less
 ```
 
+```shell script
+# Find Cisco Discovery Protocol (layer 2) information.
+# Useful for finding make/model and other information of network hardware.
+
+# Verbose output, capture one packet and exit, capture only packets
+# that have a 2 byte value of hex 2000 starting at byte 20.
+tcpdump -v -c 1 'ether[20:2] == 0x2000'
+
+# Same as above, but doesn't convert hostname, protocol, port numbers to names.
+# More verbose, just traffic on network adapter eth0, and capture 1500 bytes of the packet (typical MTU size).
+tcpdump -nn -vvv -i eth0 -s 1500 -c 1 'ether[20:2] == 0x2000'
+```
+
 ### Layer 4 (Transport)
 
 ##### netstat, traceroute
@@ -82,23 +95,10 @@ traceroute -T accounts.l.google.com
 ##### tcpdump
 
 ```shell script
-# Find CDP (Cisco Discovery Protocol) information with tcpdump.
-# Useful for finding make/model and other information of network hardware.
-
-# Verbose output, capture one packet and exit, capture only packets
-# that have a 2 byte value of hex 2000 starting at byte 20.
-tcpdump -v -c 1 'ether[20:2] == 0x2000'
-
-# Same as above, but doesn't convert hostname, protocol, port numbers to names.
-# More verbose, just traffic on network adapter eth0, and capture 1500 bytes of the packet (typical MTU size).
-tcpdump -nn -vvv -i eth0 -s 1500 -c 1 'ether[20:2] == 0x2000'
-```
-
-```shell script
-# Listen to traffic for host on port 80.  Don’t resolve hostname or port:
+# Listen to traffic for host on port 80.  Don’t resolve hostname or port
 tcpdump -nni eth0 host 10.48.116.28 and port 80
 
-# Listen for tcp-syn, and all ack packets:
+# Listen for tcp-syn, and all ack packets
 tcpdump "tcp[tcpflags] & (tcp-syn|tcp-ack) != 0"
 ```
 
