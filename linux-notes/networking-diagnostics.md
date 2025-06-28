@@ -1,6 +1,6 @@
 # Networking diagnostics
 
-### Layer 2 (Link layer)
+### Layer 2 (link layer)
 
 ```shell script
 ethtool eth0 | egrep 'Speed|Link'    # show speed and link status of network adaptor
@@ -33,7 +33,7 @@ iwlist wlan0 scan | egrep '(Channel|Quality)'  # scan for channel numbers and li
 wpa_cli  # WPA command line client
 ```
 
-### Layer 3 (Network Layer)
+### Layer 3 (network Layer)
 
 ##### nmap
 
@@ -57,8 +57,10 @@ tracepath google.com
 ```shell
 # Listen for arp (layer 2) and icmp traffic:
 tcpdump "arp or icmp"
+```
 
-# Capture 100 packets from the host and write to file.  This does not seem to capture CDP info.
+```shell
+# Capture 100 packets from the host and write to file.
 tcpdump host 192.168.1.110 -w capture.cap -c 100
 
 # Read the capture file:
@@ -78,7 +80,7 @@ tcpdump -v -c 1 'ether[20:2] == 0x2000'
 tcpdump -nn -vvv -i eth0 -s 1500 -c 1 'ether[20:2] == 0x2000'
 ```
 
-### Layer 4 (Transport)
+### Layer 4 (transport)
 
 ##### netstat, traceroute
 
