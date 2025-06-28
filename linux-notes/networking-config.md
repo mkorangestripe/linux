@@ -33,12 +33,12 @@ ifconfig eth0 <up down>  # enable/disable eth0
 ifconfig eth0 192.168.1.102 netmask 255.255.255.0 broadcast 192.168.1.255
 ```
 
-#### route
+#### routes
 
 ```shell script
-route     # show ip routing table
-route -n  # show ip routing table, do not resolve dns
-ip route  # show ip routing table
+route       # show ip routing table, -n avoids dns
+netstat -r  # show ip routing table, -n avoids dns, -f inet for IPv4 only
+ip route    # show ip routes
 
 # Add routes:
 route add default gw XXX.XXX.XXX.XXX eth0

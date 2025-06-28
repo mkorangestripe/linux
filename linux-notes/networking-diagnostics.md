@@ -41,11 +41,9 @@ wpa_cli  # WPA command line client
 nmap -sn 192.168.0.0/24  # ping scan the subnet
 ```
 
-##### netstat, traceroute, tracepath
+##### traceroute, tracepath
 
 ```shell
-netstat -r  # display routing table with gateway and interface
-
 # Trace the route to the given host, wait 2 second for a reply, send 1 probe packet (query)
 # per hop, limit max number of hops to 15, use interface eth0:
 traceroute -w 2 -q 1 -m 15 -i eth0 accounts.l.google.com
