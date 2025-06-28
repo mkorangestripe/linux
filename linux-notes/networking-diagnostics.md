@@ -1,6 +1,6 @@
 # Networking diagnostics
 
-### Layer 2 (link layer)
+### Layer 2 (Link)
 
 ```shell script
 ethtool eth0 | egrep 'Speed|Link'    # show speed and link status of network adaptor
@@ -33,7 +33,7 @@ iwlist wlan0 scan | egrep '(Channel|Quality)'  # scan for channel numbers and li
 wpa_cli  # WPA command line client
 ```
 
-### Layer 3 (network Layer)
+### Layer 3 (Network)
 
 ##### nmap
 
@@ -80,7 +80,7 @@ tcpdump -v -c 1 'ether[20:2] == 0x2000'
 tcpdump -nn -vvv -i eth0 -s 1500 -c 1 'ether[20:2] == 0x2000'
 ```
 
-### Layer 4 (transport)
+### Layer 4 (Transport)
 
 ##### netstat, traceroute
 
