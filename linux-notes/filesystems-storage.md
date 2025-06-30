@@ -98,7 +98,7 @@ diff /tmp/check1.txt /tmp/check2.txt
 ```
 
 ```shell script
-# Returns the total count of items in current dir.
+# Returns the total count of items in current dir:
 # Spaces in filenames will throw off the count.
 COUNT=0; for FILE in $(ls); do COUNT=$((COUNT + 1)); done; echo $COUNT
 
@@ -112,7 +112,11 @@ find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr | head -3
 
 # With block devices with different geometry, recreate the partitions, then dd (copy) the partitions.
 
-# Identify unpartitioned disk space.
+cat /proc/partitions  # show all partitions
+```
+
+```shell
+# Identify unpartitioned disk space:
 # Compare the end cylinder/sector of the last primary/logical
 # partition with the total number of cylinders/sectors:
 fdisk -luc
@@ -122,7 +126,7 @@ lsblk  # compare the sum of the partition sizes with the size of the hard drive
 fdisk -uc /dev/sdb  # dos mode off, display units in sectors
 ```
 
-Partprobe, Kpartx
+partprobe, kpartx
 
 ```shell script
 partprobe  # inform the OS of partition table changes; if fails, remount the filesystem and run again
@@ -132,7 +136,7 @@ partprobe  # inform the OS of partition table changes; if fails, remount the fil
 kpartx -a /dev/mapper/mpathbp1
 ```
 
-Multipath
+multipath
 
 ```shell script
 service multipathd restart  # restart multipathd
@@ -148,24 +152,38 @@ systool -vc fc_host | grep name      # WWNs of various parts
 /usr/bin/rescan-scsi-bus.sh  # rescan scsi bus
 ```
 
-Udevadm, Udisks
+udevadm
 
 ```shell script
 # Reload udev rules and make changes:
 udevadm control --reload-rules && udevadm trigger --type=devices --action=change
 
+udevadm info -n /dev/sda1  # show device attributes for /dev/sda1
+
+udevadm monitor  # watch real-time device events
+```
+
+udisksctl
+
+```shell
+# Info about disk drives and block devices
+udisksctl status
+
+# Detailed information about a device or partition
+udisksctl info -b /dev/sda
+udisksctl info -b /dev/sda1
+
+# Mount/unmount to/from a directory in /media
+udisksctl mount -b /dev/sda1
+udisksctl unmount -b /dev/sda1
+
+# Monitor udisks-daemon for events
+udisksctl monitor
+
+# Legacy command (udisks)
 # Mount/unmount sdb2 in /media/<label> with options (rw,nosuid,nodev,uhelper=udisks)
 udisks --mount /dev/sdb2
 udisks --unmount /dev/sdb2
-```
-
-Swap
-
-```shell script
-mkswap /dev/sdb2   # make swap
-swapon /dev/sdb2   # enable swap using sdb2
-swapoff /dev/sdb2  # disable swap using sdb2
-cat /proc/swaps    # view swaps, also see 'free' and 'top'
 ```
 
 Repair filesystems, block devices
@@ -178,6 +196,15 @@ smartctl --all /dev/sda | grep Errors  # check harddrive for errors
 mount -o remount,ro /  # mounts the root filesystem read only
 fsck                   # this checks all filesystems in the fstab serially
 fsck /                 # this checks the root filesystem
+```
+
+Swap
+
+```shell script
+mkswap /dev/sdb2   # make swap
+swapon /dev/sdb2   # enable swap using sdb2
+swapoff /dev/sdb2  # disable swap using sdb2
+cat /proc/swaps    # view swaps, also see 'free' and 'top'
 ```
 
 ### Raid
