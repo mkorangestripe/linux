@@ -85,7 +85,10 @@ ntsysv --level 345  # config services for runlevels 3,4,and 5
 Systemd
 ```shell script
 # Services on systems using systemd (using sshd for examples)
+
 systemctl --all
+systemctl --failed
+
 systemctl start sshd
 systemctl stop sshd
 systemctl restart sshd
@@ -95,9 +98,11 @@ systemctl status sshd
 systemctl enable sshd
 systemctl disable sshd
 
-systemctl daemon-reload  # reload changed unit file
+systemctl is-active sshd  # retuns active or inactive
 
-/etc/systemd/  # systemd info
+systemctl daemon-reload   # reload changed unit file
+
+/etc/systemd/             # systemd info
 ```
 
 Solaris
