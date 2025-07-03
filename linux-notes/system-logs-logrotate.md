@@ -21,6 +21,16 @@ less +F /var/log/system.log  # Shift+f, Ctrl+c to enter and exit follow mode
 logger -t catalina-logrotate "ALERT exited abnormally with [$EXITVALUE]"
 ```
 
+### SystemD logging
+
+```shell script
+# Stored as binary files in /var/log/journal
+
+journalctl -n 50 -f                             # show last 50 log lines and follow
+journalctl -u getTemps.service -S today         # show logs for getTemps.service from today
+journalctl -u getTemps.service -S "1 hour ago"  # show logs from last hour for getTemps.service
+```
+
 ### Logrotate
 
 ```shell script
