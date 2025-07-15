@@ -126,18 +126,17 @@ sudo launchctl list  # list services
 ### Shutdown, Reboot
 
 ```shell script
+# SystemD:
+systemctl reboot
+systemctl poweroff
+
+# Shutdown:
 shutdown -r 10 “message”  # reboot in 10 minutes with message
 shutdown -h now           # halt or poweroff after bringing down system
 shutdown -y -i5 -g0       # yes, init 5, grace period 0s - halt or poweroff on Solaris
 shutdown -H now           # halts the system after being brought down
 shutdown -P now           # powers off the system after being brought down
 shutdown -c               # cancel a running shutdown
-
-init 0  # shutdown
-init 1  # runlevel 1
-init 3  # runlevel 3
-init 5  # runlevel 5
-init 6  # reboot
 
 # Symlinks for shutdown/reboot commands:
 /usr/sbin/reboot   -> /bin/systemctl
@@ -146,6 +145,13 @@ init 6  # reboot
 /usr/sbin/shutdown -> /bin/systemctl
 /usr/sbin/telinit  -> /bin/systemctl
 /usr/sbin/init     -> /lib/systemd/systemd
+
+# SysV init:
+init 0  # shutdown
+init 1  # runlevel 1
+init 3  # runlevel 3
+init 5  # runlevel 5
+init 6  # reboot
 ```
 
 ### Grub bootloader
