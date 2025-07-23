@@ -85,10 +85,15 @@ tcpdump -nn -vvv -i eth0 -s 1500 -c 1 'ether[20:2] == 0x2000'
 ##### netstat, traceroute
 
 ```shell script
-netstat -t     # list only established tcp connections
-netstat -atpn  # list established and listening tcp connections with PID, numeric
+# List establisted tcp4 connections and numeric addresses:
+netstat -n | grep tcp4       # macOS
+netstat -nt | grep -v tcp6   # Linux
+netstat -ntp | grep -v tcp6  # Linux, include PID/Program name
 
-# Trace route to host, use tcp syn for probes, transport layer traceroute
+netstat -ant                 # list all tcp connections, numeric addresses
+netstat -antp                # list all tcp connections with PID/Program name, numeric addresses
+
+# Trace route to host, use tcp syn for probes, transport layer traceroute:
 traceroute -T accounts.l.google.com
 ```
 
