@@ -87,10 +87,8 @@ tcpdump -nn -vvv -i eth0 -s 1500 -c 1 'ether[20:2] == 0x2000'
 ```shell script
 # List establisted tcp4 connections and numeric addresses:
 netstat -n | grep tcp4       # macOS
-netstat -nt | grep -v tcp6   # Linux
 netstat -ntp | grep -v tcp6  # Linux, include PID/Program name
 
-netstat -ant                 # list all tcp connections, numeric addresses
 netstat -antp                # list all tcp connections with PID/Program name, numeric addresses
 
 # Trace route to host, use tcp syn for probes, transport layer traceroute:
