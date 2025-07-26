@@ -113,9 +113,12 @@ git diff a1699b4 fc8334d9  # diff between the two commits
 #### checkout
 
 ```shell script
-git checkout nothing.txt                                # discard changes to nothing.txt
-git checkout c4ec54c7863 cleversafe_account_deleter.py  # checkout the given file version
-git checkout .                                          # discard changes to all files in the directory
+git checkout nothing.txt              # checkout the last commited local version nothing.txt
+git checkout c4ec54c7863 nothing.txt  # checkout the file from the commit
+git checkout .                        # checkout the last committed version of all files
+
+git checkout c4ec54c7863              # checkout the commit
+git checkout main                     # checkout the latest commit of the main branch
 ```
 
 #### revert
