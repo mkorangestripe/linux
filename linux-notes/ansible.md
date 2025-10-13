@@ -78,7 +78,15 @@ ansible -i server1, all -m yum -a "name=httpd state=latest" -b
 ansible -i server1, all -m service -a "name=httpd state=started" -b 
 ```
 
-### Ansible-playbook
+### Ansible playbook
+
+Inventories
+
+```shell
+ansible-inventory --graph
+
+ansible-inventory --list | jq
+```
 
 Checks and dry runs
 

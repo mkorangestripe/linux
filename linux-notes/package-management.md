@@ -123,6 +123,9 @@ brew deps --tree wget       # show dependencies for wget as a tree
 brew deps --graph wget      # show dependency graph for wget in browser
 
 brew uses --installed --recursive openssl  # list installed packages that depend on openssl
+
+brew services               # show services managed by brew
+brew services info --all
 ```
 
 ```shell script

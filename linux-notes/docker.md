@@ -142,6 +142,9 @@ docker container start c2ffbff64f14
 docker exec c2ffbff64f14 cat /etc/*release
 docker container exec c2ffbff64f14 cat /etc/*release
 
+# Connect to the running container, start a shell:
+docker exec -it c2ffbff64f14 /bin/sh
+
 # Attached to a container by container ID, either of the following:
 docker attach c2f
 docker container attach c2f
