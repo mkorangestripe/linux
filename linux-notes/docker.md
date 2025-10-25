@@ -1,6 +1,7 @@
 # Docker
 
 Docker related system info
+
 ```shell script
 systemctl status docker  # status of docker service
 systemctl enable docker  # enable the docker service
@@ -10,11 +11,12 @@ systemctl show docker    # environment variables used by docker
 docker version           #  show version info
 docker info              # display system-wide information
 
-docker system df         # show docker disk usage
+docker system df -v      # show docker disk usage
 docker system prune      # remove various docker items
 ```
 
 Docker networks
+
 ```shell script
 docker network ls           # list networks
 docker network inspect lb1  # show info for the network
@@ -24,6 +26,7 @@ docker network rm lb2       # remove the network
 ```
 
 ### Docker images
+
 ```shell script
 docker pull centos  # pull a centos image from Docker Hub
 docker pull host.docker.internal:5000/hello  # pull from the local registry, OSX
@@ -48,6 +51,7 @@ docker rmi hello-socket host.docker.internal:5000/hello-socket2
 ```
 
 Dockerfile example, each line is a layer
+
 ```Dockerfile
 FROM ubuntu:16.04
 LABEL maintainer=<email_address>
@@ -58,6 +62,7 @@ RUN apt-get install -y python3
 ```
 
 Build Docker image
+
 ```shell script
 docker build -t hello1 .         # build image from Dockerfile and name 'hello1'
 packer build packer/hello1.json  # build image using packer
@@ -66,6 +71,7 @@ docker build -t harbor.somedomain.io/prlb-platform/test1 .  # build image includ
 ```
 
 Push to a registry
+
 ```shell script
 docker push localhost:5000/hello                      # push in local registry, Linux
 docker push host.docker.internal:5000/hello           # push in local registry, OSX
@@ -74,12 +80,15 @@ docker push harbor.somedomain.io/prlb-platform/test1  # push to harbor
 ```
 
 Docker image registry login
+
 ```shell script
 docker login harbor.somedomain.io
 docker logout
 ```
 
 ### Docker containers
+
+Container and volume info
 
 ```shell script
 # List running containers, either of the following:
@@ -96,9 +105,11 @@ docker container inspect 8a5b3f2103ec | grep IPAdd
 # List volumes:
 docker volume ls
 
-# Show docker logs for hello1 container:
-docker logs hello1
+# Get volume info:
+docker volume inspect ad2d98e459b9
 ```
+
+Create and run containers
 
 ```shell script
 # Run a docker container with Ubuntu 16.04 & get a command prompt, either of the following:
@@ -124,30 +135,23 @@ docker run -d -p 80:80 httpd
 docker run -d --name hello-bridge host.docker.internal:5000/hello-socket bridge
 ```
 
+Create and run containers with Docker Compose
+
 ```shell script
-docker-compose ps     # process state of containers started by docker-compose, -a for all
-docker-compose up     # create and start containers
-docker-compose up -d  # detached mode
-docker-compose down   #  stop containers and remove resources
+docker compose ps     # process state of containers started by docker compose, -a for all
+docker compose up     # create and start containers
+docker compose up -d  # detached mode
+docker compose down   #  stop containers and remove resources
 docker compose down --remove-orphans      # remove orphaned containers
-docker-compose exec datadog agent status  # execute the command in the datadog container
+docker compose exec datadog agent status  # execute the command in the datadog container
 ```
+
+Start, stop, remove containers
 
 ```shell script
 # Start a stopped container, either of the following.  Container will exit if not running a process.
 docker start c2ffbff64f14
 docker container start c2ffbff64f14
-
-# Execute the command on the running container, either of the following:
-docker exec c2ffbff64f14 cat /etc/*release
-docker container exec c2ffbff64f14 cat /etc/*release
-
-# Connect to the running container, start a shell:
-docker exec -it c2ffbff64f14 /bin/sh
-
-# Attached to a container by container ID, either of the following:
-docker attach c2f
-docker container attach c2f
 
 # Stop a container, either of the following:
 docker stop c2ffbff64f14
@@ -156,6 +160,32 @@ docker container stop c2ffbff64f14
 # Delete docker container by container ID, either of the following:
 docker rm aec6fa285527
 docker container rm aec6fa285527
+```
+
+Attach to containers, run commands, copy files
+
+```shell script
+# Execute the command on the running container, either of the following:
+docker exec c2ffbff64f14 cat /etc/*release
+docker container exec c2ffbff64f14 cat /etc/*release
+
+# Connect to the running container, start a shell:
+docker exec -it c2ffbff64f14 /bin/sh
+
+# Copy the file to/from the container:
+docker cp influxdb.conf 318b26467719:/etc/influxdb/influxdb.conf
+docker cp 318b26467719:/etc/influxdb/influxdb.conf .
+
+# Attached to a container by container ID, either of the following:
+docker attach c2f
+docker container attach c2f
+```
+
+Logs
+
+```shell
+# Show docker logs for hello1 container:
+docker logs hello1
 ```
 
 ### Docker Swarm
