@@ -47,9 +47,11 @@ ls -l /dev/disk/by-id/    # list block devices by ID including WWNs of LUNs
 multipath -ll             # show the current multipath topology...including WWNs of LUNs
 fcinfo hba-port           # show WWNs of LUNs on Solaris
 
-mount              # lists mounted filesystems with type
-mount | column -t  # lists mounted filesystems with type, output in columns
-cat /proc/mounts   # lists all mounted filesystems
+mount              # lists mounted filesystems
+mount | column -t  # lists mounted filesystems, output in columns
+findmnt            # lists mounted filesystems, output as tree
+
+cat /proc/mounts   # lists mounted filesystems
 cat /proc/mounts | grep -w ro | wc -l  # check for read only filesystems
 
 dumpe2fs /dev/sda1 | grep "Filesystem features"
