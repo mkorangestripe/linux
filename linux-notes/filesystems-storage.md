@@ -40,6 +40,8 @@ ln -s ../.. ...  # creates a symlink to the parent’s parent directory
 Filesystem, device info
 
 ```shell script
+diskutil list             # list disks, partitions, and volumes on macOS
+
 lsblk -f                  # list block device including fstype, label, uuid, and mountpoint
 ls -l /dev/disk/by-path/  # list block devices by path
 ls -l /dev/disk/by-uuid/  # list block devices by UUID
