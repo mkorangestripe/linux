@@ -91,13 +91,11 @@ docker logout
 Container and volume info
 
 ```shell script
-# List running containers, either of the following:
-docker ps
-docker container ls
+docker ps     # list running containers
+docker ps -a  # list all containers
+docker ps -s  # list running containers with size
 
-# List all containers, either of the following:
-docker ps -a
-docker container ls -a
+docker container ls  # list running containers, new style
 
 # Find the IP address of a container:
 docker container inspect 8a5b3f2103ec | grep IPAdd
