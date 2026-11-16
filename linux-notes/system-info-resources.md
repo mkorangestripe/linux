@@ -9,10 +9,10 @@ lsb_release -d     # Linux distro
 python -c "import platform; print(platform.dist())"      # Linux distro
 python -c "import platform; print(platform.platform())"  # platform, OS, kernel
 
-uname -a                        # platform, OS, kernel
-cat /proc/version               # Linux kernel version
-uname -r; ls -lt /boot/config*  # compare running kernel to installed kernels
-dkms status                     # show installed kernels modules
+uname -a                         # platform, OS, kernel
+cat /proc/version                # Linux kernel version
+ls -lrt /boot/config*; uname -r  # compare running kernel to installed kernels
+dkms status                      # show installed kernels modules
 
 stat / | grep Birth  # show creation time of root filesystem
 

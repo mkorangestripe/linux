@@ -62,10 +62,12 @@ chmod 600 .ssh/authorized_keys  # run on the remote machine
 ```
 
 ```shell script
-# Additional step when connecting from one remote machine
-# to another when the key was created using a password:
+# Starts a new SSH agent and launch the shell as a child process:
 exec /usr/bin/ssh-agent $SHELL
-ssh-add
+
+ssh-add                            # add default SSH keys in `~/.ssh` to the ssh-agent
+ssh-add -l                         # list fingerprints of currently loaded keys
+ssh-add ~/.ssh/id_ed25519_example  # add key to ssh-agent
 
 # Enforce the key-based authentication:
 # Either of following depending on the system.
